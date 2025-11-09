@@ -51,7 +51,10 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       borderRadius: SizeM.commonBorderRadius.r,
       alignment: Alignment.center,
-      child: SvgPicture.asset(SvgM.arrowLeft, width: 14.w, height: 14.w),
+      child: RotatedBox(
+        quarterTurns: Directionality.of(context) == TextDirection.rtl ? 2 : 0,
+        child: SvgPicture.asset(SvgM.arrowLeft, width: 14.w, height: 14.w),
+      ),
     );
   }
 
@@ -60,7 +63,8 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
       return const Spacer();
     }
 
-    final Widget resolvedTitle = titleWidget ??
+    final Widget resolvedTitle =
+        titleWidget ??
         Text(
           title!,
           textAlign: titleTextAlign,
@@ -73,10 +77,7 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         );
 
-    return Align(
-      alignment: titleAlignment,
-      child: resolvedTitle,
-    );
+    return Align(alignment: titleAlignment, child: resolvedTitle);
   }
 
   @override
@@ -92,15 +93,10 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // Leading slot
-            SizedBox(
-              width: 40.w,
-              child: leading,
-            ),
+            SizedBox(width: 40.w, child: leading),
 
             // Title
-            Expanded(
-              child: _buildTitle(context),
-            ),
+            _buildTitle(context),
 
             // Actions slot
             SizedBox(

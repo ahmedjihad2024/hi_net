@@ -830,6 +830,10 @@ class NiceTextForm extends StatefulWidget {
   /// Example: onTextSuggested: (suggestions) => setState(() => suggestedTexts = suggestions)
   final Function(List<String>)? onTextSuggested;
 
+  // lable2
+  final Widget? label2;
+  final TextStyle? label2Style;
+
   const NiceTextForm(
       {super.key,
       this.height,
@@ -1036,7 +1040,9 @@ class NiceTextForm extends StatefulWidget {
       this.enableTextCorrection = false,
       this.onTextCorrected,
       this.enableTextSuggestion = false,
-      this.onTextSuggested});
+      this.onTextSuggested,
+      this.label2,
+      this.label2Style});
 
   @override
   State<NiceTextForm> createState() => _NiceTextFormState();
@@ -1065,44 +1071,6 @@ class _NiceTextFormState extends State<NiceTextForm> with AfterLayout {
   List<String> _favoriteInputs = [];
   bool _isPasswordStrong = false;
   String _passwordStrength = '';
-  List<String> _spellCheckErrors = [];
-  List<String> _grammarErrors = [];
-  double _readabilityScore = 0.0;
-  double _sentimentScore = 0.0;
-  List<String> _extractedKeywords = [];
-  String _detectedLanguage = '';
-  String _textClassification = '';
-  List<Map<String, dynamic>> _namedEntities = [];
-  double _similarityScore = 0.0;
-  List<List<String>> _textClusters = [];
-  List<String> _rankedTexts = [];
-  List<String> _filteredTexts = [];
-  List<String> _sortedTexts = [];
-  List<String> _searchedTexts = [];
-  String _replacedText = '';
-  String _transformedText = '';
-  bool _isTextValid = false;
-  String _sanitizedText = '';
-  String _encryptedText = '';
-  String _decryptedText = '';
-  String _compressedText = '';
-  String _decompressedText = '';
-  String _encodedText = '';
-  String _decodedText = '';
-  String _hashedText = '';
-  String _signedText = '';
-  bool _isTextVerified = false;
-  DateTime? _textTimestamp;
-  String _watermarkedText = '';
-  String _hiddenText = '';
-  String _extractedText = '';
-  String _injectedText = '';
-  String _modifiedText = '';
-  String _generatedText = '';
-  String _completedText = '';
-  String _predictedText = '';
-  String _correctedText = '';
-  List<String> _suggestedTexts = [];
 
   @override
   void initState() {
@@ -1340,7 +1308,33 @@ class _NiceTextFormState extends State<NiceTextForm> with AfterLayout {
                             _overlayPortalController.show();
                           }
                         },
-                        decoration: InputDecoration.collapsed(
+                        decoration: InputDecoration(
+                          // no border
+                          border: InputBorder.none,
+                          // no content padding
+                          contentPadding: EdgeInsets.zero,
+                          // no label
+                          label: widget.label2,
+                          // no label style
+                          labelStyle: widget.label2Style,
+                          // no helper text
+                          helperText: null,
+                          // no helper style
+                          helperStyle: null,
+                          // no error text
+                          errorText: null,
+                          // no error style
+                          errorStyle: null,
+                          // no floating label style
+                          floatingLabelStyle: widget.label2Style,
+                          // no filled
+                          filled: false,
+                          // no fill color
+                          fillColor: Colors.transparent,
+                          // no prefix icon
+                          prefixIcon: null,
+                          // no suffix icon
+                          suffixIcon: null,
                           hintText: widget.hintText,
                           hintStyle: widget.hintStyle,
                         ),

@@ -36,7 +36,7 @@ class _FastCountryCodeButtonState extends State<FastCountryCodeButton> {
       height: 25.w * widget.scale,
       dialogWidth: .9 * 1.sw,
       dialogHeight: .8 * 1.sh,
-      borderRadius: BorderRadius.circular(666.r),
+      borderRadius: BorderRadius.circular(4.r),
       onSelectionChange: (pp) {
         if (pp.countryCode != widget.initialSelection) {
           widget.onSelectionChange.call(pp);
@@ -84,7 +84,7 @@ class _FastCountryCodeButtonState extends State<FastCountryCodeButton> {
                   15.sp,
                 ),
                 iconColor: WidgetStatePropertyAll(
-                    Colors.black.withValues(alpha: .8)),
+                    context.colorScheme.surface.withValues(alpha: .8)),
                 backgroundColor: WidgetStatePropertyAll(Colors.transparent)),
             icon: Icon(
               Icons.arrow_back_rounded,
@@ -105,18 +105,18 @@ class _FastCountryCodeButtonState extends State<FastCountryCodeButton> {
                   hintText: Translation.search_country.tr,
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.black.withValues(alpha: .3),
+                      color: context.colorScheme.surface.withValues(alpha: .3),
                       width: 1.w,
                     ),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.black.withValues(alpha: .3),
+                      color: context.colorScheme.surface.withValues(alpha: .3),
                       width: 1.w,
                     ),
                   ),
                   hintStyle: context.bodySmall.copyWith(
-                    color: Colors.black.withValues(alpha: .5),
+                    color: context.colorScheme.surface.withValues(alpha: .5),
                     fontSize: context.bodySmall.fontSize!,
                   )),
             ),

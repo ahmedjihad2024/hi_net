@@ -34,11 +34,16 @@
   "phone_number": "رقم الهاتف",
   "helper_text_example": "هذه رسالة مساعدة",
   "terms_agreement_part_one": "بمتابعة الاستخدام، فأنت توافق على",
-  "terms_agreement_part_two": "شروط خدمة HiNet وسياسة الخصوصية.",
+  "terms_agreement_part_two": "و",
+  "terms_agreement_part_three": "شروط الخدمة",
+  "terms_agreement_part_four": "سياسة الخصوصية",
   "welcome_back": "مرحبًا بعودتك",
   "sign_in_message": "سجّل دخولك لإدارة شرائح eSIM والبقاء على اتصال في أي مكان.",
   "suggested": "مقترح",
   "no_account_sign_up": "ليس لديك حساب؟ سجّل الآن",
   "sign_in": "تسجيل الدخول",
-  "sign_up": "إنشاء حساب"
+  "sign_up": "إنشاء حساب",
+  "verify": "تحقق",
+  "verify_your_number": "تحقق من رقم الهاتف",
+  "verify_your_number_message": "لقد أرسلنا رمز التحقق إلى رقم هاتفك. يرجى إدخاله أدناه للمتابعة"
 }

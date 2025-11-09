@@ -45,6 +45,9 @@ class SimpleForm extends StatelessWidget {
   final bool enableCustomValidation;
   final List<Function(String)?>? customValidators;
 
+  final Widget? label2;
+  final TextStyle? label2Style;
+
   const SimpleForm({
     super.key,
     this.securityController,
@@ -79,6 +82,8 @@ class SimpleForm extends StatelessWidget {
     this.smoothness = 1,
     this.enableCustomValidation = false,
     this.customValidators,
+    this.label2,
+    this.label2Style,
   });
 
   @override
@@ -89,6 +94,8 @@ class SimpleForm extends StatelessWidget {
         maxLines: maxLines,
         enableCustomValidation: enableCustomValidation,
         customValidators: customValidators,
+        label2: label2,
+        label2Style: label2Style,
         prefixWidget: prefixWidget,
         height: height ?? 56.h,
         width: double.infinity,
@@ -144,7 +151,6 @@ class SimpleForm extends StatelessWidget {
             context.labelLarge.copyWith(
               color: context.labelLarge.color!.withValues(alpha: .5),
               fontSize: fontSize ?? context.labelLarge.fontSize!,
-              fontWeight: FontWeightM.light,
             ),
         textEditingController: controller,
         sufixWidget: suffixWidget,

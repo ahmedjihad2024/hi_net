@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:hi_net/app/dependency_injection.dart';
 import 'package:hi_net/app/services/app_preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:hi_net/presentation/common/utils/global_keyboard_dismissal.dart';
 
 import 'package:hi_net/presentation/res/routes_manager.dart';
 import 'package:hi_net/presentation/res/theme_manager.dart';
@@ -55,6 +56,11 @@ class MyAppState extends State<MyApp> {
             supportedLocales: context.supportedLocales,
             locale: context.locale,
             onGenerateRoute: RoutesGeneratorManager.getRoute,
+            builder: (context, child) {
+                return GlobalKeyboardDismissal(
+                  child: child!,
+                );
+              },
           );
         });
   }

@@ -20,6 +20,7 @@ class CustomInkButton extends StatelessWidget {
   final AlignmentGeometry? alignment;
   final BorderSide side;
   final double? smoothness;
+  final Gradient? gradient;
 
   const CustomInkButton(
       {Key? key,
@@ -40,7 +41,8 @@ class CustomInkButton extends StatelessWidget {
       this.animationDuration,
       this.alignment,
       this.side = BorderSide.none,
-      this.smoothness})
+      this.smoothness,
+      this.gradient})
       : super(key: key);
 
   @override
@@ -49,23 +51,29 @@ class CustomInkButton extends StatelessWidget {
       smoothness: smoothness ?? 1,
       borderRadius: BorderRadius.circular(borderRadius ?? 6),
       side: side,
-      child: Material(
-        color: backgroundColor ?? Colors.transparent,
-        elevation: elevation ?? 0,
-        shadowColor: shadowColor,
-        animationDuration:
-            animationDuration ?? const Duration(milliseconds: 200),
-        child: InkWell(
-          onTap: enabled ? onTap : null,
-          onLongPress: enabled ? onLongPress : null,
-          splashColor: splashColor,
-          highlightColor: highlightColor,
-          child: Container(
-            width: width,
-            height: height,
-            padding: padding,
-            alignment: alignment,
-            child: child,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: backgroundColor ?? (gradient == null ? Colors.transparent : null),
+          gradient: gradient,
+        ),
+        child: Material(
+          color: Colors.transparent,
+          elevation: elevation ?? 0,
+          shadowColor: shadowColor,
+          animationDuration:
+              animationDuration ?? const Duration(milliseconds: 200),
+          child: InkWell(
+            onTap: enabled ? onTap : null,
+            onLongPress: enabled ? onLongPress : null,
+            splashColor: splashColor,
+            highlightColor: highlightColor,
+            child: Container(
+              width: width,
+              height: height,
+              padding: padding,
+              alignment: alignment,
+              child: child,
+            ),
           ),
         ),
       ),

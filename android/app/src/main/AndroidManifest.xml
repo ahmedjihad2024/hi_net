@@ -1,13 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--  Allows the app to use the device's vibration (e.g., for notifications).  -->
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <!--  Lets the app display notifications in full screen (used for high-priority alarms/alerts).  -->
-    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
-    <!--  Allows the app to run services in the foreground (important for background services like
-    notifications or tracking).  -->
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hi_net/app/constants.dart';
 import 'package:hi_net/app/dependency_injection.dart';
 import 'package:hi_net/app/extensions.dart';
 import 'package:hi_net/app/services/app_preferences.dart';
@@ -61,14 +62,14 @@ class _OnBoardingViewState extends State<OnBoardingView> {
             child: Stack(
               children: [
                 AnimatedOnAppear(
-                  delay: 150,
+                  delay: Constants.animationDelay,
                   animationTypes: {AnimationType.shader},
                   shaderDirection: ShaderRevealDirection.topToBottom,
                   shaderRevealColor: Colors.white,
                   shaderSoftness: 0.1,
-                  animationDuration: const Duration(milliseconds: 800),
+                  animationDuration: Constants.animationDuration,
                   shaderBlendMode: BlendMode.dstIn,
-                  animationCurve: Curves.fastEaseInToSlowEaseOut,
+                  animationCurve: Constants.animationCurve,
                   child: ShaderMask(
                     shaderCallback: (Rect bounds) {
                       return LinearGradient(
@@ -110,12 +111,15 @@ class _OnBoardingViewState extends State<OnBoardingView> {
 
                       // language selector
                       AnimatedOnAppear(
-                        delay: 150,
-                        animationTypes: {AnimationType.fade, AnimationType.slide},
+                        delay: Constants.animationDelay,
+                        animationTypes: {
+                          AnimationType.fade,
+                          AnimationType.slide,
+                        },
                         slideDirection: SlideDirection.up,
-                        slideDistance: 60.0,
-                        animationDuration: const Duration(milliseconds: 800),
-                        animationCurve: Curves.fastEaseInToSlowEaseOut,
+                        slideDistance: Constants.animationSlideDistance,
+                        animationDuration: Constants.animationDuration,
+                        animationCurve: Constants.animationCurve,
                         child: Row(
                           children: [
                             Container(
@@ -251,12 +255,15 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                       SizedBox(height: 14.w),
 
                       AnimatedOnAppear(
-                        delay: 150,
-                        animationTypes: {AnimationType.fade, AnimationType.slide},
+                        delay: Constants.animationDelay,
+                        animationTypes: {
+                          AnimationType.fade,
+                          AnimationType.slide,
+                        },
                         slideDirection: SlideDirection.up,
                         slideDistance: 60.0,
-                        animationDuration: const Duration(milliseconds: 800),
-                        animationCurve: Curves.fastEaseInToSlowEaseOut,
+                        animationDuration: Constants.animationDuration,
+                        animationCurve: Constants.animationCurve,
                         child: ValueListenableBuilder(
                           valueListenable: currentPage,
                           builder: (_, value, __) {
@@ -268,7 +275,9 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                                   AnimatedContainer(
                                     duration: Duration(milliseconds: 500),
                                     curve: Curves.fastLinearToSlowEaseIn,
-                                    padding: EdgeInsets.all(i == value ? 3.w : 0),
+                                    padding: EdgeInsets.all(
+                                      i == value ? 3.w : 0,
+                                    ),
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       border: i == value
@@ -302,12 +311,15 @@ class _OnBoardingViewState extends State<OnBoardingView> {
 
                       // continue button
                       AnimatedOnAppear(
-                        delay: 150,
-                        animationTypes: {AnimationType.fade, AnimationType.slide},
+                        delay: Constants.animationDelay,
+                        animationTypes: {
+                          AnimationType.fade,
+                          AnimationType.slide,
+                        },
                         slideDirection: SlideDirection.up,
-                        slideDistance: 60.0,
-                        animationDuration: const Duration(milliseconds: 800),
-                        animationCurve: Curves.fastEaseInToSlowEaseOut,
+                        slideDistance: Constants.animationSlideDistance,
+                        animationDuration: Constants.animationDuration,
+                        animationCurve: Constants.animationCurve,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -335,50 +347,6 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   }
 }
 
-class GetStartButton extends StatelessWidget {
-  final void Function() onPressed;
-  const GetStartButton({super.key, required this.onPressed});
-
-  @override
-  Widget build(BuildContext context) {
-    return SmoothClipRRect(
-      smoothness: 1,
-      borderRadius: BorderRadius.circular(SizeM.commonBorderRadius.r),
-      child: TextButton(
-        onPressed: onPressed,
-        style: context.theme.textButtonTheme.style!.copyWith(
-          shape: WidgetStatePropertyAll(RoundedRectangleBorder()),
-          fixedSize: WidgetStatePropertyAll(Size(155.w, 46.h)),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          spacing: 10.w,
-          children: [
-            Text(
-              Translation.join_now.tr,
-              style: context.labelLarge.copyWith(
-                fontWeight: FontWeightM.semiBold,
-                height: 1,
-                color: Colors.white,
-              ),
-            ),
-            RotatedBox(
-              quarterTurns: Directionality.of(context) == TextDirection.ltr
-                  ? 2
-                  : 0,
-              child: Icon(
-                Icons.arrow_back_ios_new_rounded,
-                color: Colors.white,
-                size: 13.w,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class NextButton extends StatelessWidget {
   final ValueNotifier<int> currentPage;
   final void Function() goToLogin;
@@ -402,15 +370,21 @@ class NextButton extends StatelessWidget {
               goToLogin();
             }
           },
+          gradient: LinearGradient(
+            colors: [ColorM.primary, ColorM.secondary],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
           borderRadius: SizeM.commonBorderRadius.r,
           height: 54.h,
           alignment: Alignment.center,
-          backgroundColor: ColorM.primary,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             spacing: 7.w,
             mainAxisSize: MainAxisSize.min,
             children: [
+              if (!isLastPage)
+                SvgPicture.asset(SvgM.doubleArrow, width: 12.w, height: 12.h),
               Text(
                 isLastPage ? Translation.join_now.tr : Translation.next.tr,
                 style: context.labelLarge.copyWith(
@@ -419,8 +393,6 @@ class NextButton extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              if (!isLastPage)
-                SvgPicture.asset(SvgM.doubleArrow, width: 12.w, height: 12.h),
             ],
           ),
         );

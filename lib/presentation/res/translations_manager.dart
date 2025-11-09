@@ -42,12 +42,16 @@ enum Translation {
   helper_text_example,
   terms_agreement_part_one,
   terms_agreement_part_two,
+  terms_agreement_part_three,
+  terms_agreement_part_four,
   welcome_back,
   sign_in_message,
   suggested,
   no_account_sign_up,
   sign_in,
   sign_up,
+  verify_your_number,
+  verify_your_number_message, verfy,
 }
 
 extension Tra on Translation {

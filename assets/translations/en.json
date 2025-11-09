@@ -36,11 +36,16 @@
   "phone_number": "Phone Number",
   "helper_text_example": "This is a helper text",
   "terms_agreement_part_one": "By continuing, you agree to HiNet’s",
-  "terms_agreement_part_two": "Terms of Service and Privacy Policy.",
+  "terms_agreement_part_two": "and",
+  "terms_agreement_part_three": "Terms of Service",
+  "terms_agreement_part_four": "Privacy Policy",
   "welcome_back": "Welcome Back",
   "sign_in_message": "Sign in to manage your eSIMs and stay connected anywhere.",
   "suggested": "Suggested",
   "no_account_sign_up": "Don't have an account? Sign up",
   "sign_in": "Sign In",
-  "sign_up": "Sign Up"
+  "sign_up": "Sign Up",
+  "verify": "Verify",
+  "verify_your_number": "Verify Your Number",
+  "verify_your_number_message": "We’ve sent a verification code to your phone. Please enter it below to continue"
 }

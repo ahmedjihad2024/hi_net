@@ -1,3 +1,6 @@
+import 'package:hi_net/app/constants.dart';
+import 'package:hi_net/presentation/common/ui_components/animations/animated_on_appear.dart';
+import 'package:hi_net/presentation/common/ui_components/animations/animations_enum.dart';
 import 'package:hi_net/presentation/res/color_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -129,5 +132,20 @@ extension ListReplaceExtension<T> on List<T> {
         break;
       }
     }
+  }
+}
+
+
+extension AnimationsExtension on Widget {
+  Widget animatedOnAppear(int index, [SlideDirection slideDirection = SlideDirection.down]) {
+    return AnimatedOnAppear(
+      delay: Constants.animationDelay + (30 * index),
+      animationDuration: Constants.animationDuration,
+      animationCurve: Constants.animationCurve,
+      animationTypes: {AnimationType.fade, AnimationType.slide},
+      slideDirection: slideDirection,
+      slideDistance: Constants.animationSlideDistance,
+      child: this,
+    );
   }
 }
