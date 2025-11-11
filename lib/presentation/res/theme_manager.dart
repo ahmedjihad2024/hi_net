@@ -9,18 +9,22 @@ import 'color_manager.dart';
 
 class ThemeManager {
   static ThemeData lightTheme(BuildContext context) => ThemeData(
-    fontFamily: FontsM.Nunito.name,
+    fontFamily: FontsM.Lexend.name,
     useMaterial3: true,
     colorScheme: const ColorScheme.dark(
       primary: ColorM.primary,
+      // black and whie
       surface: Colors.black,
+      // while and black
       onSurface: Colors.white,
       onPrimary: Colors.white,
       onSecondary: Colors.black,
+
+      // white and ad degree of black colors in dark mode
       secondary: Colors.white,
     ),
     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-    scaffoldBackgroundColor: Colors.white,
+    scaffoldBackgroundColor: Color(0xFFF8F8F8),
     textTheme: TextStyles.customTextTheme(Colors.black),
     visualDensity: VisualDensity.comfortable,
     iconButtonTheme: IconButtonThemeData(
@@ -50,7 +54,11 @@ class ThemeManager {
           ),
         ),
         textStyle: WidgetStatePropertyAll(
-          TextStyle(fontSize: 18.sp, color: Colors.white),
+          TextStyle(
+            fontSize: 18.sp,
+            color: Colors.white,
+            fontFamily: FontsM.Lexend.name,
+          ),
         ),
       ),
     ),
@@ -107,76 +115,91 @@ class TextStyles {
           fontSize: 10.sp,
           color: color,
           fontWeight: FontWeightM.regular,
+          fontFamily: FontsM.Lexend.name,
         ),
         labelMedium: TextStyle(
           fontSize: 12.sp,
           color: color,
           fontWeight: FontWeightM.regular,
+          fontFamily: FontsM.Lexend.name,
         ),
         labelLarge: TextStyle(
           fontSize: 14.sp,
           color: color,
           fontWeight: FontWeightM.regular,
+          fontFamily: FontsM.Lexend.name,
         ),
         bodySmall: TextStyle(
           fontSize: 12.sp,
           color: color,
           fontWeight: FontWeightM.regular,
+          fontFamily: FontsM.Lexend.name,
         ),
         bodyMedium: TextStyle(
           fontSize: 14.sp,
           color: color,
           fontWeight: FontWeightM.regular,
+          fontFamily: FontsM.Lexend.name,
         ),
         bodyLarge: TextStyle(
           fontSize: 16.sp,
           color: color,
           fontWeight: FontWeightM.regular,
+          fontFamily: FontsM.Lexend.name,
         ),
         titleSmall: TextStyle(
           fontSize: 14.sp,
           color: color,
           fontWeight: FontWeightM.regular,
+          fontFamily: FontsM.Lexend.name,
         ),
         titleMedium: TextStyle(
           fontSize: 16.sp,
           color: color,
           fontWeight: FontWeightM.regular,
+          fontFamily: FontsM.Lexend.name,
         ),
         titleLarge: TextStyle(
           fontSize: 20.sp,
           color: color,
           fontWeight: FontWeightM.regular,
+          fontFamily: FontsM.Lexend.name,
         ),
         headlineSmall: TextStyle(
           fontSize: 18.sp,
           color: color,
           fontWeight: FontWeightM.regular,
+          fontFamily: FontsM.Lexend.name,
         ),
         headlineMedium: TextStyle(
           fontSize: 22.sp,
           color: color,
           fontWeight: FontWeightM.regular,
+          fontFamily: FontsM.Lexend.name,
         ),
         headlineLarge: TextStyle(
           fontSize: 26.sp,
           color: color,
           fontWeight: FontWeightM.regular,
+          fontFamily: FontsM.Lexend.name,
         ),
         displaySmall: TextStyle(
           fontSize: 30.sp,
           color: color,
           fontWeight: FontWeightM.regular,
+          fontFamily: FontsM.Lexend.name,
         ),
         displayMedium: TextStyle(
           fontSize: 36.sp,
           color: color,
           fontWeight: FontWeightM.regular,
+          fontFamily: FontsM.Lexend.name,
         ),
         displayLarge: TextStyle(
           fontSize: 42.sp,
           color: color,
           fontWeight: FontWeightM.regular,
+          fontFamily: FontsM.Lexend.name,
         ),
       );
 }

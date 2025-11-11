@@ -126,30 +126,27 @@ flutter:
     - assets/translations/
     - assets/svg/
     - assets/images/
-    - assets/fonts/
+    - assets/fonts/lexend/
 
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/to/resolution-aware-images
 
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/to/asset-from-package
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/to/font-from-package
+  fonts:
+    - family: Lexend
+      fonts:
+        - asset: assets/fonts/lexend/Lexend-Black.ttf
+          weight: 900
+        - asset: assets/fonts/lexend/Lexend-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/lexend/Lexend-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/lexend/Lexend-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/lexend/Lexend-Light.ttf
+          weight: 300
+        - asset: assets/fonts/lexend/Lexend-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/lexend/Lexend-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/lexend/Lexend-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/lexend/Lexend-Thin.ttf
+          weight: 100

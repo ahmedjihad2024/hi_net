@@ -4,3 +4,8 @@
 //   bool get isTablet => this == DEVICE_SIZE_TYPE.TABLET;
 // }
 
+enum EsimsType{
+  countrie,
+  regional,
+  global,
+}

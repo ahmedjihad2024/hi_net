@@ -7,7 +7,7 @@ import 'package:hi_net/presentation/res/assets_manager.dart';
 import 'package:hi_net/presentation/res/fonts_manager.dart';
 import 'package:hi_net/presentation/res/sizes_manager.dart';
 
-class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
+class DefaultAppBar extends StatelessWidget {
   const DefaultAppBar({
     super.key,
     this.title,
@@ -19,7 +19,6 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.titleAlignment = Alignment.center,
     this.titleTextAlign = TextAlign.center,
     this.padding,
-    this.height = 72,
   });
 
   final String? title;
@@ -31,10 +30,7 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AlignmentGeometry titleAlignment;
   final TextAlign titleTextAlign;
   final EdgeInsetsGeometry? padding;
-  final double height;
 
-  @override
-  Size get preferredSize => Size.fromHeight(height.h);
 
   EdgeInsetsGeometry get _defaultPadding =>
       EdgeInsets.symmetric(horizontal: SizeM.pagePadding.dg);
@@ -58,48 +54,47 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  Widget _buildTitle(BuildContext context) {
+  Widget? _buildTitle(BuildContext context) {
     if (titleWidget == null && (title == null || title!.isEmpty)) {
-      return const Spacer();
+      return SizedBox.shrink();
     }
 
-    final Widget resolvedTitle =
+    final Widget? resolvedTitle =
         titleWidget ??
-        Text(
+        (title == null ? null : Text(
           title!,
           textAlign: titleTextAlign,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
           style: context.bodyLarge.copyWith(
             height: 1,
-            fontFamily: FontsM.Nunito.name,
             fontWeight: FontWeightM.semiBold,
           ),
-        );
+        ));
 
-    return Align(alignment: titleAlignment, child: resolvedTitle);
+    return resolvedTitle != null ? Align(alignment: titleAlignment, child: resolvedTitle) : null;
   }
 
   @override
   Widget build(BuildContext context) {
     final leading = _buildLeading(context);
+    final title = _buildTitle(context);
     final actions = actionButtons ?? const [];
 
     return Padding(
       padding: padding ?? _defaultPadding,
-      child: SizedBox(
-        height: preferredSize.height,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Leading slot
-            SizedBox(width: 40.w, child: leading),
-
-            // Title
-            _buildTitle(context),
-
-            // Actions slot
-            SizedBox(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // Leading slot
+          SizedBox(width: 40.w, child: leading),
+      
+          // Title
+          if(title != null) title,
+      
+          // Actions slot
+          Flexible(
+            child: SizedBox(
               child: actions.isEmpty
                   ? null
                   : Row(
@@ -107,16 +102,13 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: actions
                           .map(
-                            (action) => Padding(
-                              padding: EdgeInsets.only(left: 6.w),
-                              child: action,
-                            ),
+                            (action) => action,
                           )
                           .toList(),
                     ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

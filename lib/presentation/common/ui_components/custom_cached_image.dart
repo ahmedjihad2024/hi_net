@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hi_net/app/extensions.dart';
+import 'package:hi_net/presentation/res/assets_manager.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 
 class CustomCachedImage extends StatelessWidget {
@@ -15,19 +17,19 @@ class CustomCachedImage extends StatelessWidget {
   final bool isCircle;
   final BorderSide side;
 
-  const CustomCachedImage(
-      {Key? key,
-      required this.imageUrl,
-      this.width,
-      this.height,
-      this.fit = BoxFit.cover,
-      this.errorBackgroundColor,
-      this.errorWidget,
-      this.placeholder,
-      this.borderRadius,
-      this.isCircle = false,
-      this.side = BorderSide.none})
-      : super(key: key);
+  const CustomCachedImage({
+    Key? key,
+    required this.imageUrl,
+    this.width,
+    this.height,
+    this.fit = BoxFit.cover,
+    this.errorBackgroundColor,
+    this.errorWidget,
+    this.placeholder,
+    this.borderRadius,
+    this.isCircle = false,
+    this.side = BorderSide.none,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +45,22 @@ class CustomCachedImage extends StatelessWidget {
       errorWidget: errorWidget != null
           ? (context, url, error) => errorWidget!
           : (context, url, error) => Container(
-                width: finalWidth,
-                height: finalHeight,
-                decoration: BoxDecoration(
-                  color: errorBackgroundColor ?? Colors.black.withOpacity(0.1),
-                ),
+              width: finalWidth,
+              height: finalHeight,
+              alignment: Alignment.center,
+              child: Image.asset(
+                ImagesM.splashLogo,
+                width: finalWidth * 0.8,
+                height: finalHeight * 0.8,
+                fit: BoxFit.cover,
+                color: context.colorScheme.onSurface.withValues(alpha: 0.8),
               ),
+              decoration: BoxDecoration(
+                color:
+                    errorBackgroundColor ??
+                    context.colorScheme.surface.withValues(alpha: 0.1),
+              ),
+            ),
     );
 
     // Apply circular or custom border radius
@@ -73,15 +85,15 @@ class CircularCachedImage extends StatelessWidget {
   final Widget? placeholder;
   final bool isCircle;
 
-  const CircularCachedImage(
-      {Key? key,
-      required this.imageUrl,
-      this.size = 40,
-      this.errorBackgroundColor,
-      this.errorWidget,
-      this.placeholder,
-      this.isCircle = true})
-      : super(key: key);
+  const CircularCachedImage({
+    Key? key,
+    required this.imageUrl,
+    this.size = 40,
+    this.errorBackgroundColor,
+    this.errorWidget,
+    this.placeholder,
+    this.isCircle = true,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

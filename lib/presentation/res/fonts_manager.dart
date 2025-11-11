@@ -3,8 +3,7 @@
 import 'dart:ui';
 
 enum FontsM{
-  ElMessiri("ElMessiri"),
-  Nunito("Nunito");
+  Lexend("Lexend");
 
   final String name;
   const FontsM(this.name);

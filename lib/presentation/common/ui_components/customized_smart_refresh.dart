@@ -36,8 +36,8 @@ class CustomizedSmartRefresh extends StatelessWidget {
       enablePullUp: enableLoading,
       physics: physics,
       header: ClassicHeader(
-        idleIcon : const Icon(Icons.arrow_downward, color: Color(0x7E711C47)),
-        releaseIcon : const Icon(Icons.refresh, color: Color(0x7E711C47)),
+        idleIcon : const Icon(Icons.arrow_downward, color: ColorM.primary),
+        releaseIcon : const Icon(Icons.refresh, color: ColorM.primary),
         refreshingIcon: SizedBox(
           width: 25.0,
           height: 50.0.w,
@@ -47,7 +47,7 @@ class CustomizedSmartRefresh extends StatelessWidget {
               height: 25.0,
               child: CircularProgressIndicator(
                 strokeWidth: 2.0,
-                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF711C47)),
+                valueColor: AlwaysStoppedAnimation<Color>(ColorM.primary),
               ),
             ),
           ),
@@ -70,7 +70,7 @@ class CustomizedSmartRefresh extends StatelessWidget {
           );
         },
         textStyle: context.labelSmall.copyWith(
-            color: Colors.black.withValues(alpha: .5),
+            color: context.colorScheme.surface.withValues(alpha: .5),
             fontWeight: FontWeightM.medium),
         loadingText: Translation.loading.tr,
         noDataText: Translation.no_more.tr,
@@ -83,7 +83,7 @@ class CustomizedSmartRefresh extends StatelessWidget {
           width: 15.w,
           height: 15.w,
           child: CircularProgressIndicator(
-            color: Color(0xFF711C47),
+            color: ColorM.primary,
             backgroundColor: Colors.transparent,
             strokeWidth: 2.2,
             strokeCap: StrokeCap.round,

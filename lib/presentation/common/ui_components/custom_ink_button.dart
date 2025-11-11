@@ -21,7 +21,7 @@ class CustomInkButton extends StatelessWidget {
   final BorderSide side;
   final double? smoothness;
   final Gradient? gradient;
-
+  final List<BoxShadow>? boxShadow;
   const CustomInkButton(
       {Key? key,
       required this.child,
@@ -42,7 +42,8 @@ class CustomInkButton extends StatelessWidget {
       this.alignment,
       this.side = BorderSide.none,
       this.smoothness,
-      this.gradient})
+      this.gradient,
+      this.boxShadow})
       : super(key: key);
 
   @override
@@ -55,6 +56,7 @@ class CustomInkButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: backgroundColor ?? (gradient == null ? Colors.transparent : null),
           gradient: gradient,
+          boxShadow: boxShadow,
         ),
         child: Material(
           color: Colors.transparent,

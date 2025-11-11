@@ -12,9 +12,23 @@ class SvgM {
 
   static const String wifi = "$_svgPath/wifi.svg";
   static const String doubleArrow = "$_svgPath/double-arrow.svg";
+  static const String doubleArrow2 = "$_svgPath/double-arrow-2.svg";
   static const String arrowLeft = "$_svgPath/arrow-left.svg";
 
- 
+  static const String home = "$_svgPath/home.svg";
+  static const String search = "$_svgPath/search.svg";
+  static const String profile = "$_svgPath/profile.svg";
+  static const String notification = "$_svgPath/notification.svg";
+  static const String simcard = "$_svgPath/simcard.svg";
+  static const String wifi2 = "$_svgPath/wifi2.svg";
+  static const String earth = "$_svgPath/earth.svg";
+  static const String earth2 = "$_svgPath/earth2.svg";
+  static const String like = "$_svgPath/like.svg";  
+  static const String filterSearch = "$_svgPath/filter-search.svg";
+  static const String closeSquare = "$_svgPath/close-square.svg";
+  static const String clock = "$_svgPath/clock.svg";
+  static const String tickCircle = "$_svgPath/tick-circle.svg";
+  static const String whatsapp = "$_svgPath/whatsapp.svg";
 }
 
 class ImagesM {
@@ -24,5 +38,4 @@ class ImagesM {
   static const String splashLogo = "$_imagesPath/splash-logo.png";
 
   static const String onBoardingImage = "$_imagesPath/on-boarding-image.jpg";
-  
 }

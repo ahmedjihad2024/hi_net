@@ -64,7 +64,7 @@ void main() {
           supportedLocales: SupportedLocales.allLocales,
           path: Constants.translationsPath,
           fallbackLocale: SupportedLocales.EN.locale,
-          startLocale: SupportedLocales.AR.locale,
+          startLocale: SupportedLocales.EN.locale,
           child: Phoenix(key: Key("phoenix"), child: MyApp()),
         ),
       );

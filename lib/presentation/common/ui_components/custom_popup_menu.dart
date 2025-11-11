@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hi_net/app/extensions.dart';
+import 'package:hi_net/presentation/res/color_manager.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 
 class CustomPopupMenu<T> extends StatelessWidget {
@@ -39,6 +41,8 @@ class CustomPopupMenu<T> extends StatelessWidget {
       menuPadding: menuPadding ?? EdgeInsets.zero,
       icon: child,
       clipBehavior: Clip.hardEdge,
+      color: context.colorScheme.secondary,
+      shadowColor: ColorM.primary.withValues(alpha: 0.1),
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 8.r), side: side),
       elevation: elevation ?? 4,
@@ -76,23 +80,16 @@ class CustomPopupMenuItem<T> {
               label,
               style: TextStyle(
                 color: isSelected
-                    ? const Color(0xFFD16F9A)
+                    ? ColorM.primary
                     : const Color(0xFF040302),
                 fontSize: 14.sp,
-                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                fontWeight: isSelected ? FontWeight.w400 : FontWeight.w300,
               ),
             ),
           ),
           if (trailing != null) ...[
             8.horizontalSpace,
             trailing,
-          ] else if (isSelected) ...[
-            const Spacer(),
-            Icon(
-              Icons.check,
-              size: 16.w,
-              color: const Color(0xFFD16F9A),
-            ),
           ],
         ],
       ),

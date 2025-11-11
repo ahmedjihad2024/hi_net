@@ -221,7 +221,6 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                                         textAlign: TextAlign.center,
                                         style: context.headlineMedium.copyWith(
                                           height: 1,
-                                          fontFamily: FontsM.ElMessiri.name,
                                           fontWeight: FontWeightM.bold,
                                         ),
                                       ),

@@ -1,7 +1,8 @@
-import 'package:hi_net/presentation/res/color_manager.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hi_net/app/extensions.dart';
+import 'package:hi_net/presentation/res/color_manager.dart';
 
 class CustomCheckBox extends StatelessWidget {
   const CustomCheckBox({
@@ -41,21 +42,24 @@ class CustomCheckBox extends StatelessWidget {
         height: height ?? 25.w,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: value
-              ? fillColor ?? Colors.purple
-              : backgroundColor ?? Colors.transparent,
+          // color: value
+          //     ? fillColor ?? Colors.purple
+          //     : backgroundColor ?? Colors.transparent,
           borderRadius: BorderRadius.circular(borderRadius ?? 8.r),
           border: !value
               ? Border.all(
-                  color: borderColor ?? Colors.purple,
+                  color: borderColor ?? context.colorScheme.surface.withValues(alpha: 0.35),
                   width: borderWidth ?? 1.5,
                 )
-              : null,
+              : Border.all(
+                  color: ColorM.primary,
+                  width: borderWidth ?? 1.5,
+                ),
         ),
         child: value
             ? Icon(
                 Icons.check_rounded,
-                color: checkColor ?? Colors.white,
+                color: checkColor ?? ColorM.primary,
                 size: checkSize ?? 17.w,
               )
             : const SizedBox.shrink(),
