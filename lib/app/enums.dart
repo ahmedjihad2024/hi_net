@@ -7,5 +7,21 @@
 enum EsimsType{
   countrie,
   regional,
-  global,
+  global;
+
+  bool get isGlobal => this == EsimsType.global;
+  bool get isRegional => this == EsimsType.regional;
+  bool get isCountries => this == EsimsType.countrie;
+}
+
+enum PaymentMethod {
+  visa,
+  mastercard,
+  applePay,
+  wallet;
+
+  bool get isVisa => this == PaymentMethod.visa;
+  bool get isMastercard => this == PaymentMethod.mastercard;
+  bool get isApplePay => this == PaymentMethod.applePay;
+  bool get isWallet => this == PaymentMethod.wallet;
 }

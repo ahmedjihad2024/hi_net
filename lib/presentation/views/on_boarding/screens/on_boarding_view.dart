@@ -56,6 +56,9 @@ class _OnBoardingViewState extends State<OnBoardingView> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Scaffold(
+          backgroundColor: context.isDark
+              ? ColorM.primaryDark
+              : Color(0xFFF8F8F8),
           body: SafeArea(
             bottom: true,
             top: false,
@@ -227,7 +230,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                                     ),
                                   ],
                                 ),
-                                // description
+                                       // description
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -237,7 +240,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                                         textAlign: TextAlign.center,
                                         style: context.labelLarge.copyWith(
                                           height: 1.15,
-                                          fontWeight: FontWeightM.semiBold,
+                                          fontWeight: FontWeightM.light,
                                           color: context.labelLarge.color!
                                               .withValues(alpha: .6),
                                         ),
@@ -286,7 +289,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                                             )
                                           : null,
                                     ),
-                                    child: AnimatedContainer(
+                                    child: AnimatedContainer(  
                                       duration: Duration(milliseconds: 500),
                                       curve: Curves.fastLinearToSlowEaseIn,
                                       width: 11.w,
@@ -296,7 +299,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                                         color: i == value
                                             ? ColorM.primary
                                             : ColorM.primary.withValues(
-                                                alpha: .5,
+                                                alpha: .3,
                                               ),
                                       ),
                                     ),
@@ -418,7 +421,11 @@ class LanguageButton extends StatelessWidget {
       onPressed: onTap,
       style: TextButton.styleFrom(
         minimumSize: Size(50.w, 30.w),
-        backgroundColor: isSelected ? Color(0xFFF7E9EF) : Colors.transparent,
+        backgroundColor: isSelected
+            ? context.isDark
+                  ? ColorM.primaryDark
+                  : Color(0xFFF7E9EF)
+            : Colors.transparent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(9999),
         ),
@@ -429,7 +436,9 @@ class LanguageButton extends StatelessWidget {
           fontSize: 8.sp,
           height: 0.01,
           color: isSelected
-              ? Color(0xFF9B3864)
+              ? context.isDark
+                    ? Colors.white
+                    : Color(0xFF9B3864)
               : context.labelSmall.color!.withValues(alpha: .5),
         ),
       ),

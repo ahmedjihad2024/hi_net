@@ -86,7 +86,6 @@ class _SignInViewState extends State<SignInView> {
           child: SafeArea(
             child: Column(
               children: [
-                // Header with back button and "Sign In" title
                 DefaultAppBar(
                   titleTextAlign: TextAlign.right,
                   titleAlignment: Alignment.centerRight,
@@ -129,8 +128,9 @@ class _SignInViewState extends State<SignInView> {
                         Text(
                           Translation.sign_in_message.tr,
                           style: context.bodyMedium.copyWith(
+                            fontWeight: FontWeightM.light,
                             color: context.bodyMedium.color!.withValues(
-                              alpha: .5,
+                              alpha: context.isDark ? .9 : .5,
                             ),
                           ),
                         ).animatedOnAppear(1, SlideDirection.down),
@@ -223,7 +223,7 @@ class _SignInViewState extends State<SignInView> {
                               style: TextStyle(
                                 fontSize: 12.sp,
                                 color: context.colorScheme.surface.withValues(
-                                  alpha: .5,
+                                  alpha: context.isDark ? .9 : .5,
                                 ),
                               ),
                               children: [

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hi_net/app/dependency_injection.dart';
 import 'package:hi_net/app/enums.dart';
+import 'package:hi_net/presentation/views/checkout/view/screens/checkout_view.dart';
 import 'package:hi_net/presentation/views/esim_details/view/screens/esim_details_view.dart';
 import 'package:hi_net/presentation/views/home/view/screens/home_view.dart';
+import 'package:hi_net/presentation/views/notification/bloc/notification_bloc.dart';
+import 'package:hi_net/presentation/views/notification/screens/view/notification_view.dart';
 import 'package:hi_net/presentation/views/on_boarding/screens/on_boarding_view.dart';
 import 'package:hi_net/presentation/views/search/view/screens/search_view.dart';
 import 'package:hi_net/presentation/views/sign_in/view/screens/sign_in_view.dart';
@@ -19,7 +23,9 @@ enum RoutesManager {
   verifyNumber('verify-number/'),
   home('home/'),
   search('search/'),
-  esimDetails('esim-details/');
+  esimDetails('esim-details/'),
+  checkout('checkout/'),
+  notifications('notifications/');
 
   final String route;
 
@@ -36,8 +42,17 @@ class RoutesGeneratorManager {
       RoutesManager.signIn => const SignInView(),
       RoutesManager.verifyNumber => const VerifyNumberView(),
       RoutesManager.home => const HomeView(),
-      RoutesManager.search => const SearchView(),
-      RoutesManager.esimDetails => EsimDetailsView(type: args!['type'] as EsimsType),
+      RoutesManager.search => SearchView(
+        showHistory: args?['show-history'] as bool? ?? false,
+      ),
+      RoutesManager.esimDetails => EsimDetailsView(
+        type: args!['type'] as EsimsType,
+      ),
+      RoutesManager.checkout => const CheckoutView(),
+      RoutesManager.notifications => BlocProvider(
+        create: (context) => instance<NotificationBloc>(),
+        child: const NotificationView(),
+      ),
     };
   }
 

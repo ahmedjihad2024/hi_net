@@ -17,14 +17,12 @@ class ThemeManager {
       surface: Colors.black,
       // while and black
       onSurface: Colors.white,
-      onPrimary: Colors.white,
-      onSecondary: Colors.black,
 
       // white and ad degree of black colors in dark mode
       secondary: Colors.white,
     ),
     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-    scaffoldBackgroundColor: Color(0xFFF8F8F8),
+    scaffoldBackgroundColor: Colors.white,
     textTheme: TextStyles.customTextTheme(Colors.black),
     visualDensity: VisualDensity.comfortable,
     iconButtonTheme: IconButtonThemeData(
@@ -69,43 +67,64 @@ class ThemeManager {
     ),
   );
 
-  // static get darkTheme => ThemeData(
-  //       fontFamily: FontsM.IBMPlexSansArabic.name,
-  //       colorScheme:
-  //           ColorScheme.light(primary: ColorM.purple, secondary: ColorM.white),
-  //       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-  //       scaffoldBackgroundColor: ColorM.black,
-  //       textTheme: TextStyles.customTextTheme(ColorM.white),
-  //       visualDensity: VisualDensity.comfortable,
-  //       iconButtonTheme: IconButtonThemeData(
-  //           style: ButtonStyle(
-  //               // tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-  //               // padding: WidgetStatePropertyAll(EdgeInsets.zero),
-  //               minimumSize: WidgetStatePropertyAll(Size.zero),
-  //               backgroundColor: WidgetStatePropertyAll(ColorM.purple),
-  //               iconColor: WidgetStatePropertyAll(ColorM.white),
-  //               iconSize: WidgetStatePropertyAll(12.sp))),
-  //       textButtonTheme: TextButtonThemeData(
-  //           style: ButtonStyle(
-  //               minimumSize: WidgetStatePropertyAll(Size.zero),
-  //               backgroundColor: WidgetStateProperty.resolveWith((states) {
-  //                 if (states.contains(WidgetState.disabled)) {
-  //                   return ColorM.white.withValues(alpha: .5);
-  //                 }
-  //                 return ColorM.purple;
-  //               }),
-  //               padding: WidgetStatePropertyAll(EdgeInsets.zero),
-  //               // minimumSize: WidgetStatePropertyAll(Size(double.infinity, 60.w)),
-  //               shape: WidgetStatePropertyAll(RoundedRectangleBorder(
-  //                   borderRadius:
-  //                       BorderRadius.circular(SizeM.commonBorderRadius.r))),
-  //               textStyle: WidgetStatePropertyAll(
-  //                   TextStyle(fontSize: 18.sp, color: ColorM.white)))),
-  //       textSelectionTheme: TextSelectionThemeData(
-  //           cursorColor: ColorM.white,
-  //           selectionColor: ColorM.white.withValues(alpha: .1),
-  //           selectionHandleColor: ColorM.white),
-  //     );
+  static get darkTheme => ThemeData(
+    fontFamily: FontsM.Lexend.name,
+    useMaterial3: true,
+    colorScheme: const ColorScheme.dark(
+      primary: ColorM.primary,
+      // black and whie
+      surface: Colors.white,
+      // while and black
+      onSurface: Colors.black,
+
+      // white and ad degree of black colors in dark mode
+      secondary: ColorM.primaryDark,
+    ),
+    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+    scaffoldBackgroundColor: Colors.black,
+    textTheme: TextStyles.customTextTheme(Colors.white),
+    visualDensity: VisualDensity.comfortable,
+    iconButtonTheme: IconButtonThemeData(
+      style: ButtonStyle(
+        // tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        // padding: WidgetStatePropertyAll(EdgeInsets.zero),
+        minimumSize: WidgetStatePropertyAll(Size.zero),
+        backgroundColor: WidgetStatePropertyAll(ColorM.primary),
+        iconColor: WidgetStatePropertyAll(Colors.white),
+        iconSize: WidgetStatePropertyAll(12.sp),
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+        minimumSize: WidgetStatePropertyAll(Size.zero),
+        backgroundColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.disabled)) {
+            return Colors.black.withValues(alpha: .5);
+          }
+          return ColorM.primary;
+        }),
+        padding: WidgetStatePropertyAll(EdgeInsets.zero),
+        // minimumSize: WidgetStatePropertyAll(Size(double.infinity, 60.w)),
+        shape: WidgetStatePropertyAll(
+          SmoothRectangleBorder(
+            borderRadius: BorderRadius.circular(SizeM.commonBorderRadius.r),
+          ),
+        ),
+        textStyle: WidgetStatePropertyAll(
+          TextStyle(
+            fontSize: 18.sp,
+            color: Colors.white,
+            fontFamily: FontsM.Lexend.name,
+          ),
+        ),
+      ),
+    ),
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: Colors.white,
+      selectionColor: Colors.white.withValues(alpha: .1),
+      selectionHandleColor: Colors.white,
+    ),
+  );
 }
 
 class TextStyles {

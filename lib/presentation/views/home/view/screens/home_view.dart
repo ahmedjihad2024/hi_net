@@ -74,53 +74,60 @@ class _HomeViewState extends State<HomeView>
         totalBottomNavHeight = bottomNavHeight;
 
         return Scaffold(
-          body: Column(
+          backgroundColor: context.isDark ? context.colorScheme.secondary : Color(0xFFF8F8F8),
+          body: Stack(
             children: [
-              // page view
-              Expanded(
-                child: CarouselSlider(
-                  items: [
-                    TapHomeView(totalBottomNavHeight: totalBottomNavHeight),
-                    Container(),
-                    Container(),
-                  ],
-                  options: CarouselOptions(
-                    viewportFraction: 1,
-                    aspectRatio: 1,
-                    height: double.infinity,
-                    enableInfiniteScroll: false,
-                    padEnds: false,
-                    animateToClosest: false,
-                    onPageChanged: (tapIndex, carouselPageChangedReason) {
-                      if (carouselPageChangedReason ==
-                          CarouselPageChangedReason.manual) {
-                        BOTTOM_NAV_BAR_SELECTED_TAB.value = tapIndex;
-                      }
-                    },
+              Column(
+                children: [
+                  // page view
+                  Expanded(
+                    child: CarouselSlider(
+                      items: [
+                        TapHomeView(totalBottomNavHeight: totalBottomNavHeight),
+                        Container(),
+                        Container(),
+                      ],
+                      options: CarouselOptions(
+                        viewportFraction: 1,
+                        aspectRatio: 1,
+                        height: double.infinity,
+                        enableInfiniteScroll: false,
+                        padEnds: false,
+                        animateToClosest: false,
+                        onPageChanged: (tapIndex, carouselPageChangedReason) {
+                          if (carouselPageChangedReason ==
+                              CarouselPageChangedReason.manual) {
+                            BOTTOM_NAV_BAR_SELECTED_TAB.value = tapIndex;
+                          }
+                        },
+                      ),
+                      carouselController: BOTTOM_NAV_BAR_SLIDER_CONTROLLER,
+                    ),
                   ),
-                  carouselController: BOTTOM_NAV_BAR_SLIDER_CONTROLLER,
-                ),
+
+                  // bottom navigation bar
+                  BottomNavBar(
+                    selectedTap: BOTTOM_NAV_BAR_SELECTED_TAB,
+                    bottomNavHeight: bottomNavHeight,
+                    bottomNavWidth: 0,
+                    bottomNavMargin: 0,
+                    bottomNavPadding: 0,
+                    bottomItemWidth: 0,
+                    bottomNavItems: bottomNavItems,
+                    spaceBetweenItems: 0,
+                    onTap: (tapIndex) {
+                      BOTTOM_NAV_BAR_SELECTED_TAB.value = tapIndex;
+                      BOTTOM_NAV_BAR_SLIDER_CONTROLLER.animateToPage(
+                        tapIndex,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.fastLinearToSlowEaseIn,
+                      );
+                    },
+                  ).animatedOnAppear(2, SlideDirection.up),
+                ],
               ),
 
-              // bottom navigation bar
-              BottomNavBar(
-                selectedTap: BOTTOM_NAV_BAR_SELECTED_TAB,
-                bottomNavHeight: bottomNavHeight,
-                bottomNavWidth: 0,
-                bottomNavMargin: 0,
-                bottomNavPadding: 0,
-                bottomItemWidth: 0,
-                bottomNavItems: bottomNavItems,
-                spaceBetweenItems: 0,
-                onTap: (tapIndex) {
-                  BOTTOM_NAV_BAR_SELECTED_TAB.value = tapIndex;
-                  BOTTOM_NAV_BAR_SLIDER_CONTROLLER.animateToPage(
-                    tapIndex,
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.fastLinearToSlowEaseIn,
-                  );
-                },
-              ).animatedOnAppear(2, SlideDirection.up),
+              WhatsappButton(),
             ],
           ),
         );
@@ -132,11 +139,7 @@ class _HomeViewState extends State<HomeView>
   bool get wantKeepAlive => true;
 
   @override
-  Future<void> afterLayout(BuildContext context) async {
-    Overlay.of(
-      context,
-    ).insert(OverlayEntry(builder: (context) => WhatsappButton()));
-  }
+  Future<void> afterLayout(BuildContext context) async {}
 }
 
 class WhatsappButton extends StatefulWidget {
@@ -147,12 +150,10 @@ class WhatsappButton extends StatefulWidget {
 }
 
 class _WhatsappButtonState extends State<WhatsappButton> {
-
   double xValue = -1 + ((SizeM.pagePadding.dg * 2) / 1.sw);
 
   @override
   Widget build(BuildContext context) {
-    
     return AnimatedAlign(
       duration: const Duration(milliseconds: 500),
       alignment: Alignment(xValue, .7),

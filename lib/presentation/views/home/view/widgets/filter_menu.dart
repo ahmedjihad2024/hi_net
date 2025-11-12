@@ -9,15 +9,17 @@ class FilterPopupMenu<T> extends StatelessWidget {
   final Function(T)? onFilterSelected;
   final Color backgroundColor;
   final BorderSide side;
+  final double borderRadius;
 
-  const FilterPopupMenu(
+  const   FilterPopupMenu(
       {Key? key,
       required this.child,
       required this.options,
       this.selectedValue,
       this.onFilterSelected,
       this.side = BorderSide.none,
-      this.backgroundColor = Colors.white})
+      this.backgroundColor = Colors.white,
+      this.borderRadius = 8})
       : super(key: key);
 
   @override
@@ -28,9 +30,12 @@ class FilterPopupMenu<T> extends StatelessWidget {
           return CustomPopupMenu<T>(
             child: child,
             backgroundColor: backgroundColor,
-            borderRadius: 8.r,
+            borderRadius: borderRadius,
             constraints: BoxConstraints(),
-            padding: EdgeInsets.zero,
+            padding: EdgeInsets.symmetric(
+              horizontal: 16.w,
+              vertical: 15.w,
+            ),
             side: side,
             items: options
                 .map((option) => CustomPopupMenuItem.create<T>(

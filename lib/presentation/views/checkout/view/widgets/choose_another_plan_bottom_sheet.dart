@@ -9,35 +9,36 @@ import 'package:hi_net/presentation/res/color_manager.dart';
 import 'package:hi_net/presentation/res/fonts_manager.dart';
 import 'package:hi_net/presentation/res/sizes_manager.dart';
 import 'package:hi_net/presentation/res/translations_manager.dart';
+import 'package:hi_net/presentation/views/esim_details/view/widgets/plan_item.dart';
 import 'package:hi_net/presentation/views/home/view/widgets/country_item.dart';
 import 'package:hi_net/presentation/views/home/view/widgets/select_duration_bottom_sheet.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 
-class SelectCountrBottomSheet extends StatefulWidget {
-  const SelectCountrBottomSheet({super.key, this.isFromSearch = false});
-  final bool isFromSearch;
+class ChooseAnotherPlanBottomSheet extends StatefulWidget {
+  const ChooseAnotherPlanBottomSheet({super.key});
 
   @override
-  State<SelectCountrBottomSheet> createState() =>
-      _SelectCountrBottomSheetState();
+  State<ChooseAnotherPlanBottomSheet> createState() =>
+      _ChooseAnotherPlanBottomSheetState();
 
-  static Future<void> show(BuildContext context, {bool isFromSearch = false}) async {
+  static Future<void> show(BuildContext context) async {
     await showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       useSafeArea: true,
-      builder: (context) => SelectCountrBottomSheet(isFromSearch: isFromSearch),
+      builder: (context) => ChooseAnotherPlanBottomSheet(),
     );
   }
 }
 
-class _SelectCountrBottomSheetState extends State<SelectCountrBottomSheet> {
+class _ChooseAnotherPlanBottomSheetState
+    extends State<ChooseAnotherPlanBottomSheet> {
   TextEditingController searchController = TextEditingController();
+  ValueNotifier<int> selectedPlanIndex = ValueNotifier(-1);
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: .75.sh,
       width: double.infinity,
       padding: EdgeInsets.only(
         top: 20.w,
@@ -54,6 +55,7 @@ class _SelectCountrBottomSheetState extends State<SelectCountrBottomSheet> {
         color: context.colorScheme.onSurface,
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Container(
             width: 80.w,
@@ -64,10 +66,9 @@ class _SelectCountrBottomSheetState extends State<SelectCountrBottomSheet> {
             ),
           ),
           16.verticalSpace,
-          Expanded(
+          Flexible(
             child: Container(
               width: double.infinity,
-              height: double.infinity,
               padding: EdgeInsets.only(
                 top: 12.w,
                 bottom: 8.w,
@@ -79,25 +80,22 @@ class _SelectCountrBottomSheetState extends State<SelectCountrBottomSheet> {
                   smoothness: 1,
                   borderRadius: BorderRadius.circular(14.r),
                 ),
-                color: context.isDark ? ColorM.primaryDark : context.colorScheme.surface.withValues(alpha: 0.05),
+                color: context.isDark
+                    ? ColorM.primaryDark
+                    : context.colorScheme.surface.withValues(alpha: 0.05),
               ),
-
+                    
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    Translation.select_country.tr,
-                    style: context.titleMedium,
-                  ),
-                  10.verticalSpace,
-                  searchField(),
+                  title(),
                   13.verticalSpace,
-                  countriesList(),
+                  planItems(),
                   13.verticalSpace,
                   nextButton(
                     onTap: () {
                       Navigator.of(context).pop();
-                      SelectDurationBottomSheet.show(context, isFromSearch: widget.isFromSearch, isFromSelectCountry: true);
                     },
                   ),
                 ],
@@ -109,89 +107,42 @@ class _SelectCountrBottomSheetState extends State<SelectCountrBottomSheet> {
     );
   }
 
-  Widget searchField() {
-    return NiceTextForm(
-      hintText: Translation.search.tr,
-      boxDecoration: ShapeDecoration(
-        color: context.colorScheme.onSurface,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(99999),
-        ),
-        shadows: [
-          BoxShadow(
-            color: ColorM.primary.withValues(alpha: 0.02),
-            blurRadius: 0,
-            spreadRadius: 2,
-            offset: Offset(0, 0),
-          ),
-        ],
-      ),
-      activeBoxDecoration: ShapeDecoration(
-        color: context.colorScheme.onSurface,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(99999),
-        ),
-        shadows: [
-          BoxShadow(
-            color: ColorM.primary.withValues(alpha: 0.02),
-            blurRadius: 0,
-            spreadRadius: 2,
-            offset: Offset(0, 0),
-          ),
-        ],
-      ),
-      padding: EdgeInsets.symmetric(horizontal: 14.w),
-      textStyle: context.labelLarge.copyWith(
-        fontSize: context.labelLarge.fontSize!,
-        fontWeight: FontWeightM.light,
-      ),
-      hintStyle: context.labelLarge.copyWith(
-        color: context.labelLarge.color!.withValues(alpha: .8),
-        fontSize: context.labelLarge.fontSize!,
-        fontWeight: FontWeightM.light,
-      ),
-      textEditingController: searchController,
-      prefixWidget: SvgPicture.asset(
-        SvgM.search,
-        colorFilter: ColorFilter.mode(
-          context.labelLarge.color!.withValues(alpha: .8),
-          BlendMode.srcIn,
-        ),
-        width: 16.w,
-        height: 16.w,
-      ),
+  Widget title() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(Translation.choose_another_plan.tr, style: context.bodyLarge),
+      ],
     );
   }
 
-  Widget countriesList() {
-    return Expanded(
-      child: ShaderMask(
-        blendMode: BlendMode.dstIn,
-        shaderCallback: (rect) {
-          return LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.white, Colors.white, ( context.isDark ? Colors.black : Colors.transparent)],
-            stops: [0, .75, 1],
-            tileMode: TileMode.clamp,
-          ).createShader(rect);
-        },
-        child: ListView.separated(
-          itemCount: 10,
-          padding: EdgeInsets.only(top: 13.h, bottom: 13.h),
-          separatorBuilder: (context, index) {
-            return 10.verticalSpace;
-          },
-          itemBuilder: (context, index) {
-            return CountryItem(
-              imageUrl: '',
-              countryName: 'Egypt',
-              isSelected: false,
-              onChange: (value) {},
-            );
-          },
-        ),
-      ),
+  Widget planItems() {
+    return ValueListenableBuilder(
+      valueListenable: selectedPlanIndex,
+      builder: (context, value, child) {
+        return Flexible(
+          child: SingleChildScrollView(
+            child: Column(
+              spacing: 14.w,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                for (var i = 0; i < 4; i++)
+                  PlanItem(
+                    isRecommended: i == 0,
+                    days: i + 3,
+                    price: (i + 3) * 100,
+                    isSelected: value == i,
+                    gb: i == 2 ? null : (i + 3) * 10,
+                    onChange: (value) {
+                      selectedPlanIndex.value = i;
+                    },
+                  ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -211,15 +162,15 @@ class _SelectCountrBottomSheetState extends State<SelectCountrBottomSheet> {
         spacing: 7.w,
         mainAxisSize: MainAxisSize.min,
         children: [
-          SvgPicture.asset(SvgM.doubleArrow2, width: 12.w, height: 12.h),
           Text(
-            Translation.next.tr,
+            Translation.confirm.tr,
             style: context.labelLarge.copyWith(
               fontWeight: FontWeightM.semiBold,
               height: 1,
               color: Colors.white,
             ),
           ),
+          SvgPicture.asset(SvgM.doubleArrow2, width: 12.w, height: 12.h),
         ],
       ),
     );

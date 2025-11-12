@@ -23,6 +23,7 @@ class _SplashViewState extends State<SplashView> with AfterLayout {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFF8F8F8),
       body: SafeArea(
         bottom: false,
         top: false,
@@ -55,7 +56,7 @@ class _SplashViewState extends State<SplashView> with AfterLayout {
             Align(
               alignment: Alignment.bottomCenter,
               child: SvgPicture.asset(SvgM.wifi, width: 264.w, height: 158.w),
-            )
+            ),
           ],
         ),
       ),
@@ -70,19 +71,18 @@ class _SplashViewState extends State<SplashView> with AfterLayout {
     Timer(Duration(seconds: Constants.splashTimer), () async {
       if (instance<AppPreferences>().isSkippedOnBoarding) {
         if (instance<AppPreferences>().isUserRegistered) {
-          // Navigator.of(
-          //   context,
-          // ).pushNamedAndRemoveUntil(RoutesManager.home.route, (_) => false);
+          Navigator.of(
+            context,
+          ).pushNamedAndRemoveUntil(RoutesManager.home.route, (_) => false);
         } else {
           Navigator.of(
             context,
           ).pushNamedAndRemoveUntil(RoutesManager.signUp.route, (_) => false);
         }
       } else {
-        Navigator.of(context).pushNamedAndRemoveUntil(
-          RoutesManager.onBoarding.route,
-          (_) => false,
-        );
+        Navigator.of(
+          context,
+        ).pushNamedAndRemoveUntil(RoutesManager.onBoarding.route, (_) => false);
       }
     });
   }

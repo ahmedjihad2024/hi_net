@@ -32,7 +32,7 @@ class _GlobalItemState extends State<GlobalItem> {
     return CustomInkButton(
       onTap: widget.onTap,
       width: double.infinity,
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: Colors.transparent,
       padding: EdgeInsets.symmetric(
         horizontal: SizeM.pagePadding.dg.w,
         vertical: 12.w,

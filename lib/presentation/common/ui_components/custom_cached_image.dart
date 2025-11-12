@@ -53,7 +53,7 @@ class CustomCachedImage extends StatelessWidget {
                 width: finalWidth * 0.8,
                 height: finalHeight * 0.8,
                 fit: BoxFit.cover,
-                color: context.colorScheme.onSurface.withValues(alpha: 0.8),
+                color: context.colorScheme.surface.withValues(alpha: 0.5),
               ),
               decoration: BoxDecoration(
                 color:

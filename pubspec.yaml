@@ -86,6 +86,7 @@ dependencies:
   # webview_flutter: ^4.13.0
   # device_info_plus: ^11.3.0
   animated_snack_bar: ^0.4.0
+  gradient_borders: ^1.0.2
 
   nice_text_form:
     git: https://github.com/ahmedjihad2024/nice_text_form.git

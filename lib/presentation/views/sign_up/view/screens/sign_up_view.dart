@@ -98,25 +98,30 @@ class _SignUpViewState extends State<SignUpView> {
               children: [
                 // Header with back button and "Sign In" title
                 DefaultAppBar(
-                    titleTextAlign: TextAlign.right,
-                    titleAlignment: Alignment.centerRight,
-                    hideBackButton: true,
-                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.w),
-                    actionButtons: [
-                      CustomInkButton(
-                        onTap: () {
-                          Navigator.of(context).pushNamed(RoutesManager.signIn.route);
-                        },
-                        highlightColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        backgroundColor: Colors.transparent,
-                        child: Text(
-                          Translation.sign_in.tr,
-                          style: context.bodyLarge,
-                        ),
+                  titleTextAlign: TextAlign.right,
+                  titleAlignment: Alignment.centerRight,
+                  hideBackButton: true,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 12.w,
+                  ),
+                  actionButtons: [
+                    CustomInkButton(
+                      onTap: () {
+                        Navigator.of(
+                          context,
+                        ).pushNamed(RoutesManager.signIn.route);
+                      },
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      backgroundColor: Colors.transparent,
+                      child: Text(
+                        Translation.sign_in.tr,
+                        style: context.bodyLarge,
                       ),
-                    ],
-                  ).animatedOnAppear(4, SlideDirection.down),
+                    ),
+                  ],
+                ).animatedOnAppear(4, SlideDirection.down),
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -135,12 +140,13 @@ class _SignUpViewState extends State<SignUpView> {
                         SizedBox(height: 12.h),
                         // Subtitle
                         Text(
-                            Translation.create_account_subtitle.tr,
-                            style: context.bodyMedium.copyWith(
-                              color: context.bodyMedium.color!.withValues(
-                                alpha: .5,
-                              ),
+                          Translation.create_account_subtitle.tr,
+                          style: context.bodyMedium.copyWith(
+                            fontWeight: FontWeightM.light,
+                            color: context.bodyMedium.color!.withValues(
+                              alpha: context.isDark ? .9 : .5,
                             ),
+                          ),
                         ).animatedOnAppear(2, SlideDirection.down),
                         SizedBox(height: 32.h),
                         // Full Name Input Container
@@ -183,7 +189,7 @@ class _SignUpViewState extends State<SignUpView> {
                                   );
                                 },
                               ),
-          
+
                               RotatedBox(
                                 quarterTurns: 1,
                                 child: Icon(
@@ -195,7 +201,7 @@ class _SignUpViewState extends State<SignUpView> {
                                   ),
                                 ),
                               ),
-          
+
                               Container(
                                 width: 1.5,
                                 height: 30.w,
@@ -206,9 +212,9 @@ class _SignUpViewState extends State<SignUpView> {
                             ],
                           ),
                         ).animatedOnAppear(0, SlideDirection.down),
-          
+
                         const Spacer(),
-          
+
                         CustomInkButton(
                           onTap: onSignUpButtonPressed,
                           width: double.infinity,
@@ -224,7 +230,7 @@ class _SignUpViewState extends State<SignUpView> {
                             child: Text(
                               Translation.sign_up.tr,
                               style: context.bodyLarge.copyWith(
-                                fontWeight: FontWeightM.semiBold,
+                                fontWeight: FontWeightM.light,
                                 color: Colors.white,
                               ),
                             ),
@@ -234,6 +240,7 @@ class _SignUpViewState extends State<SignUpView> {
                         // Terms and Privacy Policy
                         Center(
                           child: RichText(
+                            textScaler: MediaQuery.of(context).textScaler,
                             textAlign: TextAlign.center,
                             text: TextSpan(
                               style: TextStyle(
@@ -247,11 +254,27 @@ class _SignUpViewState extends State<SignUpView> {
                                   text: Translation.terms_agreement_part_one.tr,
                                 ),
                                 TextSpan(text: ' '),
-                                TextSpan(
-                                  text: Translation.terms_agreement_part_three.tr,
-                                  style: TextStyle(
-                                    color: Color(0xFF007AFF),
-                                    fontWeight: FontWeight.w600,
+                                WidgetSpan(
+                                  alignment: PlaceholderAlignment.baseline,
+                                  baseline: TextBaseline.alphabetic,
+                                  child: ShaderMask(
+                                    shaderCallback: (Rect bounds) {
+                                      return LinearGradient(
+                                        colors: [
+                                          Color(0xFF007AFF),
+                                          ColorM.secondary,
+                                        ],
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                      ).createShader(bounds);
+                                    },
+                                    child: Text(
+                                      Translation.terms_agreement_part_three.tr,
+                                      style: TextStyle(
+                                        fontSize: 12.sp,
+                                        color: Colors.white,
+                                      ),
+                                    ),
                                   ),
                                 ),
                                 TextSpan(text: ' '),
@@ -259,11 +282,27 @@ class _SignUpViewState extends State<SignUpView> {
                                   text: Translation.terms_agreement_part_two.tr,
                                 ),
                                 TextSpan(text: ' '),
-                                TextSpan(
-                                  text: Translation.terms_agreement_part_four.tr,
-                                  style: TextStyle(
-                                    color: Color(0xFF007AFF),
-                                    fontWeight: FontWeight.w600,
+                                WidgetSpan(
+                                  alignment: PlaceholderAlignment.baseline,
+                                  baseline: TextBaseline.alphabetic,
+                                  child: ShaderMask(
+                                    shaderCallback: (Rect bounds) {
+                                      return LinearGradient(
+                                        colors: [
+                                          Color(0xFF007AFF),
+                                          ColorM.secondary,
+                                        ],
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                      ).createShader(bounds);
+                                    },
+                                    child: Text(
+                                      Translation.terms_agreement_part_four.tr,
+                                      style: TextStyle(
+                                        fontSize: 12.sp,
+                                        color: Colors.white,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],

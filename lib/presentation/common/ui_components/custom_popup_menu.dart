@@ -49,6 +49,7 @@ class CustomPopupMenu<T> extends StatelessWidget {
       style: TextButton.styleFrom(
         backgroundColor: backgroundColor,
         shape: SmoothRectangleBorder(
+            smoothness: 1,
             borderRadius: BorderRadius.circular(borderRadius ?? 8.r),
             side: side),
       ),
@@ -75,17 +76,21 @@ class CustomPopupMenuItem<T> {
             leading,
             8.horizontalSpace,
           ],
-          Expanded(
-            child: Text(
-              label,
-              style: TextStyle(
-                color: isSelected
-                    ? ColorM.primary
-                    : const Color(0xFF040302),
-                fontSize: 14.sp,
-                fontWeight: isSelected ? FontWeight.w400 : FontWeight.w300,
-              ),
-            ),
+          Builder(
+            builder: (context) {
+              return Expanded(
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    color: isSelected
+                        ? ColorM.primary
+                        : context.isDark ? Colors.white : Color(0xFF040302),
+                    fontSize: 14.sp,
+                    fontWeight: isSelected ? FontWeight.w400 : FontWeight.w300,
+                  ),
+                ),
+              );
+            }
           ),
           if (trailing != null) ...[
             8.horizontalSpace,

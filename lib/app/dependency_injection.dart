@@ -1,5 +1,6 @@
 
 import 'package:get_it/get_it.dart';
+import 'package:hi_net/presentation/views/notification/bloc/notification_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hi_net/app/services/app_preferences.dart';
 import 'package:hi_net/data/data_source/data_source.dart';
@@ -29,6 +30,7 @@ Future initAppModules() async {
   // **
 
   // ** Blocs
+  instance.registerFactory<NotificationBloc>(() => NotificationBloc());
 
   // **
 

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hi_net/app/extensions.dart';
-import 'package:hi_net/presentation/common/ui_components/custom_check_box.dart';
 import 'package:hi_net/presentation/common/ui_components/custom_ink_button.dart';
 import 'package:hi_net/presentation/res/assets_manager.dart';
 import 'package:hi_net/presentation/res/color_manager.dart';
@@ -49,7 +48,6 @@ class _PlanItemState extends State<PlanItem> {
   void didUpdateWidget(PlanItem oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (mounted) {
-      print('didUpdateWidget: ${widget.isSelected}');
       _onChange(widget.isSelected);
     }
   }
@@ -58,8 +56,11 @@ class _PlanItemState extends State<PlanItem> {
   Widget build(BuildContext context) {
     return CustomInkButton(
       onTap: () {
-        _onChange(!isSelected);
-        widget.onChange(!isSelected);
+        var newValue = !isSelected;
+        if (newValue != widget.isSelected && widget.isSelected == false) {
+          _onChange(newValue);
+          widget.onChange(newValue);
+        }
       },
       width: double.infinity,
       padding: EdgeInsets.all(14.w),
@@ -152,34 +153,45 @@ class _PlanItemState extends State<PlanItem> {
             ],
           ),
 
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            spacing: 12.w,
-            children: [
-              Text(
-                Translation.sar.trNamed({'sar': widget.price.toString()}),
-                style: context.bodyLarge.copyWith(
-                  height: 1.1,
-                  fontWeight: FontWeightM.medium,
-                  color: Colors.white,
-                ),
-              ).mask(isSelected),
-              isSelected
-                  ? SvgPicture.asset(SvgM.tickCircle, width: 24.w, height: 24.w)
-                  : Container(
-                      width: 24.w,
-                      height: 24.w,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(9999),
-                        border: Border.all(
-                          color: context.colorScheme.surface.withValues(
-                            alpha: .6,
-                          ),
-                          width: 1.5.w,
-                        ),
+          Flexible(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              spacing: 12.w,
+              children: [
+                Flexible(
+                  child: FittedBox(
+                    alignment: AlignmentDirectional.centerEnd,
+                    child: Text(
+                      Translation.sar.trNamed({'sar': widget.price.toString()}),
+                      style: context.bodyLarge.copyWith(
+                        height: 1.1,
+                        fontWeight: FontWeightM.medium,
+                        color: Colors.white,
                       ),
                     ),
-            ],
+                  ).mask(isSelected),
+                ),
+                isSelected
+                    ? SvgPicture.asset(
+                        SvgM.tickCircle,
+                        width: 24.w,
+                        height: 24.w,
+                      )
+                    : Container(
+                        width: 24.w,
+                        height: 24.w,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(9999),
+                          border: Border.all(
+                            color: context.colorScheme.surface.withValues(
+                              alpha: .6,
+                            ),
+                            width: 1.5.w,
+                          ),
+                        ),
+                      ),
+              ],
+            ),
           ),
         ],
       ),
@@ -187,7 +199,7 @@ class _PlanItemState extends State<PlanItem> {
   }
 }
 
-extension on Widget {
+extension maskOnText on Widget {
   Widget mask(bool doIt) {
     return doIt
         ? this

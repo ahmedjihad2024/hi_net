@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hi_net/app/constants.dart';
+import 'package:hi_net/app/enums.dart';
 import 'package:hi_net/app/extensions.dart';
 import 'package:hi_net/presentation/common/ui_components/animated_tap_bar.dart';
 import 'package:hi_net/presentation/common/ui_components/animations/animated_on_appear.dart';
@@ -28,6 +29,7 @@ import 'package:hi_net/presentation/views/home/view/widgets/half_circle_progress
 import 'package:hi_net/presentation/views/home/view/widgets/pannar.dart';
 import 'package:hi_net/presentation/views/home/view/widgets/regional_item.dart';
 import 'package:hi_net/presentation/views/home/view/widgets/select_countr_bottom_sheet.dart';
+import 'package:hi_net/presentation/views/home/view/widgets/select_duration_bottom_sheet.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 
@@ -75,8 +77,15 @@ class _TapHomeViewState extends State<TapHomeView>
               16.verticalSpace,
               mostRequested().animatedOnAppear(0, SlideDirection.up),
               32.verticalSpace,
-              tapNavigator().animatedOnAppear(1, SlideDirection.up),
-              taps().animatedOnAppear(2, SlideDirection.up),
+              Container(
+                color: context.colorScheme.onSurface,
+                child: Column(
+                  children: [
+                    tapNavigator().animatedOnAppear(1, SlideDirection.up),
+                    taps().animatedOnAppear(2, SlideDirection.up),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -128,7 +137,9 @@ class _TapHomeViewState extends State<TapHomeView>
             spacing: 8.w,
             children: [
               CustomizedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed(RoutesManager.notifications.route);
+                },
                 svgImage: SvgM.notification,
                 count: 3,
               ),
@@ -183,7 +194,7 @@ class _TapHomeViewState extends State<TapHomeView>
                     width: 22.w,
                     height: 22.w,
                     colorFilter: ColorFilter.mode(
-                      context.colorScheme.onSurface,
+                      Colors.white,
                       BlendMode.srcIn,
                     ),
                   ),
@@ -291,7 +302,7 @@ class _TapHomeViewState extends State<TapHomeView>
       margin: EdgeInsets.symmetric(horizontal: SizeM.pagePadding.dg),
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.w),
       decoration: ShapeDecoration(
-        color: context.colorScheme.secondary,
+        color: context.colorScheme.onSurface,
         shape: SmoothRectangleBorder(
           smoothness: 1,
           borderRadius: BorderRadius.circular(14.r),
@@ -327,14 +338,19 @@ class _TapHomeViewState extends State<TapHomeView>
               Filter(
                 selectedFilter: "Any Duration",
                 label: Translation.duration.tr,
-                onTap: () {},
+                onTap: () {
+                  SelectDurationBottomSheet.show(context);
+                },
               ),
             ],
           ),
           SizedBox.shrink(),
           CustomInkButton(
             onTap: () {
-              Navigator.of(context).pushNamed(RoutesManager.search.route);
+              Navigator.of(context).pushNamed(
+                RoutesManager.search.route,
+                arguments: {'show-history': true},
+              );
             },
             width: 34.w,
             height: 34.w,
@@ -544,17 +560,35 @@ class _CountriesTapState extends State<CountriesTap>
         TapHomeViewType.countries => CountryItem2(
           imageUrl: '',
           countryName: 'UAE',
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(
+              context,
+              RoutesManager.esimDetails.route,
+              arguments: {'type': EsimsType.countrie},
+            );
+          },
         ),
         TapHomeViewType.regional => RegionalItem(
           imageUrl: '',
           countryName: 'UAE',
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(
+              context,
+              RoutesManager.esimDetails.route,
+              arguments: {'type': EsimsType.regional},
+            );
+          },
         ),
         TapHomeViewType.global => GlobalItem(
           imageUrl: '',
           countryName: 'UAE',
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(
+              context, 
+              RoutesManager.esimDetails.route,
+              arguments: {'type': EsimsType.global},
+            );
+          },
           isRecommended: (index % 2) == 0,
         ),
       },

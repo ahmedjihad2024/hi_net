@@ -43,7 +43,7 @@ class _FastCountryCodeButtonState extends State<FastCountryCodeButton> {
         }
       },
       dialogBoxDecoration: BoxDecoration(
-        color: Colors.white,
+        color: context.colorScheme.secondary,
         borderRadius: BorderRadius.circular(SizeM.commonBorderRadius.r),
       ),
       dialogSelectionBuilder: (callbackfunc, countryCode) {

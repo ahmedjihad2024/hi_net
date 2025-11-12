@@ -1,3 +1,5 @@
+import 'package:hi_net/app/extensions.dart';
+import 'package:hi_net/presentation/common/ui_components/animations/animations_enum.dart';
 import 'package:hi_net/presentation/common/ui_components/circular_progress_indicator.dart';
 import 'package:hi_net/presentation/common/ui_components/customized_smart_refresh.dart';
 import 'package:hi_net/presentation/common/ui_components/default_app_bar.dart';
@@ -5,6 +7,7 @@ import 'package:hi_net/presentation/common/ui_components/error_widget.dart';
 import 'package:hi_net/presentation/common/utils/after_layout.dart';
 import 'package:hi_net/presentation/common/utils/state_render.dart';
 import 'package:hi_net/presentation/res/sizes_manager.dart';
+import 'package:hi_net/presentation/res/translations_manager.dart';
 import 'package:hi_net/presentation/views/notification/bloc/notification_bloc.dart';
 import 'package:hi_net/presentation/views/notification/screens/widget/notification_card.dart';
 import 'package:hi_net/presentation/common/ui_components/platform_safe_area.dart';
@@ -26,76 +29,92 @@ class _NotificationViewState extends State<NotificationView> with AfterLayout {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(   
+    return Scaffold(
       body: BlocBuilder<NotificationBloc, NotificationState>(
         builder: (context, state) {
           return Stack(
             children: [
-              PlatformSafeArea(
-                child: Column(
-                  children: [
-                    DefaultAppBar(title: "Notifications"),
-                    30.verticalSpace,
-                    ScreenState.setState(
-                      reqState: state.reqState,
-                      loading: () {
-                        return Expanded(
-                          child: const Center(
-                            child: MyCircularProgressIndicator(),
-                          ),
-                        );
-                      },
-                      error: () {
-                        return Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: SizeM.pagePadding.dg,
+              Column(
+                children: [
+                  49.verticalSpace,
+                  DefaultAppBar(
+                    actionButtons: [
+                      Expanded(
+                        child: Row(
+                          spacing: 14.w,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              Translation.notifications.tr,
+                              style: context.bodyLarge,
                             ),
-                            child: MyErrorWidget(
-                              onRetry: () {
-                                context.read<NotificationBloc>().add(
-                                  GetNotificationEvent(
-                                    isRefresh: true,
-                                    refreshController: refreshController,
-                                  ),
-                                );
-                              },
-                              errorMessage: state.errorMessage,
-                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 40.w),
+                    ],
+                  ).animatedOnAppear(4, SlideDirection.down),
+                  14.verticalSpace,
+                  ScreenState.setState(
+                    reqState: ReqState.success,
+                    loading: () {
+                      return Expanded(
+                        child: const Center(
+                          child: MyCircularProgressIndicator(),
+                        ),
+                      );
+                    },
+                    error: () {
+                      return Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: SizeM.pagePadding.dg,
                           ),
-                        );
-                      },
-                      empty: () {
-                        return Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: SizeM.pagePadding.dg,
-                            ),
-                            child: MyErrorWidget(
-                              onRetry: () {
-                                context.read<NotificationBloc>().add(
-                                  GetNotificationEvent(
-                                    isRefresh: true,
-                                    refreshController: refreshController,
-                                  ),
-                                );
-                              },
-                              errorMessage: "No notifications",
-                            ),
+                          child: MyErrorWidget(
+                            onRetry: () {
+                              context.read<NotificationBloc>().add(
+                                GetNotificationEvent(
+                                  isRefresh: true,
+                                  refreshController: refreshController,
+                                ),
+                              );
+                            },
+                            errorMessage: state.errorMessage,
                           ),
-                        );
-                      },
-                      online: () {
-                        return Expanded(
-                          child: _NotificationList(
-                            refreshController: refreshController,
-                            notifications: [],
+                        ),
+                      );
+                    },
+                    empty: () {
+                      return Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: SizeM.pagePadding.dg,
                           ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
+                          child: MyErrorWidget(
+                            onRetry: () {
+                              context.read<NotificationBloc>().add(
+                                GetNotificationEvent(
+                                  isRefresh: true,
+                                  refreshController: refreshController,
+                                ),
+                              );
+                            },
+                            errorMessage: "No notifications",
+                          ),
+                        ),
+                      );
+                    },
+                    online: () {
+                      return Expanded(
+                        child: _NotificationList(
+                          refreshController: refreshController,
+                          notifications: [],
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
             ],
           );
@@ -147,15 +166,20 @@ class _NotificationList extends StatelessWidget {
       child: ListView.separated(
         padding:
             EdgeInsets.symmetric(horizontal: SizeM.pagePadding.dg) +
-            EdgeInsets.only(top: 5.w, bottom: SizeM.pagePadding.dg),
+            EdgeInsets.only(
+              top: 15.w,
+              bottom:
+                  SizeM.pagePadding.dg +
+                  MediaQuery.viewPaddingOf(context).bottom,
+            ),
         itemBuilder: (context, index) => NotificationCard(
-          isNew: !notifications[index].isRead,
-          title: notifications[index].title,
-          message: notifications[index].message,
-          createdAt: notifications[index].createdAt,
+          isNew: index % 2 == 0,
+          title: "Notification Title",
+          message: "Enjoy 20% off all international eSIM plans this week only",
+          createdAt: DateTime.now(),
         ),
         separatorBuilder: (context, index) => 16.verticalSpace,
-        itemCount: notifications.length,
+        itemCount: 20,
       ),
     );
   }

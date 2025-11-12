@@ -37,32 +37,32 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    _themeMode =
-        instance<AppPreferences>().isDark ? ThemeMode.dark : ThemeMode.light;
+    _themeMode = !instance<AppPreferences>().isDark
+        ? ThemeMode.dark
+        : ThemeMode.light;
     // _themeMode = ThemeMode.light;
     return ScreenUtilInit(
-        designSize: const Size(375, 812),
-        builder: (context, details) {
-          return MaterialApp(
-            scaffoldMessengerKey: SCAFFOLD_MESSENGER_KEY,
-            navigatorKey: NAVIGATOR_KEY,
-            debugShowCheckedModeBanner:
-                false, //  FlavorConfig.instance.showBanner,
-            initialRoute: RoutesManager.splash.route,
-            theme: ThemeManager.lightTheme(context),
-            // darkTheme: ThemeManager.darkTheme,
-            themeMode: _themeMode,
-            localizationsDelegates: context.localizationDelegates,
-            supportedLocales: context.supportedLocales,
-            locale: context.locale,
-            onGenerateRoute: RoutesGeneratorManager.getRoute,
-            builder: (context, child) {
-                return GlobalKeyboardDismissal(
-                  child: child!,
-                );
-              },
-          );
-        });
+      designSize: const Size(375, 812),
+      builder: (context, details) {
+        return MaterialApp(
+          scaffoldMessengerKey: SCAFFOLD_MESSENGER_KEY,
+          navigatorKey: NAVIGATOR_KEY,
+          debugShowCheckedModeBanner:
+              false, //  FlavorConfig.instance.showBanner,
+          initialRoute: RoutesManager.splash.route,
+          theme: ThemeManager.lightTheme(context),
+          darkTheme: ThemeManager.darkTheme,
+          themeMode: _themeMode,
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+          onGenerateRoute: RoutesGeneratorManager.getRoute,
+          builder: (context, child) {
+            return GlobalKeyboardDismissal(child: child!);
+          },
+        );
+      },
+    );
   }
 
   set setTheme(ThemeMode themeMode) {

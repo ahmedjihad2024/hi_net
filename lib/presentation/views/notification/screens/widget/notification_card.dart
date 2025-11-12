@@ -1,16 +1,16 @@
 import 'package:hi_net/app/extensions.dart';
-import 'package:hi_net/data/responses/responses.dart';
+import 'package:hi_net/presentation/common/ui_components/gradient_border_side.dart'
+    as gradient_border;
 import 'package:hi_net/presentation/common/utils/fast_function.dart';
 import 'package:hi_net/presentation/res/assets_manager.dart';
 import 'package:hi_net/presentation/res/color_manager.dart';
 import 'package:hi_net/presentation/res/fonts_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:hi_net/presentation/res/sizes_manager.dart';
-import 'package:hi_net/presentation/common/ui_components/platform_safe_area.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hi_net/presentation/res/sizes_manager.dart';
 
 class NotificationCard extends StatelessWidget {
   const NotificationCard({
@@ -31,37 +31,30 @@ class NotificationCard extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(vertical: 10.w, horizontal: 14.w),
-      decoration: BoxDecoration(
+      decoration: ShapeDecoration(
+        shape: gradient_border.SmoothRectangleBorder(
+          borderRadius: BorderRadius.circular(SizeM.commonBorderRadius.r),
+          smoothness: 1,
+          side: gradient_border.BorderSide(
+            gradient: LinearGradient(
+              colors: [ColorM.primary, ColorM.secondary],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+            width: 1.w,
+          ),
+        ),
         color: isNew
-            ? context.colorScheme.surface.withValues(alpha: .03)
-            : context.colorScheme.surface.withValues(alpha: .03),
-        borderRadius: BorderRadius.circular(SizeM.commonBorderRadius.r),
-        border: isNew
-            ? Border.all(color: context.colorScheme.primary, width: 1.w)
-            : Border.all(
-                color: context.colorScheme.surface.withValues(alpha: .03),
-                width: 1.w,
-              ),
+            ? context.isDark
+                  ? ColorM.primaryDark
+                  : Color(0xFFFAFAFA)
+            : Colors.transparent,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 10.w,
+        spacing: 6.w,
         children: [
-          Container(
-            width: 32.w,
-            height: 32.w,
-            alignment: Alignment.center,
-            // padding: EdgeInsets.all(6.w),
-            decoration: BoxDecoration(
-              color: context.colorScheme.primary,
-              shape: BoxShape.circle,
-            ),
-            child: SvgPicture.asset(
-              "Notification icon",
-              width: 20.w,
-              height: 20.w,
-            ),
-          ),
+          Image.asset(ImagesM.bell, width: 43.w, height: 43.w),
           Flexible(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,12 +66,22 @@ class NotificationCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Flexible(
-                      child: Text(
-                        title,
-                        softWrap: true,
-                        style: context.bodyLarge.copyWith(
-                          fontWeight: FontWeightM.bold,
-                          color: context.colorScheme.primary,
+                      child: ShaderMask(
+                        shaderCallback: (Rect bounds) {
+                          return LinearGradient(
+                            colors: context.isDark
+                                ? [Colors.white, Colors.white]
+                                : [ColorM.primary, ColorM.secondary],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                          ).createShader(bounds);
+                        },
+                        child: Text(
+                          title,
+                          softWrap: true,
+                          style: context.bodyLarge.copyWith(
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
@@ -93,16 +96,14 @@ class NotificationCard extends StatelessWidget {
                       ),
                   ],
                 ),
-
                 2.verticalSpace,
-
                 // description
                 Text(
                   message,
                   softWrap: true,
                   style: context.labelMedium.copyWith(
-                    fontWeight: FontWeightM.regular,
-                    color: context.colorScheme.surface.withValues(alpha: 0.5),
+                    fontWeight: FontWeightM.light,
+                    color: context.colorScheme.surface.withValues(alpha: 0.8),
                   ),
                 ),
 
@@ -114,7 +115,8 @@ class NotificationCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      timeAgo(createdAt.toLocal(), context.locale),
+                      "Today, 10:30 AM",
+                      // timeAgo(createdAt.toLocal(), context.locale),
                       style: context.labelMedium.copyWith(
                         fontWeight: FontWeightM.regular,
                         color: context.colorScheme.surface.withValues(

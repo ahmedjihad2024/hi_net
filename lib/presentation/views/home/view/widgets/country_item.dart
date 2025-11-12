@@ -47,7 +47,7 @@ class _CountryItemState extends State<CountryItem> {
       width: double.infinity,
       padding: EdgeInsets.all(14.w),
       backgroundColor: context.colorScheme.onSurface,
-      borderRadius: SizeM.commonBorderRadius.r,
+      borderRadius: 99999,
       child: Row(
         spacing: 14.w,
         children: [
@@ -95,7 +95,7 @@ class _CountryItem2State extends State<CountryItem2> {
     return CustomInkButton(
       onTap: widget.onTap,
       width: double.infinity,
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+     backgroundColor: Colors.transparent,
       padding: EdgeInsets.symmetric(horizontal: SizeM.pagePadding.dg.w, vertical: 12.w),
       borderRadius: 0,
       child: Row(

@@ -49,7 +49,7 @@ class DefaultAppBar extends StatelessWidget {
       alignment: Alignment.center,
       child: RotatedBox(
         quarterTurns: Directionality.of(context) == TextDirection.rtl ? 2 : 0,
-        child: SvgPicture.asset(SvgM.arrowLeft, width: 14.w, height: 14.w),
+        child: SvgPicture.asset(SvgM.arrowLeft, width: 14.w, height: 14.w, colorFilter: ColorFilter.mode(context.colorScheme.surface, BlendMode.srcIn),),
       ),
     );
   }
@@ -93,7 +93,7 @@ class DefaultAppBar extends StatelessWidget {
           if(title != null) title,
       
           // Actions slot
-          Flexible(
+          Expanded(
             child: SizedBox(
               child: actions.isEmpty
                   ? null

@@ -61,7 +61,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             width: double.infinity,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: context.colorScheme.secondary,
+              color: context.colorScheme.onSurface,
               border: Border(
                 top: BorderSide(
                   color: context.colorScheme.surface.withValues(alpha: 0.1),

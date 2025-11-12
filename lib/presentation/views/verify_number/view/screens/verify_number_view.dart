@@ -71,8 +71,9 @@ class _VerifyNumberViewState extends State<VerifyNumberView> {
                         Text(
                           Translation.verify_your_number_message.tr,
                           style: context.bodyMedium.copyWith(
+                            fontWeight: FontWeightM.light,
                             color: context.bodyMedium.color!.withValues(
-                              alpha: .5,
+                              alpha: context.isDark ? .9 : .5,
                             ),
                           ),
                         ).animatedOnAppear(1, SlideDirection.down),
