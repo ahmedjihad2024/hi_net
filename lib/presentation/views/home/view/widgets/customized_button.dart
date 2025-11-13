@@ -56,7 +56,7 @@ class CustomizedButton extends StatelessWidget {
                   end: Alignment.centerRight,
                   colors: [ColorM.primary, ColorM.secondary],
                 ),
-                borderRadius: BorderRadius.circular(9.r),
+                borderRadius: BorderRadius.circular(99999),         
               ),
               alignment: Alignment.center,
               child: Text(

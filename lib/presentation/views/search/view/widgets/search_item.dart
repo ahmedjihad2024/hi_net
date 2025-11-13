@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hi_net/app/extensions.dart';
 import 'package:hi_net/presentation/common/ui_components/custom_cached_image.dart';
 import 'package:hi_net/presentation/common/ui_components/custom_ink_button.dart';
+import 'package:hi_net/presentation/common/ui_components/gradient_border_side.dart' as gradient_border_side;
 
 class SearchItem extends StatefulWidget {
   final String imageUrl;
@@ -27,7 +28,7 @@ class _SearchItemState extends State<SearchItem> {
       width: double.infinity,
       padding: EdgeInsets.all(14.w),
       borderRadius: 14.r,
-      side: BorderSide(
+      side: gradient_border_side.BorderSide(
         color: context.colorScheme.surface.withValues(alpha: 0.2),
         width: 1.w,
       ),

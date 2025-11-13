@@ -10,23 +10,24 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CustomizedSmartRefresh extends StatelessWidget {
   final Widget child;
   final RefreshController controller;
-  final ScrollController? scrollController; 
+  final ScrollController? scrollController;
   final void Function()? onLoading;
   final void Function()? onRefresh;
   final bool enableLoading;
   final EdgeInsetsGeometry? classicFooterPadding;
   final ScrollPhysics? physics;
 
-  const CustomizedSmartRefresh(
-      {super.key,
-      required this.child,
-      required this.controller,
-      this.scrollController,
-      this.onLoading,
-      this.onRefresh,
-      this.enableLoading = false,
-      this.classicFooterPadding,
-      this.physics});
+  const CustomizedSmartRefresh({
+    super.key,
+    required this.child,
+    required this.controller,
+    this.scrollController,
+    this.onLoading,
+    this.onRefresh,
+    this.enableLoading = false,
+    this.classicFooterPadding,
+    this.physics,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +37,28 @@ class CustomizedSmartRefresh extends StatelessWidget {
       enablePullUp: enableLoading,
       physics: physics,
       header: ClassicHeader(
-        idleIcon : const Icon(Icons.arrow_downward, color: ColorM.primary),
-        releaseIcon : const Icon(Icons.refresh, color: ColorM.primary),
+        idleIcon: ShaderMask(
+          shaderCallback: (Rect bounds) {
+            return LinearGradient(
+              colors: [ColorM.primary, ColorM.secondary],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              stops: [0.2, .6],
+            ).createShader(bounds);
+          },
+          child: const Icon(Icons.arrow_downward, color: Colors.white),
+        ),
+        releaseIcon: ShaderMask(
+          shaderCallback: (Rect bounds) {
+            return LinearGradient(
+              colors: [ColorM.primary, ColorM.secondary],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              stops: [0.2, .6],
+            ).createShader(bounds);
+          },
+          child: const Icon(Icons.refresh, color: Colors.white),
+        ),
         refreshingIcon: SizedBox(
           width: 25.0,
           height: 50.0.w,
@@ -60,7 +81,6 @@ class CustomizedSmartRefresh extends StatelessWidget {
         releaseText: '',
         canTwoLevelText: '',
         textStyle: TextStyle(fontSize: 0, height: 0),
-
       ),
       footer: ClassicFooter(
         outerBuilder: (child) {
@@ -70,8 +90,9 @@ class CustomizedSmartRefresh extends StatelessWidget {
           );
         },
         textStyle: context.labelSmall.copyWith(
-            color: context.colorScheme.surface.withValues(alpha: .5),
-            fontWeight: FontWeightM.medium),
+          color: context.colorScheme.surface.withValues(alpha: .5),
+          fontWeight: FontWeightM.medium,
+        ),
         loadingText: Translation.loading.tr,
         noDataText: Translation.no_more.tr,
         failedText: Translation.failed_loading.tr,
@@ -84,6 +105,7 @@ class CustomizedSmartRefresh extends StatelessWidget {
           height: 15.w,
           child: CircularProgressIndicator(
             color: ColorM.primary,
+            valueColor: AlwaysStoppedAnimation<Color>(ColorM.primary),
             backgroundColor: Colors.transparent,
             strokeWidth: 2.2,
             strokeCap: StrokeCap.round,

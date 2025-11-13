@@ -5,6 +5,8 @@ import 'package:hi_net/app/enums.dart';
 import 'package:hi_net/presentation/views/checkout/view/screens/checkout_view.dart';
 import 'package:hi_net/presentation/views/esim_details/view/screens/esim_details_view.dart';
 import 'package:hi_net/presentation/views/home/view/screens/home_view.dart';
+import 'package:hi_net/presentation/views/instructions/view/screens/instructions_view.dart';
+import 'package:hi_net/presentation/views/my_esim_details/view/screens/my_esim_details_view.dart';
 import 'package:hi_net/presentation/views/notification/bloc/notification_bloc.dart';
 import 'package:hi_net/presentation/views/notification/screens/view/notification_view.dart';
 import 'package:hi_net/presentation/views/on_boarding/screens/on_boarding_view.dart';
@@ -25,7 +27,9 @@ enum RoutesManager {
   search('search/'),
   esimDetails('esim-details/'),
   checkout('checkout/'),
-  notifications('notifications/');
+  notifications('notifications/'),
+  myEsimDetails('my-esim-details/'),
+  instructions('instructions/');
 
   final String route;
 
@@ -53,6 +57,8 @@ class RoutesGeneratorManager {
         create: (context) => instance<NotificationBloc>(),
         child: const NotificationView(),
       ),
+      RoutesManager.myEsimDetails => const MyEsimDetailsView(),
+      RoutesManager.instructions => const InstructionsView(),
     };
   }
 

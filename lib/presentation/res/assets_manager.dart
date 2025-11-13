@@ -32,6 +32,14 @@ class SvgM {
   static const String arrowSwapHorizontal =
       "$_svgPath/arrow-swap-horizontal.svg";
   static const String successCheck = "$_svgPath/success_check.svg";
+  static const String activeCircle = "$_svgPath/active_circle.svg";
+  static const String arrowUp = "$_svgPath/arrow-up.svg";
+  static const String danger = "$_svgPath/danger.svg";
+  static const String import = "$_svgPath/import.svg";
+  static const String radar = "$_svgPath/radar.svg";
+  static const String doubleArrow3 = "$_svgPath/double-arrow-3.svg";
+  static const String share = "$_svgPath/share.svg";
+  static const String copy = "$_svgPath/copy.svg";
 }
 
 class ImagesM {
@@ -45,4 +53,5 @@ class ImagesM {
   static const String visa = "$_imagesPath/visa.png";
   static const String wallet = "$_imagesPath/wallet.png";
   static const String bell = "$_imagesPath/bell.png";
+  static const String checkGradiant = "$_imagesPath/check_gradiant.png";
 }

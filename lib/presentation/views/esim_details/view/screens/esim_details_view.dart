@@ -319,24 +319,27 @@ class PlansInfoItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: crossAxisAlignment,
-      spacing: 5.w,
-      children: [
-        Text(
-          title,
-          style: context.labelMedium.copyWith(
-            height: 1.2,
-            fontWeight: FontWeightM.light,
-            fontSize: 11.sp,
-            color: context.labelMedium.color!.withValues(alpha: .5),
+    return Flexible(
+      child: Column(
+        crossAxisAlignment: crossAxisAlignment,
+        spacing: 5.w,
+        children: [
+          Text(
+            title,
+            style: context.labelMedium.copyWith(
+              height: 1.2,
+              fontWeight: FontWeightM.light,
+              fontSize: 11.sp,
+              color: context.labelMedium.color!.withValues(alpha: .5),
+            ),
           ),
-        ),
-        Text(
-          value,
-          style: context.labelMedium.copyWith(height: 1.2, fontSize: 13.sp),
-        ),
-      ],
+          Text(
+            value,
+            softWrap: true,
+            style: context.labelMedium.copyWith(height: 1.2, fontSize: 13.sp),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -390,7 +393,7 @@ class _FaqExpansionTileCardState extends State<FaqExpansionTileCard> {
           EdgeInsets.symmetric(horizontal: 16.dg) +
           EdgeInsets.only(bottom: 16.dg),
       title: widget.title != null
-          ? Text(widget.title!, style: context.bodyLarge.copyWith(height: 1.2))
+          ? Text(widget.title!, style: context.bodyLarge.copyWith(height: 1.2,))
           : widget.titleWidget ?? const SizedBox.shrink(),
       children: widget.children,
     );

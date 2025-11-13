@@ -54,7 +54,7 @@ class _NotificationViewState extends State<NotificationView> with AfterLayout {
                       ),
                       SizedBox(width: 40.w),
                     ],
-                  ).animatedOnAppear(4, SlideDirection.down),
+                  ).animatedOnAppear(0, SlideDirection.down),
                   14.verticalSpace,
                   ScreenState.setState(
                     reqState: ReqState.success,
@@ -62,7 +62,7 @@ class _NotificationViewState extends State<NotificationView> with AfterLayout {
                       return Expanded(
                         child: const Center(
                           child: MyCircularProgressIndicator(),
-                        ),
+                        ).animatedOnAppear(0, SlideDirection.up),
                       );
                     },
                     error: () {
@@ -82,7 +82,7 @@ class _NotificationViewState extends State<NotificationView> with AfterLayout {
                             },
                             errorMessage: state.errorMessage,
                           ),
-                        ),
+                        ).animatedOnAppear(0, SlideDirection.up),
                       );
                     },
                     empty: () {
@@ -102,7 +102,7 @@ class _NotificationViewState extends State<NotificationView> with AfterLayout {
                             },
                             errorMessage: "No notifications",
                           ),
-                        ),
+                        ).animatedOnAppear(0, SlideDirection.up),
                       );
                     },
                     online: () {
@@ -110,7 +110,7 @@ class _NotificationViewState extends State<NotificationView> with AfterLayout {
                         child: _NotificationList(
                           refreshController: refreshController,
                           notifications: [],
-                        ),
+                        ).animatedOnAppear(0, SlideDirection.up),
                       );
                     },
                   ),

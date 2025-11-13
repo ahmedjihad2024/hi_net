@@ -37,7 +37,7 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    _themeMode = !instance<AppPreferences>().isDark
+    _themeMode = instance<AppPreferences>().isDark
         ? ThemeMode.dark
         : ThemeMode.light;
     // _themeMode = ThemeMode.light;

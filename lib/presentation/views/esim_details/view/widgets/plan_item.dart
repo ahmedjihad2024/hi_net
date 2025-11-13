@@ -7,6 +7,7 @@ import 'package:hi_net/presentation/res/assets_manager.dart';
 import 'package:hi_net/presentation/res/color_manager.dart';
 import 'package:hi_net/presentation/res/fonts_manager.dart';
 import 'package:hi_net/presentation/res/translations_manager.dart';
+import 'package:hi_net/presentation/common/ui_components/gradient_border_side.dart' as gradient_border_side;
 
 class PlanItem extends StatefulWidget {
   final int days;
@@ -66,8 +67,8 @@ class _PlanItemState extends State<PlanItem> {
       padding: EdgeInsets.all(14.w),
       borderRadius: 14.r,
       side: isSelected
-          ? BorderSide.none
-          : BorderSide(
+          ? gradient_border_side.BorderSide.none
+          : gradient_border_side.BorderSide(
               color: context.colorScheme.surface.withValues(alpha: .1),
             ),
       gradient: LinearGradient(

@@ -30,6 +30,7 @@ class AnimatedTapsNavigator extends StatefulWidget {
   final double? fontSize;
   final FontWeight? fontWeight;
   final Color? stickColor;
+  final Gradient? stickGradient;
   final double? stickBorderRadius;
   final Duration? animationDuration;
   final Curve? animationCurve;
@@ -56,6 +57,7 @@ class AnimatedTapsNavigator extends StatefulWidget {
     this.fontSize,
     this.fontWeight,
     this.stickColor,
+    this.stickGradient,
     this.stickBorderRadius,
     this.animationDuration,
     this.animationCurve,
@@ -81,7 +83,8 @@ class _AnimatedTapsNavigatorState extends State<AnimatedTapsNavigator> {
   late Color inactiveTextColor;
   late double fontSize;
   late FontWeight fontWeight;
-  late Color stickColor;
+  late Color? stickColor;
+  late Gradient? stickGradient;
   late double stickBorderRadius;
   late Duration animationDuration;
   late Curve animationCurve;
@@ -100,7 +103,8 @@ class _AnimatedTapsNavigatorState extends State<AnimatedTapsNavigator> {
     inactiveTextColor = widget.inactiveTextColor ?? const Color(0xFF6A6A6A);
     fontSize = widget.fontSize ?? 14.sp;
     fontWeight = widget.fontWeight ?? FontWeightM.medium;
-    stickColor = widget.stickColor ?? ColorM.primary;
+    stickColor = widget.stickColor;
+    stickGradient = widget.stickGradient;
     stickBorderRadius = widget.stickBorderRadius ?? 6.r;
     animationDuration =
         widget.animationDuration ?? const Duration(milliseconds: 300);
@@ -160,6 +164,7 @@ class _AnimatedTapsNavigatorState extends State<AnimatedTapsNavigator> {
                     height: stickHeight,
                     decoration: ShapeDecoration(
                       color: stickColor,
+                      gradient: stickGradient,
                       shape: SmoothRectangleBorder(
                         smoothness: 1,
                         borderRadius: BorderRadius.circular(stickBorderRadius),

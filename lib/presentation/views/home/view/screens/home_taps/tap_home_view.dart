@@ -36,8 +36,7 @@ import 'package:smooth_corner/smooth_corner.dart';
 enum TapHomeViewType { countries, regional, global }
 
 class TapHomeView extends StatefulWidget {
-  final double totalBottomNavHeight;
-  const TapHomeView({super.key, required this.totalBottomNavHeight});
+  const TapHomeView({super.key});
 
   @override
   State<TapHomeView> createState() => _TapHomeViewState();
@@ -60,34 +59,30 @@ class _TapHomeViewState extends State<TapHomeView>
       child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
 
-        child: PlatformSafeArea(
-          bottom: false,
-          top: false,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              40.verticalSpace,
-              topAppBar().animatedOnAppear(3),
-              16.verticalSpace,
-              Pannar().animatedOnAppear(2),
-              16.verticalSpace,
-              internetUsage().animatedOnAppear(1),
-              16.verticalSpace,
-              searchAndFilter().animatedOnAppear(0),
-              16.verticalSpace,
-              mostRequested().animatedOnAppear(0, SlideDirection.up),
-              32.verticalSpace,
-              Container(
-                color: context.colorScheme.onSurface,
-                child: Column(
-                  children: [
-                    tapNavigator().animatedOnAppear(1, SlideDirection.up),
-                    taps().animatedOnAppear(2, SlideDirection.up),
-                  ],
-                ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            40.verticalSpace,
+            topAppBar().animatedOnAppear(3),
+            16.verticalSpace,
+            Pannar().animatedOnAppear(2),
+            16.verticalSpace,
+            internetUsage().animatedOnAppear(1),
+            16.verticalSpace,
+            searchAndFilter().animatedOnAppear(0),
+            16.verticalSpace,
+            mostRequested().animatedOnAppear(0, SlideDirection.up),
+            32.verticalSpace,
+            Container(
+              color: context.colorScheme.onSurface,
+              child: Column(
+                children: [
+                  tapNavigator().animatedOnAppear(1, SlideDirection.up),
+                  taps().animatedOnAppear(2, SlideDirection.up),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -253,6 +248,7 @@ class _TapHomeViewState extends State<TapHomeView>
                   ),
                 )
               : HalfCircleProgress(
+                 delay: Duration(milliseconds: 500),
                   size: 110.w,
                   progress: .7,
                   strokeWidth: 11,
@@ -416,7 +412,7 @@ class _TapHomeViewState extends State<TapHomeView>
       valueListenable: _selectedTap,
       builder: (context, selectedTapValue, child) {
         return AnimatedTapsNavigator(
-          tabs: ["Countries", "Regional", "Global"],
+          tabs: [Translation.countries.tr, Translation.regional.tr, Translation.global.tr],
           selectedTap: selectedTapValue,
           onTap: (index) {
             _selectedTap.value = index;

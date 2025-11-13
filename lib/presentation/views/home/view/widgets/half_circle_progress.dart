@@ -1,4 +1,5 @@
 
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -7,22 +8,25 @@ class HalfCircleProgress extends StatefulWidget {
   final double size;
   final double progress; // 0.0 to 1.0
   final double strokeWidth;
-  final Color progressColor;
+  final Color? progressColor;
+  final Gradient? progressGradient;
   final Color backgroundColor;
   final Widget? child; // Custom widget for center content
   final Duration animationDuration;
   final Curve animationCurve;
-
+  final Duration delay;
   const HalfCircleProgress({
     Key? key,
     this.size = 100,
     required this.progress,
     this.strokeWidth = 8,
     this.progressColor = Colors.blue,
+    this.progressGradient,
     this.backgroundColor = Colors.grey,
     this.child,
     this.animationDuration = const Duration(milliseconds: 1000),
     this.animationCurve = Curves.fastEaseInToSlowEaseOut,
+    this.delay = const Duration(milliseconds: 0),
   }) : super(key: key);
 
   @override
@@ -48,8 +52,11 @@ class _HalfCircleProgressState extends State<HalfCircleProgress>
           CurvedAnimation(parent: _controller, curve: widget.animationCurve),
         );
 
-    _controller.forward();
     _previousProgress = widget.progress;
+
+    Timer(widget.delay, () {
+      _controller.forward();
+    });
   }
 
   @override
@@ -98,6 +105,7 @@ class _HalfCircleProgressState extends State<HalfCircleProgress>
                   progress: _animation.value,
                   strokeWidth: widget.strokeWidth,
                   progressColor: widget.progressColor,
+                  progressGradient: widget.progressGradient,
                   backgroundColor: widget.backgroundColor,
                 ),
               ),
@@ -114,13 +122,15 @@ class _HalfCircleProgressState extends State<HalfCircleProgress>
 class HalfCircleProgressPainter extends CustomPainter {
   final double progress;
   final double strokeWidth;
-  final Color progressColor;
+  final Color? progressColor;
+  final Gradient? progressGradient;
   final Color backgroundColor;
 
   HalfCircleProgressPainter({
     required this.progress,
     required this.strokeWidth,
-    required this.progressColor,
+    this.progressColor,
+    this.progressGradient,
     required this.backgroundColor,
   });
 
@@ -146,10 +156,15 @@ class HalfCircleProgressPainter extends CustomPainter {
 
     // Progress arc
     final progressPaint = Paint()
-      ..color = progressColor
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.round;
+    
+    if (progressGradient != null) {
+      progressPaint.shader = progressGradient!.createShader(Rect.fromCircle(center: center, radius: radius));
+    } else {
+      progressPaint.color = progressColor!;
+    }
 
     canvas.drawArc(
       Rect.fromCircle(center: center, radius: radius),

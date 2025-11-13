@@ -101,7 +101,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
-                            spacing: 8.w,
+                            spacing: 4.w,
                             children: [
                               // icon
                               SvgPicture.asset(
@@ -125,7 +125,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
                                   softWrap: true,
                                   textAlign: TextAlign.center,
                                   style: context.titleMedium.copyWith(
-                                    height: 1,
                                     color: Colors.white,
                                   ),
                                 ),

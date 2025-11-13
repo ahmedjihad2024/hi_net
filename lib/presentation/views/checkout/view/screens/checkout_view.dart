@@ -10,6 +10,7 @@ import 'package:hi_net/presentation/common/ui_components/custom_check_box.dart';
 import 'package:hi_net/presentation/common/ui_components/custom_form_field/simple_form.dart';
 import 'package:hi_net/presentation/common/ui_components/custom_ink_button.dart';
 import 'package:hi_net/presentation/common/ui_components/default_app_bar.dart';
+import 'package:hi_net/presentation/common/ui_components/gradient_border_side.dart' as gradient_border_side;
 import 'package:hi_net/presentation/res/assets_manager.dart';
 import 'package:hi_net/presentation/res/color_manager.dart';
 import 'package:hi_net/presentation/res/fonts_manager.dart';
@@ -173,7 +174,7 @@ class _CheckoutViewState extends State<CheckoutView> {
       width: double.infinity,
       padding: EdgeInsets.all(14.w),
       borderRadius: 14.r,
-      side: BorderSide(
+      side: gradient_border_side.BorderSide(
         color: context.colorScheme.surface.withValues(alpha: .1),
       ),
       child: Row(

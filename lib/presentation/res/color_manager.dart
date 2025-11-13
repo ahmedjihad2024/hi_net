@@ -9,4 +9,6 @@ abstract class ColorM {
   static const Color primaryDark = Color(0xFF171717);
   static const Color secondaryDark = Color(0x00000000);
 
+  static const Color gray = Color(0xFFFAFAFA);
+
 }
