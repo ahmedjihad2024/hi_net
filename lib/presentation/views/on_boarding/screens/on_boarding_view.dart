@@ -230,7 +230,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                                     ),
                                   ],
                                 ),
-                                       // description
+                                // description
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -289,7 +289,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                                             )
                                           : null,
                                     ),
-                                    child: AnimatedContainer(  
+                                    child: AnimatedContainer(
                                       duration: Duration(milliseconds: 500),
                                       curve: Curves.fastLinearToSlowEaseIn,
                                       width: 11.w,
@@ -385,8 +385,6 @@ class NextButton extends StatelessWidget {
             spacing: 7.w,
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (!isLastPage)
-                SvgPicture.asset(SvgM.doubleArrow, width: 12.w, height: 12.h),
               Text(
                 isLastPage ? Translation.join_now.tr : Translation.next.tr,
                 style: context.labelLarge.copyWith(
@@ -395,6 +393,15 @@ class NextButton extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
+              if (!isLastPage)
+                RotatedBox(
+                  quarterTurns: Directionality.of(context) == TextDirection.rtl ? 2 : 0,
+                  child: SvgPicture.asset(
+                    SvgM.doubleArrow,
+                    width: 12.w,
+                    height: 12.h,
+                  ),
+                ),
             ],
           ),
         );

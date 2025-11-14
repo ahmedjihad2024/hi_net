@@ -28,7 +28,7 @@ class _PaymentMethodItemState extends State<PaymentMethodItem> {
   @override
   void initState() {
     super.initState();
-    isSelected = isSelected;
+    isSelected = widget.isSelected;
   }
 
   void _onChange(bool value) {

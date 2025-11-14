@@ -430,13 +430,22 @@ class _MyEsimDetailsViewState extends State<MyEsimDetailsView> {
               spacing: 7.w,
               mainAxisSize: MainAxisSize.min,
               children: [
-                SvgPicture.asset(SvgM.doubleArrow2, width: 12.w, height: 12.h),
                 Text(
                   Translation.checkout.tr,
                   style: context.labelLarge.copyWith(
                     fontWeight: FontWeightM.semiBold,
                     height: 1,
                     color: Colors.white,
+                  ),
+                ),
+                RotatedBox(
+                  quarterTurns: Directionality.of(context) == TextDirection.rtl
+                      ? 2
+                      : 0,
+                  child: SvgPicture.asset(
+                    SvgM.doubleArrow2,
+                    width: 12.w,
+                    height: 12.w,
                   ),
                 ),
               ],

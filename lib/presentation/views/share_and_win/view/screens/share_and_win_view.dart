@@ -333,7 +333,7 @@ class _ShareAndWinViewState extends State<ShareAndWinView> {
           side: BorderSide(
             color: context.isDark
                 ? const Color(0xFF111113)
-                : Colors.white.withValues(alpha: 0.1),
+                : Colors.black.withValues(alpha: 0.1),
             width: 1.w,
           ),
         ),

@@ -8,6 +8,7 @@ import 'package:hi_net/presentation/res/assets_manager.dart';
 import 'package:hi_net/presentation/res/color_manager.dart';
 import 'package:hi_net/presentation/res/fonts_manager.dart';
 import 'package:hi_net/presentation/res/sizes_manager.dart';
+import 'package:hi_net/presentation/res/translations_manager.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 
 class TapQrCodeView extends StatefulWidget {
@@ -50,7 +51,7 @@ class _TapQrCodeViewState extends State<TapQrCodeView> {
                   ),
                   Expanded(
                     child: Text(
-                      'Most eSIMs can only be installed once.\nIf you remove the eSIM from your device, you cannot install it again.',
+                      Translation.qr_warning_message.tr,
                       style: TextStyle(
                         fontSize: 12.sp,
                         fontWeight: FontWeightM.regular,
@@ -111,7 +112,7 @@ class _TapQrCodeViewState extends State<TapQrCodeView> {
                         ),
                       ),
                       Text(
-                        'Share QR Code',
+                        Translation.share_qr_code.tr,
                         style: TextStyle(
                           fontSize: 14.sp,
                           fontWeight: FontWeightM.regular,
@@ -130,7 +131,7 @@ class _TapQrCodeViewState extends State<TapQrCodeView> {
       
                 // Description Text
                 Text(
-                  'Scan the QR code by printing out or displaying the code on another device to install your eSIM.',
+                  Translation.qr_scan_description.tr,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 12.sp,
@@ -179,33 +180,33 @@ class _TapQrCodeViewState extends State<TapQrCodeView> {
         _buildInstructionItem(
           context,
           1,
-          'Go to the Settings, tap ',
-          ['Connections'],
-          ', then tap ',
-          ['SIM card manager'],
-          ' on your device.',
+          Translation.qr_step_1.tr,
+          [Translation.connections.tr],
+          Translation.comma_then_tap.tr,
+          [Translation.sim_card_manager.tr],
+          Translation.on_your_device.tr,
           textColor,
         ),
         16.verticalSpace,
         _buildInstructionItem(
           context,
           2,
-          'Tap ',
-          ['Add mobile plan'],
-          ', then tap ',
-          ['Scan carrier QR code'],
-          '.',
+          Translation.tap.tr,
+          [Translation.add_mobile_plan.tr],
+          Translation.comma_then_tap.tr,
+          [Translation.scan_carrier_qr_code.tr],
+          Translation.period.tr,
           textColor,
         ),
         16.verticalSpace,
         _buildInstructionItem(
           context,
           3,
-          'Scan the QR code available on the eRhika SIM app, then tap ',
-          ['Confirm'],
+          Translation.qr_step_2.tr,
+          [Translation.confirm_action.tr],
           '',
           [],
-          '.',
+          Translation.period.tr,
           textColor,
         ),
       ],

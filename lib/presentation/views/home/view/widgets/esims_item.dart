@@ -38,9 +38,9 @@ class EsimsItem extends StatelessWidget {
           smoothness: 1,
           borderRadius: BorderRadius.circular(14.r),
           side: BorderSide(
-            color: context.isDark ? Color(0xFF171717): Color(0xFFF0F0F0),
+            color: context.isDark ? Color(0xFF171717) : Color(0xFFF0F0F0),
             width: 1.w,
-          )
+          ),
         ),
       ),
       child: Column(
@@ -146,11 +146,7 @@ class EsimsItem extends StatelessWidget {
                         fit: BoxFit.scaleDown,
                         child: Text(
                           Translation.lefts_of.trNamed({'lefts': '12'}),
-                          style: TextStyle(
-                            fontSize: 11.sp,
-                            color: Colors.white,
-                            height: 1.2,
-                          ),
+                          style: TextStyle(fontSize: 11.sp, height: 1.2),
                         ),
                       ),
                     ),
@@ -162,7 +158,6 @@ class EsimsItem extends StatelessWidget {
 
           // third row
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               PlansInfoItem(
@@ -191,7 +186,7 @@ class EsimsItem extends StatelessWidget {
 
               PlansInfoItem(
                 title: Translation.iccid.tr,
-                value: "94499489494894efef",
+                value: "4894efef",
                 crossAxisAlignment: CrossAxisAlignment.start,
               ),
             ],
@@ -240,7 +235,7 @@ class EsimsItem extends StatelessWidget {
               Expanded(
                 child: CustomInkButton(
                   onTap: () {
-                    if(isActive) {
+                    if (isActive) {
                       onRenew();
                     } else {
                       onActivationWay();
@@ -269,7 +264,9 @@ class EsimsItem extends StatelessWidget {
                           ).createShader(bounds);
                         },
                         child: Text(
-                          isActive ? Translation.renew.tr : Translation.activation_way.tr,
+                          isActive
+                              ? Translation.renew.tr
+                              : Translation.activation_way.tr,
                           style: context.labelLarge.copyWith(
                             fontWeight: FontWeightM.regular,
                             height: 1.2,
@@ -277,10 +274,16 @@ class EsimsItem extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SvgPicture.asset(
-                        SvgM.doubleArrow3,
-                        width: 12.w,
-                        height: 12.h,
+                      RotatedBox(
+                        quarterTurns:
+                            Directionality.of(context) == TextDirection.rtl
+                            ? 2
+                            : 0,
+                        child: SvgPicture.asset(
+                          SvgM.doubleArrow3,
+                          width: 12.w,
+                          height: 12.w,
+                        ),
                       ),
                     ],
                   ),

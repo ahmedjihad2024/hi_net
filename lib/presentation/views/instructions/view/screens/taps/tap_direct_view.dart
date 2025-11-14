@@ -8,7 +8,6 @@ import 'package:hi_net/presentation/res/color_manager.dart';
 import 'package:hi_net/presentation/res/fonts_manager.dart';
 import 'package:hi_net/presentation/res/sizes_manager.dart';
 import 'package:hi_net/presentation/res/translations_manager.dart';
-import 'package:hi_net/presentation/views/esim_details/view/screens/esim_details_view.dart';
 import 'package:hi_net/presentation/views/instructions/view/widgets/installation_way_bottom_sheet.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 
@@ -52,9 +51,9 @@ class _TapDirectViewState extends State<TapDirectView> {
             ],
           ),
         ),
-
+        
         24.verticalSpace,
-
+        
         // Step 01 Section
         Padding(
           padding: EdgeInsets.symmetric(horizontal: SizeM.pagePadding.dg),
@@ -71,7 +70,7 @@ class _TapDirectViewState extends State<TapDirectView> {
                   ).createShader(bounds);
                 },
                 child: Text(
-                  'Step 01',
+                  Translation.step_01.tr,
                   style: TextStyle(
                     fontSize: 18.sp,
                     fontWeight: FontWeightM.regular,
@@ -82,12 +81,14 @@ class _TapDirectViewState extends State<TapDirectView> {
                 ),
               ),
               14.verticalSpace,
-
+        
               // Note Box
               Container(
                 padding: EdgeInsets.all(12.w),
                 decoration: ShapeDecoration(
-                  color: context.isDark ? Color(0xFF171717) : Color(0xFFFAFAFA),
+                  color: context.isDark
+                      ? Color(0xFF171717)
+                      : Color(0xFFFAFAFA),
                   shape: SmoothRectangleBorder(
                     smoothness: 1,
                     borderRadius: BorderRadius.circular(12.r),
@@ -109,7 +110,7 @@ class _TapDirectViewState extends State<TapDirectView> {
                     Expanded(
                       child: context.isDark
                           ? Text(
-                              'Note: The eSIM installation process must not be interrupted and make sure your device has a stable internet connection before installing.',
+                              Translation.note_esim_installation_warning.tr,
                               style: TextStyle(
                                 fontSize: 12.sp,
                                 fontWeight: FontWeightM.light,
@@ -127,7 +128,7 @@ class _TapDirectViewState extends State<TapDirectView> {
                                 ).createShader(bounds);
                               },
                               child: Text(
-                                'Note: The eSIM installation process must not be interrupted and make sure your device has a stable internet connection before installing.',
+                                Translation.note_esim_installation_warning.tr,
                                 style: TextStyle(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeightM.light,
@@ -142,7 +143,7 @@ class _TapDirectViewState extends State<TapDirectView> {
                 ),
               ),
               16.verticalSpace,
-
+        
               // Numbered Instructions List
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,43 +151,42 @@ class _TapDirectViewState extends State<TapDirectView> {
                   _buildInstructionItem(
                     context,
                     1,
-                    'Tap "Install eSIM", tap "Continue" twice and wait for a while.\nYour SIM will connect to the network, this may take a few minutes, then tap "Done".',
+                    Translation.direct_step_1.tr,
                   ),
                   12.verticalSpace,
                   _buildInstructionItem(
                     context,
                     2,
-                    'Choose a label for your new slim plan.',
+                    Translation.direct_step_2.tr,
                   ),
                   12.verticalSpace,
                   _buildInstructionItem(
                     context,
                     3,
-                    'Choose "Primary" for your default line, then tap "Continue".',
+                    Translation.direct_step_3.tr,
                   ),
                   12.verticalSpace,
                   _buildInstructionItem(
                     context,
                     4,
-                    'Choose the "Primary" line you want to use with iMessage and FaceTime for your Apple ID, then tap "Continue".',
+                    Translation.direct_step_4.tr,
                   ),
                   12.verticalSpace,
                   _buildInstructionItem(
                     context,
                     5,
-                    'Choose your new slim plan for cellular/mobile data, then tap "Continue".',
+                    Translation.direct_step_5.tr,
                   ),
                 ],
               ),
             ],
           ),
         ),
-
+        
         24.verticalSpace,
-
+        
         const Spacer(),
-
-
+        
         Container(
           padding:
               EdgeInsets.symmetric(horizontal: SizeM.pagePadding.dg) +
@@ -234,7 +234,7 @@ class _TapDirectViewState extends State<TapDirectView> {
                   ),
                 ),
               ),
-
+        
               Expanded(
                 child: CustomInkButton(
                   onTap: () {

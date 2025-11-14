@@ -317,7 +317,7 @@ class _TapHomeViewState extends State<TapHomeView>
           Row(
             children: [
               Filter(
-                selectedFilter: "All Countries",
+                selectedFilter: Translation.all_countries.tr,
                 label: Translation.country.tr,
                 onTap: () {
                   SelectCountrBottomSheet.show(context);
@@ -331,7 +331,7 @@ class _TapHomeViewState extends State<TapHomeView>
               ),
               13.horizontalSpace,
               Filter(
-                selectedFilter: "Any Duration",
+                selectedFilter: Translation.all_duration.tr,
                 label: Translation.duration.tr,
                 onTap: () {
                   SelectDurationBottomSheet.show(context);

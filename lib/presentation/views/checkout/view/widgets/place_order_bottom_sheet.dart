@@ -216,7 +216,17 @@ class _PlaceOrderBottomSheetState extends State<PlaceOrderBottomSheet> {
               color: Colors.white,
             ),
           ),
-          SvgPicture.asset(SvgM.doubleArrow2, width: 12.w, height: 12.h),
+
+          RotatedBox(
+            quarterTurns: Directionality.of(context) == TextDirection.rtl
+                ? 2
+                : 0,
+            child: SvgPicture.asset(
+              SvgM.doubleArrow2,
+              width: 12.w,
+              height: 12.w,
+            ),
+          ),
         ],
       ),
     );

@@ -84,7 +84,7 @@ class _ChooseAnotherPlanBottomSheetState
                     ? ColorM.primaryDark
                     : context.colorScheme.surface.withValues(alpha: 0.05),
               ),
-                    
+
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
@@ -170,7 +170,16 @@ class _ChooseAnotherPlanBottomSheetState
               color: Colors.white,
             ),
           ),
-          SvgPicture.asset(SvgM.doubleArrow2, width: 12.w, height: 12.h),
+          RotatedBox(
+            quarterTurns: Directionality.of(context) == TextDirection.rtl
+                ? 2
+                : 0,
+            child: SvgPicture.asset(
+              SvgM.doubleArrow2,
+              width: 12.w,
+              height: 12.w,
+            ),
+          ),
         ],
       ),
     );

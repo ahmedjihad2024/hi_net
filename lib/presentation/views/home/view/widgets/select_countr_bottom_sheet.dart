@@ -21,7 +21,10 @@ class SelectCountrBottomSheet extends StatefulWidget {
   State<SelectCountrBottomSheet> createState() =>
       _SelectCountrBottomSheetState();
 
-  static Future<void> show(BuildContext context, {bool isFromSearch = false}) async {
+  static Future<void> show(
+    BuildContext context, {
+    bool isFromSearch = false,
+  }) async {
     await showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -79,7 +82,9 @@ class _SelectCountrBottomSheetState extends State<SelectCountrBottomSheet> {
                   smoothness: 1,
                   borderRadius: BorderRadius.circular(14.r),
                 ),
-                color: context.isDark ? ColorM.primaryDark : context.colorScheme.surface.withValues(alpha: 0.05),
+                color: context.isDark
+                    ? ColorM.primaryDark
+                    : context.colorScheme.surface.withValues(alpha: 0.05),
               ),
 
               child: Column(
@@ -97,7 +102,11 @@ class _SelectCountrBottomSheetState extends State<SelectCountrBottomSheet> {
                   nextButton(
                     onTap: () {
                       Navigator.of(context).pop();
-                      SelectDurationBottomSheet.show(context, isFromSearch: widget.isFromSearch, isFromSelectCountry: true);
+                      SelectDurationBottomSheet.show(
+                        context,
+                        isFromSearch: widget.isFromSearch,
+                        isFromSelectCountry: true,
+                      );
                     },
                   ),
                 ],
@@ -171,7 +180,11 @@ class _SelectCountrBottomSheetState extends State<SelectCountrBottomSheet> {
           return LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Colors.white, Colors.white, ( context.isDark ? Colors.black : Colors.transparent)],
+            colors: [
+              Colors.white,
+              Colors.white,
+              (context.isDark ? Colors.black : Colors.transparent),
+            ],
             stops: [0, .75, 1],
             tileMode: TileMode.clamp,
           ).createShader(rect);
@@ -211,13 +224,22 @@ class _SelectCountrBottomSheetState extends State<SelectCountrBottomSheet> {
         spacing: 7.w,
         mainAxisSize: MainAxisSize.min,
         children: [
-          SvgPicture.asset(SvgM.doubleArrow2, width: 12.w, height: 12.h),
           Text(
             Translation.next.tr,
             style: context.labelLarge.copyWith(
               fontWeight: FontWeightM.semiBold,
               height: 1,
               color: Colors.white,
+            ),
+          ),
+          RotatedBox(
+            quarterTurns: Directionality.of(context) == TextDirection.rtl
+                ? 2
+                : 0,
+            child: SvgPicture.asset(
+              SvgM.doubleArrow2,
+              width: 12.w,
+              height: 12.w,
             ),
           ),
         ],

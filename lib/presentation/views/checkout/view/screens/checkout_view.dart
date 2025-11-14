@@ -10,7 +10,8 @@ import 'package:hi_net/presentation/common/ui_components/custom_check_box.dart';
 import 'package:hi_net/presentation/common/ui_components/custom_form_field/simple_form.dart';
 import 'package:hi_net/presentation/common/ui_components/custom_ink_button.dart';
 import 'package:hi_net/presentation/common/ui_components/default_app_bar.dart';
-import 'package:hi_net/presentation/common/ui_components/gradient_border_side.dart' as gradient_border_side;
+import 'package:hi_net/presentation/common/ui_components/gradient_border_side.dart'
+    as gradient_border_side;
 import 'package:hi_net/presentation/res/assets_manager.dart';
 import 'package:hi_net/presentation/res/color_manager.dart';
 import 'package:hi_net/presentation/res/fonts_manager.dart';
@@ -116,6 +117,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                     spacing: 7.w,
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      
                       Text(
                         Translation.pay_now.tr,
                         style: context.labelLarge.copyWith(
@@ -124,10 +126,16 @@ class _CheckoutViewState extends State<CheckoutView> {
                           color: Colors.white,
                         ),
                       ),
-                      SvgPicture.asset(
-                        SvgM.doubleArrow2,
-                        width: 12.w,
-                        height: 12.h,
+                      RotatedBox(
+                        quarterTurns:
+                            Directionality.of(context) == TextDirection.rtl
+                            ? 2
+                            : 0,
+                        child: SvgPicture.asset(
+                          SvgM.doubleArrow2,
+                          width: 12.w,
+                          height: 12.w,
+                        ),
                       ),
                     ],
                   ),

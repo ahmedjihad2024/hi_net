@@ -43,48 +43,48 @@ class _SignUpViewState extends State<SignUpView> {
   }
 
   void onSignUpButtonPressed() {
-    Navigator.of(context).pushNamed(RoutesManager.home.route);
-    // phoneNumberController.text = phoneNumberController.text.onlyNumbers;
-    // // check if user name is empty
-    // if (fullNameController.text.trim().isEmpty) {
-    //   fullNameFocusNode.requestFocus();
-    // } else if (phoneNumberController.text.onlyDoubles.trim().isEmpty) {
-    //   phoneNumberFocusNode.requestFocus();
-    // }
-    // // check if phone number is valid
-    // else if (!CountryUtils.validatePhoneNumber(
-    //       phoneNumberController.text.onlyDoubles,
-    //       countryCode.value,
-    //     ) &&
-    //     !CountryUtils.validatePhoneNumber(
-    //       phoneNumberController.text.onlyDoubles.substring(
-    //         1,
-    //         phoneNumberController.text.onlyDoubles.length,
-    //       ),
-    //       countryCode.value,
-    //     )) {
-    //   SnackbarHelper.showMessage(
-    //     Translation.error_invalid_number.tr,
-    //     ErrorMessage.snackBar,
-    //   );
-    // }
-    // // if all is valid start sign up or update profile
-    // else {
-    //   // update phone number to be in the format shape +20999999999
-    //   if (CountryUtils.validatePhoneNumber(
-    //     phoneNumberController.text.onlyDoubles.substring(
-    //       1,
-    //       phoneNumberController.text.onlyDoubles.length,
-    //     ),
-    //     countryCode.value,
-    //   )) {
-    //     phoneNumberController.text = phoneNumberController.text.onlyDoubles
-    //         .substring(1, phoneNumberController.text.onlyDoubles.length);
-    //   }
+    // Navigator.of(context).pushNamed(RoutesManager.home.route);
+    phoneNumberController.text = phoneNumberController.text.onlyNumbers;
+    // check if user name is empty
+    if (fullNameController.text.trim().isEmpty) {
+      fullNameFocusNode.requestFocus();
+    } else if (phoneNumberController.text.onlyDoubles.trim().isEmpty) {
+      phoneNumberFocusNode.requestFocus();
+    }
+    // check if phone number is valid
+    else if (!CountryUtils.validatePhoneNumber(
+          phoneNumberController.text.onlyDoubles,
+          countryCode.value,
+        ) &&
+        !CountryUtils.validatePhoneNumber(
+          phoneNumberController.text.onlyDoubles.substring(
+            1,
+            phoneNumberController.text.onlyDoubles.length,
+          ),
+          countryCode.value,
+        )) {
+      SnackbarHelper.showMessage(
+        Translation.error_invalid_number.tr,
+        ErrorMessage.snackBar,
+      );
+    }
+    // if all is valid start sign up or update profile
+    else {
+      // update phone number to be in the format shape +20999999999
+      if (CountryUtils.validatePhoneNumber(
+        phoneNumberController.text.onlyDoubles.substring(
+          1,
+          phoneNumberController.text.onlyDoubles.length,
+        ),
+        countryCode.value,
+      )) {
+        phoneNumberController.text = phoneNumberController.text.onlyDoubles
+            .substring(1, phoneNumberController.text.onlyDoubles.length);
+      }
 
-    //   // TODO: start sign up
-    //   Navigator.of(context).pushNamed(RoutesManager.verifyNumber.route);
-    // }
+      // TODO: start sign up
+      Navigator.of(context).pushNamed(RoutesManager.verifyNumber.route);
+    }
   }
 
   @override

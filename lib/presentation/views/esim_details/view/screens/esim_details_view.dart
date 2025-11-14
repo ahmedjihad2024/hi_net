@@ -110,17 +110,23 @@ class _EsimDetailsViewState extends State<EsimDetailsView> {
                     spacing: 7.w,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SvgPicture.asset(
-                        SvgM.doubleArrow2,
-                        width: 12.w,
-                        height: 12.h,
-                      ),
                       Text(
                         Translation.checkout.tr,
                         style: context.labelLarge.copyWith(
                           fontWeight: FontWeightM.semiBold,
                           height: 1,
                           color: Colors.white,
+                        ),
+                      ),
+                      RotatedBox(
+                        quarterTurns:
+                            Directionality.of(context) == TextDirection.rtl
+                            ? 2
+                            : 0,
+                        child: SvgPicture.asset(
+                          SvgM.doubleArrow2,
+                          width: 12.w,
+                          height: 12.w,
                         ),
                       ),
                     ],
@@ -199,7 +205,6 @@ class _EsimDetailsViewState extends State<EsimDetailsView> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         PlansInfoItem(
                           title: Translation.plan_type.tr,
@@ -320,25 +325,28 @@ class PlansInfoItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Flexible(
-      child: Column(
-        crossAxisAlignment: crossAxisAlignment,
-        spacing: 5.w,
-        children: [
-          Text(
-            title,
-            style: context.labelMedium.copyWith(
-              height: 1.2,
-              fontWeight: FontWeightM.light,
-              fontSize: 11.sp,
-              color: context.labelMedium.color!.withValues(alpha: .5),
+      child: Align(
+        alignment: Alignment.center,
+        child: Column(
+          crossAxisAlignment: crossAxisAlignment,
+          spacing: 5.w,
+          children: [
+            Text(
+              title,
+              style: context.labelMedium.copyWith(
+                height: 1.2,
+                fontWeight: FontWeightM.light,
+                fontSize: 11.sp,
+                color: context.labelMedium.color!.withValues(alpha: .5),
+              ),
             ),
-          ),
-          Text(
-            value,
-            softWrap: true,
-            style: context.labelMedium.copyWith(height: 1.2, fontSize: 13.sp),
-          ),
-        ],
+            Text(
+              value,
+              softWrap: true,
+              style: context.labelMedium.copyWith(height: 1.2, fontSize: 13.sp),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -393,7 +401,7 @@ class _FaqExpansionTileCardState extends State<FaqExpansionTileCard> {
           EdgeInsets.symmetric(horizontal: 16.dg) +
           EdgeInsets.only(bottom: 16.dg),
       title: widget.title != null
-          ? Text(widget.title!, style: context.bodyLarge.copyWith(height: 1.2,))
+          ? Text(widget.title!, style: context.bodyLarge.copyWith(height: 1.2))
           : widget.titleWidget ?? const SizedBox.shrink(),
       children: widget.children,
     );

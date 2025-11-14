@@ -12,6 +12,7 @@ import 'package:hi_net/presentation/common/ui_components/default_app_bar.dart';
 import 'package:hi_net/presentation/common/utils/snackbar_helper.dart';
 import 'package:hi_net/presentation/res/color_manager.dart';
 import 'package:hi_net/presentation/res/fonts_manager.dart';
+import 'package:hi_net/presentation/res/routes_manager.dart';
 import 'package:hi_net/presentation/res/sizes_manager.dart';
 import 'package:hi_net/presentation/res/translations_manager.dart';
 
@@ -74,6 +75,7 @@ class _SignInViewState extends State<SignInView> {
       }
 
       // TODO: start sign in
+      Navigator.of(context).pushNamed(RoutesManager.home.route);
     }
   }
 

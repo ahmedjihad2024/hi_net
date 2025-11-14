@@ -111,7 +111,7 @@ class SettingItem extends StatelessWidget {
                   svg,
                   fit: BoxFit.contain,
                   colorFilter: ColorFilter.mode(
-                    context.colorScheme.surface.withValues(alpha: .8),
+                    gradientTitleAndSvg ? Colors.white : context.colorScheme.surface.withValues(alpha: .8),
                     BlendMode.srcIn,
                   ),
                 ),
@@ -119,7 +119,7 @@ class SettingItem extends StatelessWidget {
               Text(
                 title,
                 style: context.labelLarge.copyWith(
-                  color: context.labelLarge.color!.withValues(alpha: .8),
+                  color: gradientTitleAndSvg ? Colors.white : context.labelLarge.color!.withValues(alpha: .8),
                 ),
               ).mask(!gradientTitleAndSvg),
             ],
