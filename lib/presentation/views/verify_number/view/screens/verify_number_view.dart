@@ -100,7 +100,7 @@ class _VerifyNumberViewState extends State<VerifyNumberView> {
                           alignment: Alignment.center,
                           child: Center(
                             child: Text(
-                              Translation.sign_in.tr,
+                              Translation.verfy.tr,
                               style: context.bodyLarge.copyWith(
                                 fontWeight: FontWeightM.semiBold,
                                 color: Colors.white,
