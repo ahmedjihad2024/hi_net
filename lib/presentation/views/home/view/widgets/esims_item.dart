@@ -129,7 +129,7 @@ class EsimsItem extends StatelessWidget {
                             ).createShader(bounds);
                           },
                           child: Text(
-                            '5.6 GB',
+                            Translation.gb.trNamed({'gb': '5.6'}),
                             style: TextStyle(
                               fontSize: 22.sp,
                               fontWeight: FontWeightM.bold,

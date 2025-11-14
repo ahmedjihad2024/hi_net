@@ -40,6 +40,26 @@ class SvgM {
   static const String doubleArrow3 = "$_svgPath/double-arrow-3.svg";
   static const String share = "$_svgPath/share.svg";
   static const String copy = "$_svgPath/copy.svg";
+
+  static const String turnOffScreen = "$_svgPath/arcticons_turn-off-screen.svg";
+  static const String bagTick = "$_svgPath/bag-tick.svg";
+  static const String calendar = "$_svgPath/calendar.svg";
+  static const String cameraOff = "$_svgPath/camera-off.svg";
+  static const String camera = "$_svgPath/camera.svg";
+  static const String coin = "$_svgPath/coin.svg";
+  static const String edit = "$_svgPath/edit.svg";
+  static const String emptyWallet = "$_svgPath/empty-wallet.svg";
+  static const String languageCircle = "$_svgPath/language-circle.svg";
+  static const String messageQuestion = "$_svgPath/message-question.svg";
+  static const String mobile = "$_svgPath/mobile.svg";
+  static const String moon = "$_svgPath/moon.svg";
+  static const String programmingArrows = "$_svgPath/programming-arrows.svg";
+  static const String shieldTick = "$_svgPath/shield-tick.svg";
+  static const String upload = "$_svgPath/upload.svg";
+  static const String wallet3 = "$_svgPath/wallet-3.svg";
+  static const String walletMoney = "$_svgPath/wallet-money.svg";
+  static const String trash = "$_svgPath/trash.svg";
+  static const String stars = "$_svgPath/stars.svg";
 }
 
 class ImagesM {
@@ -54,4 +74,10 @@ class ImagesM {
   static const String wallet = "$_imagesPath/wallet.png";
   static const String bell = "$_imagesPath/bell.png";
   static const String checkGradiant = "$_imagesPath/check_gradiant.png";
+  static const String chain = "$_imagesPath/chain.png";
+  static const String chat = "$_imagesPath/chat.png";
+  static const String mony = "$_imagesPath/mony.png";
+  static const String prize = "$_imagesPath/prize.png";
+  static const String bronze = "$_imagesPath/bronze.png";
+  static const String gold = "$_imagesPath/gold.png";
 }

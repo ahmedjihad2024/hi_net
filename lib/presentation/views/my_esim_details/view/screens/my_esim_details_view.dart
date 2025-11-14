@@ -127,7 +127,7 @@ class _MyEsimDetailsViewState extends State<MyEsimDetailsView> {
                   ).createShader(bounds);
                 },
                 child: Text(
-                  '5.6 GB',
+                  Translation.gb.trNamed({'gb': '5.6'}),
                   style: TextStyle(
                     fontSize: 32.sp,
                     fontWeight: FontWeightM.bold,
@@ -238,7 +238,7 @@ class _MyEsimDetailsViewState extends State<MyEsimDetailsView> {
                     color: context.colorScheme.surface.withValues(alpha: 0.5),
                   ),
                   Text(
-                    '5 days left',
+                    Translation.days_left.trNamed({'days': '5'}),
                     style: context.bodySmall.copyWith(
                       height: 1.2,
                       color: context.bodySmall.color!.withValues(alpha: 0.5),

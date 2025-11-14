@@ -255,7 +255,6 @@ class _TapDirectViewState extends State<TapDirectView> {
                         style: context.labelLarge.copyWith(
                           fontWeight: FontWeightM.medium,
                           height: 1.2,
-                          color: Colors.white,
                         ),
                       ),
                     ],

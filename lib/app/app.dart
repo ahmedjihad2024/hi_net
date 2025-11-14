@@ -51,7 +51,7 @@ class MyAppState extends State<MyApp> {
               false, //  FlavorConfig.instance.showBanner,
           initialRoute: RoutesManager.splash.route,
           theme: ThemeManager.lightTheme(context),
-          darkTheme: ThemeManager.darkTheme,
+          darkTheme: ThemeManager.darkTheme(context),
           themeMode: _themeMode,
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,

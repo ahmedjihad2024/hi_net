@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:hi_net/presentation/res/fonts_manager.dart';
@@ -9,7 +10,7 @@ import 'color_manager.dart';
 
 class ThemeManager {
   static ThemeData lightTheme(BuildContext context) => ThemeData(
-    fontFamily: FontsM.Lexend.name,
+    fontFamily: context.locale.languageCode == 'ar' ? FontsM.IBMPlexSansArabic.name : FontsM.Lexend.name,
     useMaterial3: true,
     colorScheme: const ColorScheme.dark(
       primary: ColorM.primary,
@@ -55,7 +56,7 @@ class ThemeManager {
           TextStyle(
             fontSize: 18.sp,
             color: Colors.white,
-            fontFamily: FontsM.Lexend.name,
+            
           ),
         ),
       ),
@@ -67,8 +68,8 @@ class ThemeManager {
     ),
   );
 
-  static get darkTheme => ThemeData(
-    fontFamily: FontsM.Lexend.name,
+  static ThemeData darkTheme(BuildContext context) => ThemeData(
+    fontFamily: context.locale.languageCode == 'ar' ? FontsM.IBMPlexSansArabic.name : FontsM.Lexend.name,
     useMaterial3: true,
     colorScheme: const ColorScheme.dark(
       primary: ColorM.primary,
@@ -114,7 +115,7 @@ class ThemeManager {
           TextStyle(
             fontSize: 18.sp,
             color: Colors.white,
-            fontFamily: FontsM.Lexend.name,
+            
           ),
         ),
       ),
@@ -134,91 +135,82 @@ class TextStyles {
           fontSize: 10.sp,
           color: color,
           fontWeight: FontWeightM.regular,
-          fontFamily: FontsM.Lexend.name,
         ),
         labelMedium: TextStyle(
           fontSize: 12.sp,
           color: color,
           fontWeight: FontWeightM.regular,
-          fontFamily: FontsM.Lexend.name,
         ),
         labelLarge: TextStyle(
           fontSize: 14.sp,
           color: color,
           fontWeight: FontWeightM.regular,
-          fontFamily: FontsM.Lexend.name,
         ),
         bodySmall: TextStyle(
           fontSize: 12.sp,
           color: color,
           fontWeight: FontWeightM.regular,
-          fontFamily: FontsM.Lexend.name,
         ),
         bodyMedium: TextStyle(
           fontSize: 14.sp,
           color: color,
           fontWeight: FontWeightM.regular,
-          fontFamily: FontsM.Lexend.name,
         ),
         bodyLarge: TextStyle(
           fontSize: 16.sp,
           color: color,
           fontWeight: FontWeightM.regular,
-          fontFamily: FontsM.Lexend.name,
         ),
         titleSmall: TextStyle(
           fontSize: 14.sp,
           color: color,
           fontWeight: FontWeightM.regular,
-          fontFamily: FontsM.Lexend.name,
         ),
         titleMedium: TextStyle(
           fontSize: 16.sp,
           color: color,
           fontWeight: FontWeightM.regular,
-          fontFamily: FontsM.Lexend.name,
         ),
         titleLarge: TextStyle(
           fontSize: 20.sp,
           color: color,
           fontWeight: FontWeightM.regular,
-          fontFamily: FontsM.Lexend.name,
         ),
         headlineSmall: TextStyle(
           fontSize: 18.sp,
           color: color,
           fontWeight: FontWeightM.regular,
-          fontFamily: FontsM.Lexend.name,
+          
         ),
         headlineMedium: TextStyle(
           fontSize: 22.sp,
           color: color,
           fontWeight: FontWeightM.regular,
-          fontFamily: FontsM.Lexend.name,
+          
         ),
         headlineLarge: TextStyle(
           fontSize: 26.sp,
           color: color,
           fontWeight: FontWeightM.regular,
-          fontFamily: FontsM.Lexend.name,
+          
         ),
         displaySmall: TextStyle(
           fontSize: 30.sp,
           color: color,
           fontWeight: FontWeightM.regular,
-          fontFamily: FontsM.Lexend.name,
+          
         ),
         displayMedium: TextStyle(
           fontSize: 36.sp,
           color: color,
           fontWeight: FontWeightM.regular,
-          fontFamily: FontsM.Lexend.name,
+          
         ),
         displayLarge: TextStyle(
           fontSize: 42.sp,
           color: color,
           fontWeight: FontWeightM.regular,
-          fontFamily: FontsM.Lexend.name,
+          
         ),
       );
 }

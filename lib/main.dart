@@ -42,15 +42,15 @@ void main() {
       await EasyLocalization.ensureInitialized();
 
       // set system ui overlay style
-      // SystemChrome.setSystemUIOverlayStyle(
-      //   const SystemUiOverlayStyle(
-      //     systemNavigationBarIconBrightness: Brightness.dark,
-      //     systemNavigationBarColor: Colors.white,
-      //     statusBarColor: Colors.transparent,
-      //     statusBarIconBrightness: Brightness.dark,
-      //     statusBarBrightness: Brightness.light,
-      //   ),
-      // );
+      SystemChrome.setSystemUIOverlayStyle(
+        const SystemUiOverlayStyle(
+          systemNavigationBarIconBrightness: Brightness.dark,
+          systemNavigationBarColor: Colors.white,
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
+        ),
+      );
 
       // set system ui mode to edge to edge
       // await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);

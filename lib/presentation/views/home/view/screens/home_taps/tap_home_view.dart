@@ -13,7 +13,6 @@ import 'package:hi_net/presentation/common/ui_components/animations/animations_e
 import 'package:hi_net/presentation/common/ui_components/custom_cached_image.dart';
 import 'package:hi_net/presentation/common/ui_components/custom_ink_button.dart';
 import 'package:hi_net/presentation/common/ui_components/customized_smart_refresh.dart';
-import 'package:hi_net/presentation/common/ui_components/platform_safe_area.dart';
 import 'package:hi_net/presentation/common/utils/after_layout.dart';
 import 'package:hi_net/presentation/res/assets_manager.dart';
 import 'package:hi_net/presentation/res/color_manager.dart';
@@ -226,7 +225,7 @@ class _TapHomeViewState extends State<TapHomeView>
                   ),
                   Container(width: 15.w, height: .7.w, color: Colors.white),
                   Text(
-                    '5 days left',
+                    Translation.days_left.trNamed({'days': '5'}),
                     style: context.bodyLarge.copyWith(
                       height: 1.2,
                       color: Colors.white,
@@ -262,7 +261,7 @@ class _TapHomeViewState extends State<TapHomeView>
                         width: 65.w,
                         child: FittedBox(
                           child: Text(
-                            '5.6 GB',
+                            Translation.gb.trNamed({'gb': '5.6'}),
                             style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeightM.bold,

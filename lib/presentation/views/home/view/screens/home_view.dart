@@ -11,6 +11,7 @@ import 'package:hi_net/presentation/res/sizes_manager.dart';
 import 'package:hi_net/presentation/res/translations_manager.dart';
 import 'package:hi_net/presentation/views/home/view/screens/home_taps/tap_home_view.dart';
 import 'package:hi_net/presentation/views/home/view/screens/home_taps/tap_my_esim_view.dart';
+import 'package:hi_net/presentation/views/home/view/screens/home_taps/tap_profile_view.dart';
 import 'package:hi_net/presentation/views/home/view/widgets/bottom_nav_bar.dart';
 
 ValueNotifier<int> BOTTOM_NAV_BAR_SELECTED_TAB = ValueNotifier<int>(0);
@@ -86,7 +87,7 @@ class _HomeViewState extends State<HomeView>
                       items: [
                         TapHomeView(),
                         TapMyEsimView(),
-                        Container(),
+                        TapProfileView(),
                       ],
                       options: CarouselOptions(
                         viewportFraction: 1,

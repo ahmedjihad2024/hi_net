@@ -3,7 +3,8 @@
 import 'dart:ui';
 
 enum FontsM{
-  Lexend("Lexend");
+  Lexend("Lexend"),
+  IBMPlexSansArabic("IBMPlexSansArabic");
 
   final String name;
   const FontsM(this.name);

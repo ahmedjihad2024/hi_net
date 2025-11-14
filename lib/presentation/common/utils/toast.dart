@@ -55,7 +55,7 @@ void showSnackBar({
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 10.dg, vertical: 12.dg),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: context.isDark ? ColorM.primaryDark : Colors.white,
           borderRadius: BorderRadius.circular(10.r),
           border: Border.all(
             color: isError

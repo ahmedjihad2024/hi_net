@@ -65,7 +65,7 @@ class _PlanItemState extends State<PlanItem> {
         }
       },
       width: 100.w,
-      height: 113.w,
+      height: 125.w,
       maxWidth: 150.w,
       padding: EdgeInsets.all(14.w),
       borderRadius: 14.r,

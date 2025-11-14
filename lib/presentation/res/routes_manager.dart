@@ -3,17 +3,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hi_net/app/dependency_injection.dart';
 import 'package:hi_net/app/enums.dart';
 import 'package:hi_net/presentation/views/checkout/view/screens/checkout_view.dart';
+import 'package:hi_net/presentation/views/currency/view/screens/currency_view.dart';
+import 'package:hi_net/presentation/views/edit_account/bloc/edit_account_bloc.dart';
+import 'package:hi_net/presentation/views/edit_account/screens/views/edit_account_view.dart';
 import 'package:hi_net/presentation/views/esim_details/view/screens/esim_details_view.dart';
+import 'package:hi_net/presentation/views/help_and_support/view/screens/help_and_support_view.dart';
 import 'package:hi_net/presentation/views/home/view/screens/home_view.dart';
 import 'package:hi_net/presentation/views/instructions/view/screens/instructions_view.dart';
+import 'package:hi_net/presentation/views/legal_and_polices/screens/views/legal_and_polices_view.dart';
 import 'package:hi_net/presentation/views/my_esim_details/view/screens/my_esim_details_view.dart';
 import 'package:hi_net/presentation/views/notification/bloc/notification_bloc.dart';
 import 'package:hi_net/presentation/views/notification/screens/view/notification_view.dart';
 import 'package:hi_net/presentation/views/on_boarding/screens/on_boarding_view.dart';
+import 'package:hi_net/presentation/views/order_history/view/screens/order_history_view.dart';
 import 'package:hi_net/presentation/views/search/view/screens/search_view.dart';
+import 'package:hi_net/presentation/views/share_and_win/view/screens/share_and_win_view.dart';
 import 'package:hi_net/presentation/views/sign_in/view/screens/sign_in_view.dart';
 import 'package:hi_net/presentation/views/sign_up/view/screens/sign_up_view.dart';
 import 'package:hi_net/presentation/views/verify_number/view/screens/verify_number_view.dart';
+import 'package:hi_net/presentation/views/wallet/view/screens/wallet_view.dart';
 
 import '../views/splash/view/splash_view.dart';
 
@@ -29,7 +37,14 @@ enum RoutesManager {
   checkout('checkout/'),
   notifications('notifications/'),
   myEsimDetails('my-esim-details/'),
-  instructions('instructions/');
+  instructions('instructions/'),
+  editAccount('edit-account/'),
+  orderHistory('order-history/'),
+  legalAndPolices('legal-and-polices/'),
+  currency('currency/'),
+  shareAndWin('share-and-win/'),
+  wallet('wallet/'),
+  helpAndSupport('help-and-support/');
 
   final String route;
 
@@ -59,6 +74,16 @@ class RoutesGeneratorManager {
       ),
       RoutesManager.myEsimDetails => const MyEsimDetailsView(),
       RoutesManager.instructions => const InstructionsView(),
+      RoutesManager.editAccount => BlocProvider(
+        create: (context) => instance<EditAccountBloc>(),
+        child: const EditAccountView(),
+      ),
+      RoutesManager.orderHistory => const OrderHistoryView(),
+      RoutesManager.legalAndPolices => const LegalAndPolicesView(),
+      RoutesManager.currency => const CurrencyView(),
+      RoutesManager.shareAndWin => const ShareAndWinView(),
+      RoutesManager.wallet => const WalletView(),
+      RoutesManager.helpAndSupport => const HelpAndSupportView(),
     };
   }
 

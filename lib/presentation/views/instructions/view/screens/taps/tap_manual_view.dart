@@ -206,8 +206,6 @@ class _TapManualViewState extends State<TapManualView> {
                   Translation.installation_way.tr,
                   style: context.labelLarge.copyWith(
                     fontWeight: FontWeightM.medium,
-                    
-                    color: Colors.white,
                   ),
                 ),
               ],
