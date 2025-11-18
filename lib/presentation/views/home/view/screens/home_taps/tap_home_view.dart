@@ -76,11 +76,11 @@ class _TapHomeViewState extends State<TapHomeView>
               color: context.colorScheme.onSurface,
               child: Column(
                 children: [
-                  tapNavigator().animatedOnAppear(1, SlideDirection.up),
-                  taps().animatedOnAppear(2, SlideDirection.up),
+                  tapNavigator().animatedOnAppear(2, SlideDirection.up),
+                  taps().animatedOnAppear(3, SlideDirection.up),
                 ],
               ),
-            ),
+            ).animatedOnAppear(0, SlideDirection.up),
           ],
         ),
       ),
