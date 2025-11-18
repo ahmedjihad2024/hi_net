@@ -417,6 +417,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                 PaymentSummaryItem(
                   title: Translation.deduction_from_wallet.tr,
                   value: Translation.sar.trNamed({'sar': '15'}),
+                  isRed: true,
                 ),
               PaymentSummaryItem(
                 title: Translation.subtotal.tr,
@@ -517,11 +518,13 @@ class PaymentSummaryItem extends StatelessWidget {
   final String title;
   final String value;
   final bool gredientText;
+  final bool isRed;
   const PaymentSummaryItem({
     super.key,
     required this.title,
     required this.value,
     this.gredientText = false,
+    this.isRed = false,
   });
   @override
   Widget build(BuildContext context) {
@@ -534,6 +537,8 @@ class PaymentSummaryItem extends StatelessWidget {
             fontWeight: FontWeightM.medium,
             color: gredientText
                 ? Colors.white
+                : isRed 
+                ? Color(0xFFFB5C67)
                 : context.colorScheme.surface.withValues(alpha: .7),
           ),
         ).mask(!gredientText),
@@ -541,7 +546,11 @@ class PaymentSummaryItem extends StatelessWidget {
           value,
           style: context.bodySmall.copyWith(
             fontWeight: FontWeightM.medium,
-            color: gredientText ? Colors.white : context.colorScheme.surface,
+            color: gredientText
+                ? Colors.white
+                : isRed
+                ? Color(0xFFFB5C67)
+                : context.colorScheme.surface,
           ),
         ).mask(!gredientText),
       ],

@@ -61,7 +61,7 @@ class _TapHomeViewState extends State<TapHomeView>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            40.verticalSpace,
+            45.verticalSpace,
             topAppBar().animatedOnAppear(3),
             16.verticalSpace,
             Pannar().animatedOnAppear(2),

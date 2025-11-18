@@ -38,16 +38,16 @@ class _OnBoardingViewState extends State<OnBoardingView> {
     instance<AppPreferences>().setSkippedOnBoarding();
     Navigator.of(
       context,
-    ).pushNamedAndRemoveUntil(RoutesManager.signUp.route, (_) => false);
+    ).pushNamedAndRemoveUntil(RoutesManager.signIn.route, (_) => false);
   }
 
   Future<void> toggleLanguage(BuildContext con) async {
     if (con.locale == SupportedLocales.EN.locale) {
       await context.setLocale(SupportedLocales.AR.locale);
-      Phoenix.rebirth(con);
+      // Phoenix.rebirth(con);
     } else {
       await context.setLocale(SupportedLocales.EN.locale);
-      Phoenix.rebirth(con);
+      // Phoenix.rebirth(con);
     }
   }
 

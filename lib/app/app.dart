@@ -6,7 +6,6 @@ import 'package:hi_net/presentation/common/utils/global_keyboard_dismissal.dart'
 
 import 'package:hi_net/presentation/res/routes_manager.dart';
 import 'package:hi_net/presentation/res/theme_manager.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 GlobalKey<ScaffoldMessengerState> SCAFFOLD_MESSENGER_KEY =
@@ -48,7 +47,7 @@ class MyAppState extends State<MyApp> {
           scaffoldMessengerKey: SCAFFOLD_MESSENGER_KEY,
           navigatorKey: NAVIGATOR_KEY,
           debugShowCheckedModeBanner:
-              false, //  FlavorConfig.instance.showBanner,
+              false, 
           initialRoute: RoutesManager.splash.route,
           theme: ThemeManager.lightTheme(context),
           darkTheme: ThemeManager.darkTheme(context),

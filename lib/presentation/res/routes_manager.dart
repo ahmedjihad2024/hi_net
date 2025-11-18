@@ -55,39 +55,39 @@ class RoutesGeneratorManager {
   static Widget _getScreen(String? name, RouteSettings settings) {
     final args = settings.arguments as Map<String, dynamic>?;
     return switch (RoutesManager.values.firstWhere((t) => t.route == name)) {
-      RoutesManager.splash => const SplashView(),
-      RoutesManager.onBoarding => const OnBoardingView(),
-      RoutesManager.signUp => const SignUpView(),
-      RoutesManager.signIn => const SignInView(),
+      RoutesManager.splash => SplashView(),
+      RoutesManager.onBoarding => OnBoardingView(),
+      RoutesManager.signUp => SignUpView(),
+      RoutesManager.signIn =>  SignInView(),
       RoutesManager.verifyNumber => VerifyNumberView(
         phoneNumber: args?['phone-number'] as String,
         countryCode: args?['country-code'] as String,
         verifyType: args?['verify-type'] as VerifyType,
       ),
-      RoutesManager.home => const HomeView(),
+      RoutesManager.home =>  HomeView(),
       RoutesManager.search => SearchView(
         showHistory: args?['show-history'] as bool? ?? false,
       ),
       RoutesManager.esimDetails => EsimDetailsView(
         type: args!['type'] as EsimsType,
       ),
-      RoutesManager.checkout => const CheckoutView(),
+      RoutesManager.checkout =>  CheckoutView(),
       RoutesManager.notifications => BlocProvider(
         create: (context) => instance<NotificationBloc>(),
-        child: const NotificationView(),
+        child:  NotificationView(),
       ),
-      RoutesManager.myEsimDetails => const MyEsimDetailsView(),
-      RoutesManager.instructions => const InstructionsView(),
+      RoutesManager.myEsimDetails =>  MyEsimDetailsView(),
+      RoutesManager.instructions =>  InstructionsView(),
       RoutesManager.editAccount => BlocProvider(
         create: (context) => instance<EditAccountBloc>(),
-        child: const EditAccountView(),
+        child:  EditAccountView(),
       ),
-      RoutesManager.orderHistory => const OrderHistoryView(),
-      RoutesManager.legalAndPolices => const LegalAndPolicesView(),
-      RoutesManager.currency => const CurrencyView(),
-      RoutesManager.shareAndWin => const ShareAndWinView(),
-      RoutesManager.wallet => const WalletView(),
-      RoutesManager.helpAndSupport => const HelpAndSupportView(),
+      RoutesManager.orderHistory =>  OrderHistoryView(),
+      RoutesManager.legalAndPolices =>  LegalAndPolicesView(),
+      RoutesManager.currency =>  CurrencyView(),
+      RoutesManager.shareAndWin =>  ShareAndWinView(),
+      RoutesManager.wallet =>  WalletView(),
+      RoutesManager.helpAndSupport =>  HelpAndSupportView(),
     };
   }
 

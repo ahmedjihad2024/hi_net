@@ -39,7 +39,7 @@ class _TapProfileViewState extends State<TapProfileView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        40.verticalSpace,
+        45.verticalSpace,
         topAppBar().animatedOnAppear(1, SlideDirection.down),
         18.verticalSpace,
         userInformation().animatedOnAppear(0, SlideDirection.down),

@@ -27,7 +27,7 @@ class _TapMyEsimViewState extends State<TapMyEsimView> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        40.verticalSpace,
+        45.verticalSpace,
         topAppBar().animatedOnAppear(0, SlideDirection.down),
         30.verticalSpace,
         eSimsList(),

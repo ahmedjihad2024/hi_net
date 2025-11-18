@@ -118,7 +118,7 @@ class _ShareAndWinViewState extends State<ShareAndWinView> {
           16.verticalSpace,
           // Referral History
           _buildReferralHistorySection(),
-          40.verticalSpace,
+          45.verticalSpace,
         ],
       ),
     );

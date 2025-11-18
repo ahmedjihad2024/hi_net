@@ -46,7 +46,7 @@ void main() {
         const SystemUiOverlayStyle(
           systemNavigationBarIconBrightness: null,
           // systemNavigationBarColor: Colors.white,
-          // statusBarColor: Colors.transparent,
+          statusBarColor: Colors.transparent,
           statusBarIconBrightness: null,
           statusBarBrightness: null,
         ),
@@ -64,7 +64,7 @@ void main() {
           supportedLocales: SupportedLocales.allLocales,
           path: Constants.translationsPath,
           fallbackLocale: SupportedLocales.EN.locale,
-          startLocale: SupportedLocales.EN.locale,
+          startLocale: SupportedLocales.AR.locale,
           child: Phoenix(key: Key("phoenix"), child: MyApp()),
         ),
       );
