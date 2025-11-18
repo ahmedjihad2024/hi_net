@@ -77,7 +77,7 @@ class _SplashViewState extends State<SplashView> with AfterLayout {
         } else {
           Navigator.of(
             context,
-          ).pushNamedAndRemoveUntil(RoutesManager.signUp.route, (_) => false);
+          ).pushNamedAndRemoveUntil(RoutesManager.signIn.route, (_) => false);
         }
       } else {
         Navigator.of(

@@ -28,10 +28,10 @@ class _TapProfileViewState extends State<TapProfileView> {
   Future<void> toggleLanguage(BuildContext con) async {
     if (con.locale == SupportedLocales.EN.locale) {
       await context.setLocale(SupportedLocales.AR.locale);
-      Phoenix.rebirth(con);
+      // Phoenix.rebirth(con);
     } else {
       await context.setLocale(SupportedLocales.EN.locale);
-      Phoenix.rebirth(con);
+      // Phoenix.rebirth(con);
     }
   }
 

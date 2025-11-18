@@ -44,11 +44,11 @@ void main() {
       // set system ui overlay style
       SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(
-          systemNavigationBarIconBrightness: Brightness.dark,
-          systemNavigationBarColor: Colors.white,
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.dark,
-          statusBarBrightness: Brightness.light,
+          systemNavigationBarIconBrightness: null,
+          // systemNavigationBarColor: Colors.white,
+          // statusBarColor: Colors.transparent,
+          statusBarIconBrightness: null,
+          statusBarBrightness: null,
         ),
       );
 

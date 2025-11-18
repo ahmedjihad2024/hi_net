@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hi_net/app/constants.dart';
+import 'package:hi_net/app/enums.dart';
 import 'package:hi_net/app/extensions.dart';
 import 'package:hi_net/app/phone_number_validator.dart';
 import 'package:hi_net/presentation/common/ui_components/animations/animated_on_appear.dart';
@@ -29,9 +30,9 @@ class _SignUpViewState extends State<SignUpView> {
   final FocusNode phoneNumberFocusNode = FocusNode();
   final FocusNode fullNameFocusNode = FocusNode();
   final ValueNotifier<String> initialCountryCodeName = ValueNotifier<String>(
-    "EG",
+    "SA",
   );
-  final ValueNotifier<String> countryCode = ValueNotifier<String>("+20");
+  final ValueNotifier<String> countryCode = ValueNotifier<String>("+966");
 
   @override
   void dispose() {
@@ -83,7 +84,13 @@ class _SignUpViewState extends State<SignUpView> {
       }
 
       // TODO: start sign up
-      Navigator.of(context).pushNamed(RoutesManager.verifyNumber.route);
+      Navigator.of(context).pushNamed(RoutesManager.verifyNumber.route,
+      arguments: {
+        "phone-number": phoneNumberController.text,
+        "country-code": countryCode.value,
+        "verify-type": VerifyType.signUp,
+      },
+      );
     }
   }
 
@@ -100,27 +107,10 @@ class _SignUpViewState extends State<SignUpView> {
                 DefaultAppBar(
                   titleTextAlign: TextAlign.right,
                   titleAlignment: Alignment.centerRight,
-                  hideBackButton: true,
                   padding: EdgeInsets.symmetric(
                     horizontal: 16.w,
                     vertical: 12.w,
                   ),
-                  actionButtons: [
-                    CustomInkButton(
-                      onTap: () {
-                        Navigator.of(
-                          context,
-                        ).pushNamed(RoutesManager.signIn.route);
-                      },
-                      highlightColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                      backgroundColor: Colors.transparent,
-                      child: Text(
-                        Translation.sign_in.tr,
-                        style: context.bodyLarge,
-                      ),
-                    ),
-                  ],
                 ).animatedOnAppear(4, SlideDirection.down),
                 Expanded(
                   child: Padding(

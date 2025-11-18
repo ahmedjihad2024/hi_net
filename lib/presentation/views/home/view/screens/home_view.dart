@@ -36,23 +36,6 @@ class _HomeViewState extends State<HomeView>
   void initState() {
     BOTTOM_NAV_BAR_SELECTED_TAB.value = 0;
     BOTTOM_NAV_BAR_SLIDER_CONTROLLER = CarouselSliderController();
-    bottomNavItems = [
-      BottomNavItem(
-        title: Translation.store.tr,
-        svgPath: SvgM.home,
-        selectedSvgPath: SvgM.home,
-      ),
-      BottomNavItem(
-        title: Translation.my_esim.tr,
-        svgPath: SvgM.simcard,
-        selectedSvgPath: SvgM.simcard,
-      ),
-      BottomNavItem(
-        title: Translation.profile.tr,
-        svgPath: SvgM.profile,
-        selectedSvgPath: SvgM.profile,
-      ),
-    ];
     super.initState();
   }
 
@@ -68,6 +51,24 @@ class _HomeViewState extends State<HomeView>
     super.build(context);
     return LayoutBuilder(
       builder: (context, constraints) {
+        bottomNavItems = [
+          BottomNavItem(
+            title: Translation.store.tr,
+            svgPath: SvgM.home,
+            selectedSvgPath: SvgM.home,
+          ),
+          BottomNavItem(
+            title: Translation.my_esim.tr,
+            svgPath: SvgM.simcard,
+            selectedSvgPath: SvgM.simcard,
+          ),
+          BottomNavItem(
+            title: Translation.profile.tr,
+            svgPath: SvgM.profile,
+            selectedSvgPath: SvgM.profile,
+          ),
+        ];
+
         /// Bottom nav bar configration
         // Base dimensions
 
@@ -76,7 +77,9 @@ class _HomeViewState extends State<HomeView>
         totalBottomNavHeight = bottomNavHeight;
 
         return Scaffold(
-          backgroundColor: context.isDark ? context.colorScheme.secondary : Color(0xFFF8F8F8),
+          backgroundColor: context.isDark
+              ? context.colorScheme.secondary
+              : Color(0xFFF8F8F8),
           body: Stack(
             children: [
               Column(
@@ -84,11 +87,7 @@ class _HomeViewState extends State<HomeView>
                   // page view
                   Expanded(
                     child: CarouselSlider(
-                      items: [
-                        TapHomeView(),
-                        TapMyEsimView(),
-                        TapProfileView(),
-                      ],
+                      items: [TapHomeView(), TapMyEsimView(), TapProfileView()],
                       options: CarouselOptions(
                         viewportFraction: 1,
                         aspectRatio: 1,

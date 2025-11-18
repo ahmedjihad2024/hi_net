@@ -2,17 +2,22 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hi_net/app/enums.dart';
 import 'package:hi_net/app/extensions.dart';
 import 'package:hi_net/presentation/common/ui_components/animations/animations_enum.dart';
 import 'package:hi_net/presentation/common/ui_components/custom_ink_button.dart';
 import 'package:hi_net/presentation/common/ui_components/default_app_bar.dart';
 import 'package:hi_net/presentation/res/color_manager.dart';
 import 'package:hi_net/presentation/res/fonts_manager.dart';
+import 'package:hi_net/presentation/res/routes_manager.dart';
 import 'package:hi_net/presentation/res/sizes_manager.dart';
 import 'package:hi_net/presentation/res/translations_manager.dart';
 
 class VerifyNumberView extends StatefulWidget {
-  const VerifyNumberView({Key? key}) : super(key: key);
+  final String phoneNumber;
+  final String countryCode;
+  final VerifyType verifyType;
+  const VerifyNumberView({Key? key, required this.phoneNumber, required this.countryCode, required this.verifyType}) : super(key: key);
 
   @override
   State<VerifyNumberView> createState() => _VerifyNumberViewState();
@@ -27,9 +32,10 @@ class _VerifyNumberViewState extends State<VerifyNumberView> {
 
   void onSignInButtonPressed() {
     String code = controllers.map((e) => (e?.text ?? "")).join();
-    if (code.trim().length == 6) {
+    if (code.trim().length == 5) {
       debugPrint("code: $code");
       // TODO: start sign in
+      Navigator.of(context).pushNamed(RoutesManager.home.route);
     }
   }
 
@@ -100,7 +106,7 @@ class _VerifyNumberViewState extends State<VerifyNumberView> {
                           alignment: Alignment.center,
                           child: Center(
                             child: Text(
-                              Translation.verfy.tr,
+                              Translation.verify.tr,
                               style: context.bodyLarge.copyWith(
                                 fontWeight: FontWeightM.semiBold,
                                 color: Colors.white,
@@ -138,8 +144,8 @@ class _OtpInputSection extends StatelessWidget {
             autoFocus: true,
             showFieldAsBox: true,
             filled: true,
-            numberOfFields: 6,
-            fieldWidth: 48.w,
+            numberOfFields: 5,
+            fieldWidth: 54.w,
             fieldHeight: 54.w,
             borderWidth: 1.2.w,
             margin: EdgeInsets.symmetric(horizontal: 3.w),

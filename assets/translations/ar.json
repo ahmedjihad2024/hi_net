@@ -85,7 +85,7 @@
   "enter_code": "أدخل الرمز",
   "apply": "تطبيق",
   "payment_summary": "ملخص الدفع",
-  "subtotal": "المجموع",
+  "subtotal": "المجموع الفرعى",
   "taxs": "الضرائب",
   "total": "المجموع",
   "by_completing_the_order_you_agree_to_our": "بإكمال الطلب، فأنت توافق على",
@@ -121,7 +121,6 @@
   "install_now": "تنصيب الآن",
   "installation_way": "طريقة التنصيب",
   "esim_details": "تفاصيل الشريحة",
-
   "my_profile": "الحساب الشخصي",
   "edit_profile": "تعديل الحساب الشخصى",
   "order_history": "سجل الطلبات",
@@ -137,7 +136,7 @@
   "rate_hi_net": "تقييم HiNet",
   "help_and_support": "الدعم والمساعدة",
   "change_your_picture": "تعديل الصورة الشخصية",
-  "take_a_photo": "التقط صورة", 
+  "take_a_photo": "التقط صورة",
   "delete_photo": "حذف الصورة",
   "your_discount_code": "رمز الخصم الخاص بك",
   "copy_code": "نسخ الرمز",
@@ -152,7 +151,7 @@
   "wallet": "المحفظة",
   "current_balance": "الرصيد الحالي",
   "transactions_history": "سجل المعاملات",
-  "order_id": "رقم الطلب : {order_id}",  
+  "order_id": "رقم الطلب : {order_id}",
   "tell_us_what_s_wrong": "أخبرنا بما هو غير صحيح — فريق الدعم سيتواصل معك في أقرب وقت ممكن.",
   "your_message": "رسالتك",
   "send": "إرسال",
@@ -161,7 +160,7 @@
   "days_left": "{days} يوماً متبقياً",
   "select_currency": "اختر العملة",
   "supported_countries": "الدول المدعومة",
-  "update" : "تحديث",
+  "update": "تحديث",
   "delete_account": "حذف الحساب",
   "email_optional": "البريد الإلكتروني اختياري",
   "esim_supported_devices": "الأجهزة المدعومة",
@@ -195,6 +194,10 @@
   "share_qr_code": "مشاركة رمز QR",
   "qr_scan_description": "امسح رمز QR عن طريق طباعته أو عرضه على جهاز آخر لتثبيت eSIM الخاص بك.",
   "qr_step_1": "اذهب إلى الإعدادات، اضغط على ",
-  "qr_step_2": "امسح رمز QR المتاح في تطبيق eRhika SIM، ثم اضغط على "
-
+  "qr_step_2": "امسح رمز QR المتاح في تطبيق eRhika SIM، ثم اضغط على ",
+  "welcome_to": "مرحبا بك في",
+  "hi_net": "HiNet",
+  "save": "حفظ",
+  "from_your_wallet": "من المحفظة",
+  "deduction_from_wallet": "خُصم من المحفظة"
 }

@@ -36,7 +36,7 @@ class _PlanItemState extends State<PlanItem> {
   @override
   void initState() {
     super.initState();
-    isSelected = isSelected;
+    isSelected = widget.isSelected;
   }
 
   void _onChange(bool value) {

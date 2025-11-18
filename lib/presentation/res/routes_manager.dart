@@ -59,7 +59,11 @@ class RoutesGeneratorManager {
       RoutesManager.onBoarding => const OnBoardingView(),
       RoutesManager.signUp => const SignUpView(),
       RoutesManager.signIn => const SignInView(),
-      RoutesManager.verifyNumber => const VerifyNumberView(),
+      RoutesManager.verifyNumber => VerifyNumberView(
+        phoneNumber: args?['phone-number'] as String,
+        countryCode: args?['country-code'] as String,
+        verifyType: args?['verify-type'] as VerifyType,
+      ),
       RoutesManager.home => const HomeView(),
       RoutesManager.search => SearchView(
         showHistory: args?['show-history'] as bool? ?? false,

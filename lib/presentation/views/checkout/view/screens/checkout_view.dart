@@ -1,4 +1,5 @@
 import 'package:animated_visibility/animated_visibility.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -35,6 +36,7 @@ class _CheckoutViewState extends State<CheckoutView> {
     PaymentMethod.visa,
   );
 
+  ValueNotifier<bool> useWallet = ValueNotifier<bool>(false);
   TextEditingController promoCodeController = TextEditingController();
   ValueNotifier<bool> checkTermsAndConditions = ValueNotifier<bool>(false);
   ValueNotifier<bool> devicesSupportEsim = ValueNotifier<bool>(false);
@@ -59,7 +61,7 @@ class _CheckoutViewState extends State<CheckoutView> {
               ),
               SizedBox(width: 40.w),
             ],
-          ).animatedOnAppear(4, SlideDirection.down),
+          ).animatedOnAppear(5, SlideDirection.down),
           26.verticalSpace,
           Expanded(
             child: SingleChildScrollView(
@@ -74,9 +76,11 @@ class _CheckoutViewState extends State<CheckoutView> {
                     price: '100',
                     title: 'Egypt',
                     type: EsimsType.countrie,
-                  ).animatedOnAppear(3, SlideDirection.down),
+                  ).animatedOnAppear(4, SlideDirection.down),
                   8.verticalSpace,
-                  switchPlan().animatedOnAppear(2, SlideDirection.down),
+                  switchPlan().animatedOnAppear(3, SlideDirection.down),
+                  18.verticalSpace,
+                  discountFromWallet().animatedOnAppear(2, SlideDirection.down),
                   18.verticalSpace,
                   Text(
                     Translation.payment_method.tr,
@@ -117,7 +121,6 @@ class _CheckoutViewState extends State<CheckoutView> {
                     spacing: 7.w,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      
                       Text(
                         Translation.pay_now.tr,
                         style: context.labelLarge.copyWith(
@@ -253,9 +256,7 @@ class _CheckoutViewState extends State<CheckoutView> {
       },
       padding: EdgeInsets.symmetric(vertical: 10.w),
       borderRadius: 8.r,
-      backgroundColor: context.isDark
-          ? ColorM.primaryDark
-          : context.colorScheme.surface.withValues(alpha: .1),
+      backgroundColor: context.isDark ? ColorM.primaryDark : Color(0xFFF8F8F8),
       child: Row(
         spacing: 12.w,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -279,32 +280,42 @@ class _CheckoutViewState extends State<CheckoutView> {
     return ValueListenableBuilder(
       valueListenable: paymentMethod,
       builder: (context, value, child) {
-        return Column(
-          spacing: 13.w,
-          children: [
-            PaymentMethodItem(
-              image: ImagesM.visa,
-              isSelected: value.isVisa,
-              onChange: (value) {
-                paymentMethod.value = PaymentMethod.visa;
-              },
-            ),
-            PaymentMethodItem(
-              image: ImagesM.mastercard,
-              isSelected: value.isMastercard,
-              onChange: (value) {
-                paymentMethod.value = PaymentMethod.mastercard;
-              },
-            ),
-            PaymentMethodItem(
-              image: ImagesM.wallet,
-              isSelected: value.isWallet,
-              label: Translation.use_your_wallet.tr,
-              onChange: (value) {
-                paymentMethod.value = PaymentMethod.wallet;
-              },
-            ),
-          ],
+        return SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            spacing: 13.w,
+            children: [
+              PaymentMethodItem(
+                image: ImagesM.visa,
+                isSelected: value.isVisa,
+                onChange: (value) {
+                  paymentMethod.value = PaymentMethod.visa;
+                },
+              ),
+              PaymentMethodItem(
+                image: ImagesM.mastercard,
+                isSelected: value.isMastercard,
+                onChange: (value) {
+                  paymentMethod.value = PaymentMethod.mastercard;
+                },
+              ),
+              PaymentMethodItem(
+                image: ImagesM.applePay,
+                isSelected: value.isApplePay,
+                isBlackAndWhite: true,
+                onChange: (value) {
+                  paymentMethod.value = PaymentMethod.applePay;
+                },
+              ),
+              // PaymentMethodItem(
+              //   image: ImagesM.wallet,
+              //   isSelected: value.isWallet,
+              //   onChange: (value) {
+              //     paymentMethod.value = PaymentMethod.wallet;
+              //   },
+              // ),
+            ],
+          ),
         );
       },
     );
@@ -312,10 +323,10 @@ class _CheckoutViewState extends State<CheckoutView> {
 
   Widget promoCode() {
     return ValueListenableBuilder(
-      valueListenable: paymentMethod,
+      valueListenable: useWallet,
       builder: (context, value, child) {
         return AnimatedVisibility(
-          visible: !value.isWallet,
+          visible: !useWallet.value,
           enter:
               fadeIn(curve: Curves.fastEaseInToSlowEaseOut) +
               expandVertically(curve: Curves.fastEaseInToSlowEaseOut),
@@ -371,41 +382,51 @@ class _CheckoutViewState extends State<CheckoutView> {
   }
 
   Widget paymentSummary() {
-    return SmoothContainer(
-      width: double.infinity,
-      smoothness: 1,
-      borderRadius: BorderRadius.circular(12.r),
-      padding: EdgeInsets.all(10.w),
-      color: context.isDark ? ColorM.primaryDark : Color(0xFFFAFAFA),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        spacing: 8.w,
-        children: [
-          Text(
-            Translation.payment_summary.tr,
-            style: context.bodySmall.copyWith(
-              fontWeight: FontWeightM.light,
-              color: context.colorScheme.surface.withValues(alpha: .7),
-            ),
+    return ValueListenableBuilder(
+      valueListenable: useWallet,
+      builder: (context, value, child) {
+        return SmoothContainer(
+          width: double.infinity,
+          smoothness: 1,
+          borderRadius: BorderRadius.circular(12.r),
+          padding: EdgeInsets.all(10.w),
+          color: context.isDark ? ColorM.primaryDark : Color(0xFFFAFAFA),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            spacing: 8.w,
+            children: [
+              Text(
+                Translation.payment_summary.tr,
+                style: context.bodySmall.copyWith(
+                  fontWeight: FontWeightM.light,
+                  color: context.colorScheme.surface.withValues(alpha: .7),
+                ),
+              ),
+              PaymentSummaryItem(
+                title: Translation.subtotal.tr,
+                value: Translation.sar.trNamed({'sar': '80'}),
+                gredientText: false,
+              ),
+              PaymentSummaryItem(
+                title: Translation.taxs.tr,
+                value: Translation.sar.trNamed({'sar': '10'}),
+                gredientText: false,
+              ),
+              if (value)
+                PaymentSummaryItem(
+                  title: Translation.deduction_from_wallet.tr,
+                  value: Translation.sar.trNamed({'sar': '15'}),
+                ),
+              PaymentSummaryItem(
+                title: Translation.subtotal.tr,
+                value: Translation.sar.trNamed({'sar': '90'}),
+                gredientText: true,
+              ),
+            ],
           ),
-          PaymentSummaryItem(
-            title: Translation.subtotal.tr,
-            value: Translation.sar.trNamed({'sar': '80'}),
-            gredientText: false,
-          ),
-          PaymentSummaryItem(
-            title: Translation.taxs.tr,
-            value: Translation.sar.trNamed({'sar': '10'}),
-            gredientText: false,
-          ),
-          PaymentSummaryItem(
-            title: Translation.total.tr,
-            value: Translation.sar.trNamed({'sar': '90'}),
-            gredientText: true,
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -437,6 +458,59 @@ class _CheckoutViewState extends State<CheckoutView> {
       ],
     );
   }
+
+  Widget discountFromWallet() {
+    return SmoothContainer(
+      padding: EdgeInsets.all(14.w),
+      borderRadius: BorderRadius.circular(12.r),
+      color: context.isDark ? ColorM.primaryDark : Color(0xFFF8F8F8),
+      child: Row(
+        spacing: 8.w,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text.rich(
+            textScaler: MediaQuery.of(context).textScaler,
+            TextSpan(
+              style: context.bodySmall.copyWith(
+                fontWeight: FontWeightM.regular,
+              ),
+              children: [
+                TextSpan(text: Translation.save.tr),
+                TextSpan(text: " "),
+                TextSpan(
+                  text: Translation.sar.trNamed({'sar': '100'}),
+                  style: TextStyle(
+                    fontWeight: FontWeightM.medium,
+                    color: ColorM.primary,
+                  ),
+                ),
+                TextSpan(text: " "),
+                TextSpan(text: Translation.from_your_wallet.tr),
+              ],
+            ),
+          ),
+
+          // apple switch
+          ValueListenableBuilder(
+            valueListenable: useWallet,
+            builder: (context, value, child) {
+              return Container(
+                width: 40.w,
+                height: 20.w,
+                alignment: Alignment.center,
+                child: CupertinoSwitch(
+                  value: value,
+                  onChanged: (value) {
+                    useWallet.value = value;
+                  },
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class PaymentSummaryItem extends StatelessWidget {
@@ -457,12 +531,18 @@ class PaymentSummaryItem extends StatelessWidget {
         Text(
           title,
           style: context.bodySmall.copyWith(
-            color: context.colorScheme.surface.withValues(alpha: .7),
+            fontWeight: FontWeightM.medium,
+            color: gredientText
+                ? Colors.white
+                : context.colorScheme.surface.withValues(alpha: .7),
           ),
         ).mask(!gredientText),
         Text(
           value,
-          style: context.bodySmall.copyWith(color: context.colorScheme.surface),
+          style: context.bodySmall.copyWith(
+            fontWeight: FontWeightM.medium,
+            color: gredientText ? Colors.white : context.colorScheme.surface,
+          ),
         ).mask(!gredientText),
       ],
     );

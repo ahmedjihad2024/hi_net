@@ -70,45 +70,27 @@ class AnimatedTapsNavigator extends StatefulWidget {
 }
 
 class _AnimatedTapsNavigatorState extends State<AnimatedTapsNavigator> {
-  late double margin;
-  late double padding;
-  late double stickHeight;
+  double get margin => widget.margin ?? SizeM.pagePadding.dg;
+  double get padding => widget.padding ?? 6.w;
+  double get stickHeight => widget.stickHeight ?? 3.h;
   late double stickTopMargin;
-  late double containerHeight;
-  late double borderRadius;
-  late Color backgroundColor;
-  late Color borderColor;
-  late double borderWidth;
-  late Color activeTextColor;
-  late Color inactiveTextColor;
-  late double fontSize;
-  late FontWeight fontWeight;
-  late Color? stickColor;
-  late Gradient? stickGradient;
-  late double stickBorderRadius;
-  late Duration animationDuration;
-  late Curve animationCurve;
+  double get containerHeight => widget.containerHeight ?? 50.h;
+  double get borderRadius => widget.borderRadius ?? 12.r;
+  Color get backgroundColor => widget.backgroundColor ?? Colors.white;
+  Color get borderColor => widget.borderColor ?? const Color(0xFFEEF0EE);
+  double get borderWidth => widget.borderWidth ?? 1;
+  Color get activeTextColor => widget.activeTextColor ?? ColorM.primary;
+  Color get inactiveTextColor => widget.inactiveTextColor ?? const Color(0xFF6A6A6A);
+  double get fontSize => widget.fontSize ?? 14.sp;
+  FontWeight get fontWeight => widget.fontWeight ?? FontWeightM.medium;
+  Color? get stickColor => widget.stickColor;
+  Gradient? get stickGradient => widget.stickGradient;
+  double get stickBorderRadius => widget.stickBorderRadius ?? 6.r;
+  Duration get animationDuration => widget.animationDuration ?? const Duration(milliseconds: 300);
+  Curve get animationCurve => widget.animationCurve ?? Curves.fastLinearToSlowEaseIn;
 
   @override
   void initState() {
-    margin = widget.margin ?? SizeM.pagePadding.dg;
-    padding = widget.padding ?? 6.w;
-    stickHeight = widget.stickHeight ?? 3.h;
-    containerHeight = widget.containerHeight ?? 50.h;
-    borderRadius = widget.borderRadius ?? 12.r;
-    backgroundColor = widget.backgroundColor ?? Colors.white;
-    borderColor = widget.borderColor ?? const Color(0xFFEEF0EE);
-    borderWidth = widget.borderWidth ?? 1;
-    activeTextColor = widget.activeTextColor ?? ColorM.primary;
-    inactiveTextColor = widget.inactiveTextColor ?? const Color(0xFF6A6A6A);
-    fontSize = widget.fontSize ?? 14.sp;
-    fontWeight = widget.fontWeight ?? FontWeightM.medium;
-    stickColor = widget.stickColor;
-    stickGradient = widget.stickGradient;
-    stickBorderRadius = widget.stickBorderRadius ?? 6.r;
-    animationDuration =
-        widget.animationDuration ?? const Duration(milliseconds: 300);
-    animationCurve = widget.animationCurve ?? Curves.fastLinearToSlowEaseIn;
 
     // Fix stick positioning
     if (widget.isStickAtTop) {

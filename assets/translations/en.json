@@ -196,5 +196,10 @@
 "share_qr_code": "Share QR Code",
 "qr_scan_description": "Scan the QR code by printing out or displaying the code on another device to install your eSIM.",
 "qr_step_1": "Go to the Settings, tap ",
-"qr_step_2": "Scan the QR code available on the eRhika SIM app, then tap "
+"qr_step_2": "Scan the QR code available on the eRhika SIM app, then tap ",
+"welcome_to": "Welcome to",
+"hi_net": "HiNet",
+"save": "Save",
+"from_your_wallet": "from your Wallet",
+"deduction_from_wallet": "Deduction from Wallet"
 }

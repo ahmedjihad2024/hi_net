@@ -67,7 +67,10 @@ class MyAppState extends State<MyApp> {
 
   set setTheme(ThemeMode themeMode) {
     instance<AppPreferences>().setTheme(themeMode == ThemeMode.dark);
-    Phoenix.rebirth(context);
+    setState(() {
+      _themeMode = themeMode;
+    });
+    // Phoenix.rebirth(context);
   }
 
   ThemeMode get themeMode => _themeMode;

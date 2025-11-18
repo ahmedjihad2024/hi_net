@@ -17,11 +17,17 @@ enum EsimsType{
 enum PaymentMethod {
   visa,
   mastercard,
-  applePay,
-  wallet;
+  applePay;
 
   bool get isVisa => this == PaymentMethod.visa;
   bool get isMastercard => this == PaymentMethod.mastercard;
   bool get isApplePay => this == PaymentMethod.applePay;
-  bool get isWallet => this == PaymentMethod.wallet;
+}
+
+enum VerifyType {
+  signIn,
+  signUp;
+
+  bool get isSignIn => this == VerifyType.signIn;
+  bool get isSignUp => this == VerifyType.signUp;
 }

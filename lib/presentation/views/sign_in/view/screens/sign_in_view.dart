@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hi_net/app/enums.dart';
 import 'package:hi_net/app/extensions.dart';
 import 'package:hi_net/app/phone_number_validator.dart';
 import 'package:hi_net/presentation/common/ui_components/animations/animations_enum.dart';
@@ -27,9 +28,9 @@ class _SignInViewState extends State<SignInView> {
   final TextEditingController phoneNumberController = TextEditingController();
   final FocusNode phoneNumberFocusNode = FocusNode();
   final ValueNotifier<String> initialCountryCodeName = ValueNotifier<String>(
-    "EG",
+    "SA",
   );
-  final ValueNotifier<String> countryCode = ValueNotifier<String>("+20");
+  final ValueNotifier<String> countryCode = ValueNotifier<String>("+966");
 
   @override
   void dispose() {
@@ -74,8 +75,21 @@ class _SignInViewState extends State<SignInView> {
             .substring(1, phoneNumberController.text.onlyDoubles.length);
       }
 
+      if (phoneNumberController.text == "000000000") {
+        Navigator.of(context).pushNamed(
+          RoutesManager.verifyNumber.route,
+          arguments: {
+            "phone-number": phoneNumberController.text,
+            "country-code": countryCode.value,
+            "verify-type": VerifyType.signIn,
+          },
+        );
+      } else {
+        Navigator.of(context).pushNamed(RoutesManager.signUp.route);
+      }
+
       // TODO: start sign in
-      Navigator.of(context).pushNamed(RoutesManager.home.route);
+      // Navigator.of(context).pushNamed(RoutesManager.home.route);
     }
   }
 
@@ -88,38 +102,26 @@ class _SignInViewState extends State<SignInView> {
           child: SafeArea(
             child: Column(
               children: [
-                DefaultAppBar(
-                  titleTextAlign: TextAlign.right,
-                  titleAlignment: Alignment.centerRight,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 16.w,
-                    vertical: 12.w,
-                  ),
-                  actionButtons: [
-                    CustomInkButton(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                      highlightColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                      backgroundColor: Colors.transparent,
-                      child: Text(
-                        Translation.sign_up.tr,
-                        style: context.bodyLarge,
-                      ),
-                    ),
-                  ],
-                ).animatedOnAppear(3, SlideDirection.down),
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 20.h),
+                        SizedBox(height: 100.w),
                         // Welcome Aboard Title
-                        Text(
-                          Translation.welcome_back.tr,
+                        Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(text: Translation.welcome_to.tr),
+                              TextSpan(text: " "),
+                              TextSpan(
+                                text: Translation.hi_net.tr,
+                                style: TextStyle(color: ColorM.primary),
+                              ),
+                              TextSpan(text: "!"),
+                            ],
+                          ),
                           style: context.titleLarge.copyWith(
                             fontWeight: FontWeightM.bold,
                             fontSize: 28.sp,
@@ -216,30 +218,30 @@ class _SignInViewState extends State<SignInView> {
                             ),
                           ),
                         ).animatedOnAppear(0, SlideDirection.up),
-                        SizedBox(height: 16.h),
-                        // Terms and Privacy Policy
-                        Center(
-                          child: RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
-                              style: TextStyle(
-                                fontSize: 12.sp,
-                                color: context.colorScheme.surface.withValues(
-                                  alpha: context.isDark ? .9 : .5,
-                                ),
-                              ),
-                              children: [
-                                TextSpan(
-                                  text: Translation.no_account_sign_up.tr,
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {
-                                      Navigator.of(context).pop();
-                                    },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ).animatedOnAppear(2, SlideDirection.up),
+                        // SizedBox(height: 16.h),
+                        // // Terms and Privacy Policy
+                        // Center(
+                        //   child: RichText(
+                        //     textAlign: TextAlign.center,
+                        //     text: TextSpan(
+                        //       style: TextStyle(
+                        //         fontSize: 12.sp,
+                        //         color: context.colorScheme.surface.withValues(
+                        //           alpha: context.isDark ? .9 : .5,
+                        //         ),
+                        //       ),
+                        //       children: [
+                        //         TextSpan(
+                        //           text: Translation.no_account_sign_up.tr,
+                        //           recognizer: TapGestureRecognizer()
+                        //             ..onTap = () {
+                        //               Navigator.of(context).pop();
+                        //             },
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ).animatedOnAppear(2, SlideDirection.up),
                         SizedBox(height: 48.h),
                       ],
                     ),

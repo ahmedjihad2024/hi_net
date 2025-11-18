@@ -4,18 +4,20 @@ import 'package:hi_net/app/extensions.dart';
 import 'package:hi_net/presentation/common/ui_components/custom_check_box.dart';
 import 'package:hi_net/presentation/common/ui_components/custom_ink_button.dart';
 import 'package:hi_net/presentation/res/color_manager.dart';
+import 'package:hi_net/presentation/common/ui_components/gradient_border_side.dart'
+    as gradient_border_side;
 
 class PaymentMethodItem extends StatefulWidget {
   final String image;
-  final String? label;
   final bool isSelected;
+  final bool isBlackAndWhite;
   final void Function(bool value) onChange;
   const PaymentMethodItem({
     super.key,
     required this.image,
-    this.label,
     this.isSelected = false,
     required this.onChange,
+    this.isBlackAndWhite = false,
   });
 
   @override
@@ -55,37 +57,20 @@ class _PaymentMethodItemState extends State<PaymentMethodItem> {
           widget.onChange(newValue);
         }
       },
-      width: double.infinity,
-      borderRadius: 0,
-      child: Row(
-        spacing: 12.w,
-        children: [
-          CustomCheckBox(
-            key: UniqueKey(),
-            value: isSelected,
-            onChange: (value) {
-              var newValue = !isSelected;
-              if (newValue != widget.isSelected && widget.isSelected == false) {
-                _onChange(newValue);
-                widget.onChange(newValue);
-              }
-            },
-            width: 24.w,
-            height: 24.w,
-            borderRadius: 999999,
-          ),
-
-          Image.asset(widget.image, height: 18.w),
-
-          if (widget.label != null)
-            Text(
-              widget.label!,
-              style: context.bodySmall.copyWith(
-                color: context.bodySmall.color?.withValues(alpha: 0.8),
-              ),
+      alignment: Alignment.center,
+      side: isSelected
+          ? gradient_border_side.BorderSide(
+              color: context.colorScheme.surface,
+              width: 1.w, 
+            )
+          : gradient_border_side.BorderSide(
+              color: context.colorScheme.surface.withValues(alpha: 0.2),
+              width: 1.w,
             ),
-        ],
-      ),
+      width: 82.w,
+      height: 64.w,
+      borderRadius: 12.r,
+      child: Image.asset(widget.image, height: 42.w, width: 35.w, color: widget.isBlackAndWhite ? context.colorScheme.surface : null),
     );
   }
 }
