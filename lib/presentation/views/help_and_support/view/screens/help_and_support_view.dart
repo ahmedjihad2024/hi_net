@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart' as easy_localization;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hi_net/app/extensions.dart';
@@ -14,6 +15,7 @@ import 'package:hi_net/presentation/res/fonts_manager.dart';
 import 'package:hi_net/presentation/res/sizes_manager.dart';
 import 'package:hi_net/presentation/res/translations_manager.dart';
 import 'package:hi_net/presentation/views/home/view/screens/home_view.dart';
+import 'package:nice_text_form/nice_text_form.dart';
 
 class HelpAndSupportView extends StatefulWidget {
   const HelpAndSupportView({super.key});
@@ -186,8 +188,7 @@ class _HelpAndSupportViewState extends State<HelpAndSupportView> {
                                 builder: (context, value, child) {
                                   return FastCountryCodeButton(
                                     key: UniqueKey(),
-                                    initialSelection: value,
-                                    scale: .8,
+                                    controller: CountryCodePickerController(initialSelection: value, locale: context.locale),
                                     onSelectionChange: (cCode) {
                                       dialCode = cCode.dialCode;
                                       countryCodeNotifier.value =

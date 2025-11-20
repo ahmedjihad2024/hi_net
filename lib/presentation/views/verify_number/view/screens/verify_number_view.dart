@@ -1,40 +1,45 @@
-import 'package:flutter/gestures.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hi_net/app/enums.dart';
 import 'package:hi_net/app/extensions.dart';
 import 'package:hi_net/presentation/common/ui_components/animations/animations_enum.dart';
 import 'package:hi_net/presentation/common/ui_components/custom_ink_button.dart';
 import 'package:hi_net/presentation/common/ui_components/default_app_bar.dart';
+import 'package:hi_net/presentation/common/ui_components/otp_field.dart';
 import 'package:hi_net/presentation/res/color_manager.dart';
 import 'package:hi_net/presentation/res/fonts_manager.dart';
 import 'package:hi_net/presentation/res/routes_manager.dart';
 import 'package:hi_net/presentation/res/sizes_manager.dart';
 import 'package:hi_net/presentation/res/translations_manager.dart';
+import 'package:hi_net/presentation/common/ui_components/gradient_border_side.dart'
+    as gradient_border;
 
 class VerifyNumberView extends StatefulWidget {
   final String phoneNumber;
   final String countryCode;
   final VerifyType verifyType;
-  const VerifyNumberView({Key? key, required this.phoneNumber, required this.countryCode, required this.verifyType}) : super(key: key);
+  const VerifyNumberView({
+    Key? key,
+    required this.phoneNumber,
+    required this.countryCode,
+    required this.verifyType,
+  }) : super(key: key);
 
   @override
   State<VerifyNumberView> createState() => _VerifyNumberViewState();
 }
 
 class _VerifyNumberViewState extends State<VerifyNumberView> {
-  List<TextEditingController?> controllers = [];
+  String otp = "";
   final ValueNotifier<String> initialCountryCodeName = ValueNotifier<String>(
     "EG",
   );
   final ValueNotifier<String> countryCode = ValueNotifier<String>("+20");
 
   void onSignInButtonPressed() {
-    String code = controllers.map((e) => (e?.text ?? "")).join();
+    String code = otp.trim();
     if (code.trim().length == 5) {
-      debugPrint("code: $code");
-      // TODO: start sign in
       Navigator.of(context).pushNamed(RoutesManager.home.route);
     }
   }
@@ -85,11 +90,64 @@ class _VerifyNumberViewState extends State<VerifyNumberView> {
                         ).animatedOnAppear(1, SlideDirection.down),
                         SizedBox(height: 32.h),
                         // Phone Number Input Container with Flag
-                        _OtpInputSection(
-                          handleControllers: (c) {
-                            controllers = c;
-                          },
-                        ).animatedOnAppear(0, SlideDirection.down),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            OtpField(
+                              length: 5,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              spacing: 10.w,
+                              mainAxisSize: MainAxisSize.min,
+                              fieldWidth: 54.w,
+                              fieldHeight: 54.w,
+                              unselectedFieldDecoration: ShapeDecoration(
+                                shape: gradient_border.SmoothRectangleBorder(
+                                  smoothness: 1,
+                                  borderRadius: BorderRadius.circular(12.r),
+                                  side: gradient_border.BorderSide(
+                                    color: context.colorScheme.surface
+                                        .withValues(alpha: .1),
+                                    width: 1.w,
+                                  ),
+                                ),
+                                color: context.colorScheme.onSurface,
+                              ),
+                              selectedFieldDecoration: ShapeDecoration(
+                                shape: gradient_border.SmoothRectangleBorder(
+                                  smoothness: 1,
+                                  borderRadius: BorderRadius.circular(12.r),
+                                  side: gradient_border.BorderSide(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        ColorM.primary,
+                                        ColorM.secondary,
+                                      ],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                    ),
+                                    width: 1.w,
+                                  ),
+                                ),
+                                color: context.colorScheme.onSurface,
+                              ),
+                              textStyle: context.bodyLarge.copyWith(
+                                fontWeight: FontWeightM.semiBold,
+                                color: context.colorScheme.surface,
+                              ),
+                              hintStyle: context.bodyLarge.copyWith(
+                                fontWeight: FontWeightM.semiBold,
+                                color: context.colorScheme.surface.withValues(
+                                  alpha: .3,
+                                ),
+                              ),
+                              hintText: '_',
+                              onCancelled: (otp) {
+                                this.otp = otp;
+                              },
+                            ).animatedOnAppear(0, SlideDirection.down),
+                          ],
+                        ),
 
                         const Spacer(),
 
@@ -129,42 +187,3 @@ class _VerifyNumberViewState extends State<VerifyNumberView> {
   }
 }
 
-class _OtpInputSection extends StatelessWidget {
-  final void Function(List<TextEditingController?>)? handleControllers;
-  const _OtpInputSection({required this.handleControllers});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      spacing: 8.w,
-      children: [
-        Directionality(
-          textDirection: TextDirection.ltr,
-          child: OtpTextField(
-            autoFocus: true,
-            showFieldAsBox: true,
-            filled: true,
-            numberOfFields: 5,
-            fieldWidth: 54.w,
-            fieldHeight: 54.w,
-            borderWidth: 1.2.w,
-            margin: EdgeInsets.symmetric(horizontal: 3.w),
-            borderRadius: BorderRadius.circular(12.r),
-            cursorColor: context.colorScheme.surface.withValues(alpha: .5),
-            fillColor: context.colorScheme.onSurface,
-            enabledBorderColor: context.colorScheme.surface.withValues(
-              alpha: .1,
-            ),
-            decoration: InputDecoration(hintText: '_'),
-            focusedBorderColor: ColorM.primary,
-            textStyle: context.bodyLarge.copyWith(
-              fontWeight: FontWeightM.semiBold,
-              color: context.colorScheme.surface,
-            ),
-            handleControllers: handleControllers,
-          ),
-        ),
-      ],
-    );
-  }
-}

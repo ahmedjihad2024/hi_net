@@ -1,10 +1,9 @@
+import 'package:easy_localization/easy_localization.dart' as easy_localization;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hi_net/app/constants.dart';
 import 'package:hi_net/app/enums.dart';
 import 'package:hi_net/app/extensions.dart';
 import 'package:hi_net/app/phone_number_validator.dart';
-import 'package:hi_net/presentation/common/ui_components/animations/animated_on_appear.dart';
 import 'package:hi_net/presentation/common/ui_components/animations/animations_enum.dart';
 import 'package:hi_net/presentation/common/ui_components/country_code_button.dart';
 import 'package:hi_net/presentation/common/ui_components/custom_form_field/simple_form.dart';
@@ -16,6 +15,7 @@ import 'package:hi_net/presentation/res/fonts_manager.dart';
 import 'package:hi_net/presentation/res/routes_manager.dart';
 import 'package:hi_net/presentation/res/sizes_manager.dart';
 import 'package:hi_net/presentation/res/translations_manager.dart';
+import 'package:nice_text_form/nice_text_form.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({Key? key}) : super(key: key);
@@ -169,8 +169,7 @@ class _SignUpViewState extends State<SignUpView> {
                                 valueListenable: initialCountryCodeName,
                                 builder: (_, val, __) {
                                   return FastCountryCodeButton(
-                                    initialSelection: val,
-                                    scale: .8,
+                                    controller: CountryCodePickerController(initialSelection: val, locale: context.locale),
                                     onSelectionChange: (cCode) {
                                       countryCode.value = cCode.dialCode;
                                       initialCountryCodeName.value =

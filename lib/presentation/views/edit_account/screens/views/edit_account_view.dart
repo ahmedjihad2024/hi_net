@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart' as easy_localization;
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,6 +30,7 @@ import 'package:hi_net/presentation/res/translations_manager.dart';
 import 'package:hi_net/presentation/views/edit_account/bloc/edit_account_bloc.dart';
 import 'package:hi_net/presentation/common/ui_components/gradient_border_side.dart'
     as gradient_border_side;
+import 'package:nice_text_form/nice_text_form.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 
 class EditAccountView extends StatefulWidget {
@@ -190,9 +192,7 @@ class _EditAccountViewState extends State<EditAccountView> with AfterLayout {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               FastCountryCodeButton(
-                                key: phoneKey,
-                                initialSelection: state.countryCode,
-                                scale: .8,
+                                controller: CountryCodePickerController(initialSelection: state.countryCode, locale: context.locale),
                                 onSelectionChange: (cCode) {
                                   context.read<EditAccountBloc>().add(
                                     EditAccountCountryCodeChanged(

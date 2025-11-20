@@ -1,7 +1,6 @@
 import 'dart:ui';
 
-import 'package:hi_net/data/responses/responses.dart';
-import 'package:decimal/decimal.dart';
+// import 'package:decimal/decimal.dart';
 import 'package:intl/intl.dart';
 import 'dart:math';
 
@@ -145,30 +144,30 @@ Map<String, Map<String, String>> storageUnits = {
   },
 };
 
-String formatBytes(int bytes, {String lang = 'en'}) {
-  if (bytes == 0) return '0 ${storageUnits['bytes']![lang]}';
+// String formatBytes(int bytes, {String lang = 'en'}) {
+//   if (bytes == 0) return '0 ${storageUnits['bytes']![lang]}';
 
-  List<String> sizes = [
-    'bytes',
-    'kilobytes',
-    'megabytes',
-    'gigabytes',
-    'terabytes',
-    'petabytes'
-  ];
+//   List<String> sizes = [
+//     'bytes',
+//     'kilobytes',
+//     'megabytes',
+//     'gigabytes',
+//     'terabytes',
+//     'petabytes'
+//   ];
 
-  int i = 0;
-  Decimal value = Decimal.fromInt(bytes);
+//   int i = 0;
+//   Decimal value = Decimal.fromInt(bytes);
 
-  while (value >= Decimal.fromInt(1024) && i < sizes.length - 1) {
-    value = (value / Decimal.fromInt(1024)).toDecimal();
-    i++;
-  }
+//   while (value >= Decimal.fromInt(1024) && i < sizes.length - 1) {
+//     value = (value / Decimal.fromInt(1024)).toDecimal();
+//     i++;
+//   }
 
-  return lang == "ar"
-      ? '${storageUnits[sizes[i]]![lang]} ${value.toStringAsFixed(2)}'
-      : '${value.toStringAsFixed(2)} ${storageUnits[sizes[i]]![lang]}';
-}
+//   return lang == "ar"
+//       ? '${storageUnits[sizes[i]]![lang]} ${value.toStringAsFixed(2)}'
+//       : '${value.toStringAsFixed(2)} ${storageUnits[sizes[i]]![lang]}';
+// }
 
 bool isValidEmail(String email) {
   final RegExp emailRegex =

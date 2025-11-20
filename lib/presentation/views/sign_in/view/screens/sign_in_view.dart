@@ -1,6 +1,6 @@
+import 'package:easy_localization/easy_localization.dart' as easy_localization;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hi_net/app/enums.dart';
 import 'package:hi_net/app/extensions.dart';
@@ -16,6 +16,8 @@ import 'package:hi_net/presentation/res/fonts_manager.dart';
 import 'package:hi_net/presentation/res/routes_manager.dart';
 import 'package:hi_net/presentation/res/sizes_manager.dart';
 import 'package:hi_net/presentation/res/translations_manager.dart';
+import 'package:nice_text_form/country_code_button/country_picker_bottom_sheet.dart';
+import 'package:nice_text_form/nice_text_form.dart';
 
 class SignInView extends StatefulWidget {
   const SignInView({Key? key}) : super(key: key);
@@ -157,18 +159,12 @@ class _SignInViewState extends State<SignInView> {
                             spacing: 10.w,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              ValueListenableBuilder(
-                                valueListenable: initialCountryCodeName,
-                                builder: (_, val, __) {
-                                  return FastCountryCodeButton(
-                                    initialSelection: val,
-                                    scale: .8,
-                                    onSelectionChange: (cCode) {
-                                      countryCode.value = cCode.dialCode;
-                                      initialCountryCodeName.value =
-                                          cCode.countryCode;
-                                    },
-                                  );
+                              FastCountryCodeButton(
+                                controller: CountryCodePickerController(initialSelection: "SA", locale: context.locale),
+                                onSelectionChange: (cCode) {
+                                  countryCode.value = cCode.dialCode;
+                                  initialCountryCodeName.value =
+                                      cCode.countryCode;
                                 },
                               ),
 
