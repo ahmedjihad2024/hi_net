@@ -8,7 +8,7 @@ import 'package:hi_net/presentation/common/ui_components/animations/animations_e
 import 'package:hi_net/presentation/common/ui_components/custom_cached_image.dart';
 import 'package:hi_net/presentation/common/ui_components/custom_ink_button.dart';
 import 'package:hi_net/presentation/common/ui_components/default_app_bar.dart';
-import 'package:hi_net/presentation/common/utils/toast.dart';
+import 'package:hi_net/presentation/common/utils/snackbar_helper.dart';
 import 'package:hi_net/presentation/res/assets_manager.dart';
 import 'package:hi_net/presentation/res/color_manager.dart';
 import 'package:hi_net/presentation/res/fonts_manager.dart';
@@ -47,10 +47,9 @@ class _ShareAndWinViewState extends State<ShareAndWinView> {
 
   void _copyCode() {
     Clipboard.setData(ClipboardData(text: discountCode));
-    showSnackBar(
-      context: context,
-      msg: 'Code copied to clipboard',
-      isError: false,
+    SnackbarHelper.showMessage(
+      'Code copied to clipboard',
+      ErrorMessage.snackBar,
     );
   }
 

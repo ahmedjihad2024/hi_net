@@ -9,7 +9,7 @@ import 'package:hi_net/presentation/common/ui_components/custom_form_field/simpl
 import 'package:hi_net/presentation/common/ui_components/custom_ink_button.dart';
 import 'package:hi_net/presentation/common/ui_components/default_app_bar.dart';
 import 'package:hi_net/presentation/common/utils/fast_function.dart';
-import 'package:hi_net/presentation/common/utils/toast.dart';
+import 'package:hi_net/presentation/common/utils/snackbar_helper.dart';
 import 'package:hi_net/presentation/res/assets_manager.dart';
 import 'package:hi_net/presentation/res/fonts_manager.dart';
 import 'package:hi_net/presentation/res/sizes_manager.dart';
@@ -70,18 +70,18 @@ class _HelpAndSupportViewState extends State<HelpAndSupportView> {
           ),
           dialCode,
         )) {
-      showSnackBar(
-        msg: Translation.error_invalid_number.tr,
-        context: context,
+      SnackbarHelper.showMessage(
+        Translation.error_invalid_number.tr,
+        ErrorMessage.snackBar,
         isError: true,
       );
     }
     // check if email is valid
     else if ((emailController.text.trim().isNotEmpty &&
         !isValidEmail(emailController.text))) {
-      showSnackBar(
-        msg: Translation.error_invalid_email.tr,
-        context: context,
+      SnackbarHelper.showMessage(
+        Translation.error_invalid_email.tr,
+        ErrorMessage.snackBar,
         isError: true,
       );
     } else if (messageController.text.trim().isEmpty) {

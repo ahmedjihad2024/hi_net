@@ -10,7 +10,9 @@ import 'package:hi_net/presentation/common/ui_components/country_code_button.dar
 import 'package:hi_net/presentation/common/ui_components/custom_form_field/simple_form.dart';
 import 'package:hi_net/presentation/common/ui_components/custom_ink_button.dart';
 import 'package:hi_net/presentation/common/ui_components/default_app_bar.dart';
+import 'package:hi_net/presentation/common/utils/overlay_loading.dart';
 import 'package:hi_net/presentation/common/utils/snackbar_helper.dart';
+import 'package:hi_net/presentation/common/utils/zesty_snack.dart';
 import 'package:hi_net/presentation/res/color_manager.dart';
 import 'package:hi_net/presentation/res/fonts_manager.dart';
 import 'package:hi_net/presentation/res/routes_manager.dart';
@@ -160,7 +162,10 @@ class _SignInViewState extends State<SignInView> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               FastCountryCodeButton(
-                                controller: CountryCodePickerController(initialSelection: "SA", locale: context.locale),
+                                controller: CountryCodePickerController(
+                                  initialSelection: "SA",
+                                  locale: context.locale,
+                                ),
                                 onSelectionChange: (cCode) {
                                   countryCode.value = cCode.dialCode;
                                   initialCountryCodeName.value =

@@ -20,8 +20,7 @@ import 'package:hi_net/presentation/common/ui_components/platform_safe_area.dart
 import 'package:hi_net/presentation/common/utils/after_layout.dart';
 import 'package:hi_net/presentation/common/utils/fast_function.dart';
 import 'package:hi_net/presentation/common/utils/overlay_loading.dart';
-import 'package:hi_net/presentation/common/utils/state_render.dart';
-import 'package:hi_net/presentation/common/utils/toast.dart';
+import 'package:hi_net/presentation/common/utils/snackbar_helper.dart';
 import 'package:hi_net/presentation/res/assets_manager.dart';
 import 'package:hi_net/presentation/res/color_manager.dart';
 import 'package:hi_net/presentation/res/fonts_manager.dart';
@@ -80,18 +79,18 @@ class _EditAccountViewState extends State<EditAccountView> with AfterLayout {
           ),
           context.read<EditAccountBloc>().state.dialCode,
         )) {
-      showSnackBar(
-        msg: Translation.error_invalid_number.tr,
-        context: context,
+      SnackbarHelper.showMessage(
+        Translation.error_invalid_number.tr,
+        ErrorMessage.snackBar,
         isError: true,
       );
     }
     // check if email is valid
     else if ((emailController.text.trim().isNotEmpty &&
         !isValidEmail(emailController.text))) {
-      showSnackBar(
-        msg: Translation.error_invalid_email.tr,
-        context: context,
+      SnackbarHelper.showMessage(
+        Translation.error_invalid_email.tr,
+        ErrorMessage.snackBar,
         isError: true,
       );
     }

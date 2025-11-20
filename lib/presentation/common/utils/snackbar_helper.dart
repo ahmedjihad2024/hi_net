@@ -1,13 +1,14 @@
-import 'package:hi_net/presentation/common/utils/toast.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hi_net/app/app.dart';
-import 'package:hi_net/app/enums.dart';
 import 'package:hi_net/app/extensions.dart';
+import 'package:hi_net/presentation/common/utils/zesty_snack.dart';
 import 'package:hi_net/presentation/res/color_manager.dart';
-
-enum ShopItemType { orderDetails, mostSales, none }
+import 'package:hi_net/presentation/common/ui_components/gradient_border_side.dart'
+    as gred;
+import 'package:hi_net/presentation/res/sizes_manager.dart';
 
 // error message
 enum ErrorMessage {
@@ -38,17 +39,32 @@ class SnackbarHelper {
     int snackbarSeconds = 3,
     bool isError = false,
   ]) {
-    try {
-      showSnackBar(
-        msg: message,
-        context: NAVIGATOR_KEY.currentState!.context,
-        seconds: snackbarSeconds,
-      );
-    } catch (e) {
-      print("ERROR: $e");
-      // If snackbar fails, fallback to toast
-      _showToast(message);
-    }
+    ZestySnack.instance.show(
+      Container(
+        margin: EdgeInsets.all(SizeM.pagePadding.dg),
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 12.w),
+        width: double.infinity,
+        decoration: ShapeDecoration(
+          color: NAVIGATOR_KEY.currentState!.context.colorScheme.secondary,
+          shape: gred.SmoothRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+            smoothness: 1,
+            side: gred.BorderSide(
+              gradient: LinearGradient(
+                colors: [ColorM.primary, ColorM.secondary],
+              ),
+              width: 1.w,
+            ),
+          ),
+        ),
+        alignment: AlignmentDirectional.centerStart,
+        child: Text(
+          message,
+          softWrap: true,
+          style: NAVIGATOR_KEY.currentState!.context.labelMedium,
+        ),
+      ),
+    );
   }
 
   static void _showToast(String message) {
