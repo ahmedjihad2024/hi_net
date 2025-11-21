@@ -90,63 +90,66 @@ class _VerifyNumberViewState extends State<VerifyNumberView> {
                         ).animatedOnAppear(1, SlideDirection.down),
                         SizedBox(height: 32.h),
                         // Phone Number Input Container with Flag
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            OtpField(
-                              length: 5,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              spacing: 10.w,
-                              mainAxisSize: MainAxisSize.min,
-                              fieldWidth: 54.w,
-                              fieldHeight: 54.w,
-                              unselectedFieldDecoration: ShapeDecoration(
-                                shape: gradient_border.SmoothRectangleBorder(
-                                  smoothness: 1,
-                                  borderRadius: BorderRadius.circular(12.r),
-                                  side: gradient_border.BorderSide(
-                                    color: context.colorScheme.surface
-                                        .withValues(alpha: .1),
-                                    width: 1.w,
-                                  ),
-                                ),
-                                color: context.colorScheme.onSurface,
-                              ),
-                              selectedFieldDecoration: ShapeDecoration(
-                                shape: gradient_border.SmoothRectangleBorder(
-                                  smoothness: 1,
-                                  borderRadius: BorderRadius.circular(12.r),
-                                  side: gradient_border.BorderSide(
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        ColorM.primary,
-                                        ColorM.secondary,
-                                      ],
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
+                        Directionality(
+                          textDirection: TextDirection.ltr,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              OtpField(
+                                length: 5,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                spacing: 10.w,
+                                mainAxisSize: MainAxisSize.min,
+                                fieldWidth: 54.w,
+                                fieldHeight: 54.w,
+                                unselectedFieldDecoration: ShapeDecoration(
+                                  shape: gradient_border.SmoothRectangleBorder(
+                                    smoothness: 1,
+                                    borderRadius: BorderRadius.circular(12.r),
+                                    side: gradient_border.BorderSide(
+                                      color: context.colorScheme.surface
+                                          .withValues(alpha: .1),
+                                      width: 1.w,
                                     ),
-                                    width: 1.w,
+                                  ),
+                                  color: context.colorScheme.onSurface,
+                                ),
+                                selectedFieldDecoration: ShapeDecoration(
+                                  shape: gradient_border.SmoothRectangleBorder(
+                                    smoothness: 1,
+                                    borderRadius: BorderRadius.circular(12.r),
+                                    side: gradient_border.BorderSide(
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          ColorM.primary,
+                                          ColorM.secondary,
+                                        ],
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                      ),
+                                      width: 1.w,
+                                    ),
+                                  ),
+                                  color: context.colorScheme.onSurface,
+                                ),
+                                textStyle: context.bodyLarge.copyWith(
+                                  fontWeight: FontWeightM.semiBold,
+                                  color: context.colorScheme.surface,
+                                ),
+                                hintStyle: context.bodyLarge.copyWith(
+                                  fontWeight: FontWeightM.semiBold,
+                                  color: context.colorScheme.surface.withValues(
+                                    alpha: .3,
                                   ),
                                 ),
-                                color: context.colorScheme.onSurface,
-                              ),
-                              textStyle: context.bodyLarge.copyWith(
-                                fontWeight: FontWeightM.semiBold,
-                                color: context.colorScheme.surface,
-                              ),
-                              hintStyle: context.bodyLarge.copyWith(
-                                fontWeight: FontWeightM.semiBold,
-                                color: context.colorScheme.surface.withValues(
-                                  alpha: .3,
-                                ),
-                              ),
-                              hintText: '_',
-                              onCancelled: (otp) {
-                                this.otp = otp;
-                              },
-                            ).animatedOnAppear(0, SlideDirection.down),
-                          ],
+                                hintText: '_',
+                                onCancelled: (otp) {
+                                  this.otp = otp;
+                                },
+                              ).animatedOnAppear(0, SlideDirection.down),
+                            ],
+                          ),
                         ),
 
                         const Spacer(),

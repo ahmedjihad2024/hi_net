@@ -33,8 +33,8 @@ class _HelpAndSupportViewState extends State<HelpAndSupportView> {
   final FocusNode phoneFocus = FocusNode();
   final FocusNode emailFocus = FocusNode();
   final FocusNode messageFocus = FocusNode();
-  String dialCode = "+20";
-  ValueNotifier<String> countryCodeNotifier = ValueNotifier<String>("EG");
+  String dialCode = "+966";
+  ValueNotifier<String> countryCodeNotifier = ValueNotifier<String>("SA");
 
   @override
   void dispose() {
@@ -187,7 +187,6 @@ class _HelpAndSupportViewState extends State<HelpAndSupportView> {
                                 valueListenable: countryCodeNotifier,
                                 builder: (context, value, child) {
                                   return FastCountryCodeButton(
-                                    key: UniqueKey(),
                                     controller: CountryCodePickerController(initialSelection: value, locale: context.locale),
                                     onSelectionChange: (cCode) {
                                       dialCode = cCode.dialCode;

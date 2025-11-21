@@ -180,11 +180,7 @@ class _SelectCountrBottomSheetState extends State<SelectCountrBottomSheet> {
           return LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              Colors.white,
-              Colors.white,
-              (context.isDark ? Colors.black : Colors.transparent),
-            ],
+            colors: [Colors.white, Colors.white, Colors.transparent],
             stops: [0, .75, 1],
             tileMode: TileMode.clamp,
           ).createShader(rect);

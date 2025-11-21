@@ -247,6 +247,7 @@ class _TapHomeViewState extends State<TapHomeView>
                   ),
                 )
               : HalfCircleProgress(
+                key: ValueKey('half-circle-progress'),
                  delay: Duration(milliseconds: 500),
                   size: 110.w,
                   progress: .7,

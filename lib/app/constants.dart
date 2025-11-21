@@ -13,7 +13,7 @@ class Constants {
   static const String idToken = "id-token";
   static const String isDark = "is-dark";
 
-  static const int animationDelay = 150;
+  static const int animationDelay = 130;
   static const double animationSlideDistance = 60.0;
   static const Duration animationDuration = Duration(milliseconds: 800);
   static const Curve animationCurve = Curves.fastEaseInToSlowEaseOut;

@@ -1,6 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import 'animations_enum.dart';
+
+enum BlurAnimationDirection { x, y, both }
 
 /// A widget that animates its child when it first appears on screen.
 ///
@@ -25,12 +29,18 @@ class AnimatedOnAppear extends StatefulWidget {
   final Color shaderRevealColor;
   final double shaderSoftness;
   final BlendMode shaderBlendMode;
-  
+
   // Exit animation properties
   final bool animateExit;
   final Duration exitDuration;
   final Curve exitCurve;
   final VoidCallback? onExitComplete;
+
+  // Blur animation
+  final Curve blurAnimationCurve;
+  final double blurIntensity;
+  final bool blurEnabled;
+  final BlurAnimationDirection blurDirection;
 
   const AnimatedOnAppear({
     super.key,
@@ -54,8 +64,14 @@ class AnimatedOnAppear extends StatefulWidget {
     this.exitDuration = const Duration(milliseconds: 300),
     this.exitCurve = Curves.easeInCubic,
     this.onExitComplete,
-  })  : assert(shaderSoftness >= 0 && shaderSoftness <= 1,
-            'shaderSoftness must be between 0 and 1');
+    this.blurDirection = BlurAnimationDirection.y,
+    this.blurEnabled = true,
+    this.blurIntensity = 7.0,
+    this.blurAnimationCurve = Curves.fastEaseInToSlowEaseOut,
+  }) : assert(
+         shaderSoftness >= 0 && shaderSoftness <= 1,
+         'shaderSoftness must be between 0 and 1',
+       );
 
   // Convert degrees to turns
   double get _rotationInTurns => rotationAngle / 360.0;
@@ -73,7 +89,8 @@ class _AnimatedOnAppearState extends State<AnimatedOnAppear>
   late Animation<double> _pulseAnimation;
   late Animation<double> _rotationAnimation;
   late Animation<double> _shaderAnimation;
-  
+  late Animation<double> _blurAnimation;
+
   bool _isExiting = false;
   bool _exitAnimationComplete = false;
 
@@ -100,75 +117,57 @@ class _AnimatedOnAppearState extends State<AnimatedOnAppear>
 
     // Apply the delayed curve to all animations
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: delayedCurve,
-      ),
+      CurvedAnimation(parent: _animationController, curve: delayedCurve),
     );
 
-    _slideAnimation = Tween<double>(
-      begin: 1.0,
-      end: 0.0,
-    ).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: delayedCurve,
-      ),
+    _slideAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(
+      CurvedAnimation(parent: _animationController, curve: delayedCurve),
     );
 
-    _scaleAnimation = Tween<double>(
-      begin: widget.scaleSize,
-      end: 1.0,
-    ).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: delayedCurve,
-      ),
+    _scaleAnimation = Tween<double>(begin: widget.scaleSize, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: delayedCurve),
+    );
+
+    _blurAnimation = Tween<double>(begin: 1, end: 0).animate(
+      CurvedAnimation(parent: _animationController, curve: delayedCurve),
     );
 
     // Initialize rotation animation with degrees converted to turns
     final double startAngle = widget.rotationDirection == RotationDirection.left
         ? widget._rotationInTurns
         : -widget._rotationInTurns;
-    _rotationAnimation = Tween<double>(
-      begin: startAngle,
-      end: 0.0,
-    ).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: delayedCurve,
-      ),
+    _rotationAnimation = Tween<double>(begin: startAngle, end: 0.0).animate(
+      CurvedAnimation(parent: _animationController, curve: delayedCurve),
     );
 
-    _shaderAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: delayedCurve,
-      ),
+    _shaderAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: widget.blurAnimationCurve),
     );
 
     // For pulse animation, we need to adjust the interval to occur after the delay
     final pulseStart = delayFraction + ((1.0 - delayFraction) * 0.6);
-    _pulseAnimation = TweenSequence<double>([
-      TweenSequenceItem(
-        tween: Tween<double>(begin: 1.0, end: 1.08)
-            .chain(CurveTween(curve: Curves.easeInOut)),
-        weight: 50,
-      ),
-      TweenSequenceItem(
-        tween: Tween<double>(begin: 1.08, end: 1.0)
-            .chain(CurveTween(curve: Curves.easeInOut)),
-        weight: 50,
-      ),
-    ]).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Interval(pulseStart, 1.0),
-      ),
-    );
+    _pulseAnimation =
+        TweenSequence<double>([
+          TweenSequenceItem(
+            tween: Tween<double>(
+              begin: 1.0,
+              end: 1.08,
+            ).chain(CurveTween(curve: Curves.easeInOut)),
+            weight: 50,
+          ),
+          TweenSequenceItem(
+            tween: Tween<double>(
+              begin: 1.08,
+              end: 1.0,
+            ).chain(CurveTween(curve: Curves.easeInOut)),
+            weight: 50,
+          ),
+        ]).animate(
+          CurvedAnimation(
+            parent: _animationController,
+            curve: Interval(pulseStart, 1.0),
+          ),
+        );
 
     // Add listener for animation completion
     _animationController.addStatusListener(_animationStatusListener);
@@ -197,7 +196,9 @@ class _AnimatedOnAppearState extends State<AnimatedOnAppear>
   }
 
   Alignment _shaderBeginAlignment(
-      ShaderRevealDirection direction, TextDirection textDirection) {
+    ShaderRevealDirection direction,
+    TextDirection textDirection,
+  ) {
     switch (direction) {
       case ShaderRevealDirection.bottomToTop:
         return Alignment.bottomCenter;
@@ -219,7 +220,9 @@ class _AnimatedOnAppearState extends State<AnimatedOnAppear>
   }
 
   Alignment _shaderEndAlignment(
-      ShaderRevealDirection direction, TextDirection textDirection) {
+    ShaderRevealDirection direction,
+    TextDirection textDirection,
+  ) {
     switch (direction) {
       case ShaderRevealDirection.bottomToTop:
         return Alignment.topCenter;
@@ -242,8 +245,10 @@ class _AnimatedOnAppearState extends State<AnimatedOnAppear>
 
   List<double> _shaderStops(double progress) {
     final clampedProgress = progress.clamp(0.0, 1.0);
-    final transitionEnd =
-        (clampedProgress + widget.shaderSoftness).clamp(0.0, 1.0);
+    final transitionEnd = (clampedProgress + widget.shaderSoftness).clamp(
+      0.0,
+      1.0,
+    );
 
     if (transitionEnd <= 0) {
       return const [0.0, 0.0, 0.0];
@@ -255,17 +260,17 @@ class _AnimatedOnAppearState extends State<AnimatedOnAppear>
 
     return [0.0, clampedProgress, transitionEnd];
   }
-  
+
   /// Triggers the exit animation
   void exit() {
     if (widget.animateExit && !_isExiting) {
       setState(() {
         _isExiting = true;
       });
-      
+
       // Update controller duration for exit animation
       _animationController.duration = widget.exitDuration;
-      
+
       // Reverse the animation for exit
       _animationController.reverse();
     } else {
@@ -277,15 +282,16 @@ class _AnimatedOnAppearState extends State<AnimatedOnAppear>
   @override
   void didUpdateWidget(AnimatedOnAppear oldWidget) {
     super.didUpdateWidget(oldWidget);
-    
+
     // Update exit duration if changed
     if (widget.exitDuration != oldWidget.exitDuration && _isExiting) {
       _animationController.duration = widget.exitDuration;
     }
-    
+
     // Handle animate property changes
     if (widget.animate && !oldWidget.animate && !_isExiting) {
-      _animationController.duration = widget.animationDuration + Duration(milliseconds: widget.delay);
+      _animationController.duration =
+          widget.animationDuration + Duration(milliseconds: widget.delay);
       _animationController.forward();
     } else if (!widget.animate && oldWidget.animate && !_isExiting) {
       _animationController.reverse();
@@ -302,12 +308,12 @@ class _AnimatedOnAppearState extends State<AnimatedOnAppear>
   @override
   Widget build(BuildContext context) {
     super.build(context); // Required for AutomaticKeepAliveClientMixin
-    
+
     // If exit animation is complete, return empty container
     if (_exitAnimationComplete) {
       return const SizedBox.shrink();
     }
-    
+
     Widget animatedWidget = widget.child;
 
     // Apply animations based on selected types
@@ -336,8 +342,9 @@ class _AnimatedOnAppearState extends State<AnimatedOnAppear>
       animatedWidget = AnimatedBuilder(
         animation: _shaderAnimation,
         builder: (context, child) {
-          final progress =
-              (widget.animate || _isExiting) ? _shaderAnimation.value : 1.0;
+          final progress = (widget.animate || _isExiting)
+              ? _shaderAnimation.value
+              : 1.0;
           final textDirection = Directionality.of(context);
 
           return ShaderMask(
@@ -345,9 +352,13 @@ class _AnimatedOnAppearState extends State<AnimatedOnAppear>
               if (progress <= 0.0) {
                 return LinearGradient(
                   begin: _shaderBeginAlignment(
-                      widget.shaderDirection, textDirection),
-                  end:
-                      _shaderEndAlignment(widget.shaderDirection, textDirection),
+                    widget.shaderDirection,
+                    textDirection,
+                  ),
+                  end: _shaderEndAlignment(
+                    widget.shaderDirection,
+                    textDirection,
+                  ),
                   colors: [
                     widget.shaderRevealColor.withOpacity(0.0),
                     widget.shaderRevealColor.withOpacity(0.0),
@@ -359,7 +370,9 @@ class _AnimatedOnAppearState extends State<AnimatedOnAppear>
               final stops = _shaderStops(progress);
               return LinearGradient(
                 begin: _shaderBeginAlignment(
-                    widget.shaderDirection, textDirection),
+                  widget.shaderDirection,
+                  textDirection,
+                ),
                 end: _shaderEndAlignment(widget.shaderDirection, textDirection),
                 colors: [
                   widget.shaderRevealColor,
@@ -409,10 +422,7 @@ class _AnimatedOnAppearState extends State<AnimatedOnAppear>
               break;
           }
 
-          return Transform.translate(
-            offset: translation,
-            child: child,
-          );
+          return Transform.translate(offset: translation, child: child);
         },
         child: animatedWidget,
       );
@@ -425,253 +435,37 @@ class _AnimatedOnAppearState extends State<AnimatedOnAppear>
       );
     }
 
+    if (widget.blurEnabled) {
+      animatedWidget = AnimatedBuilder(
+        animation: _blurAnimation,
+        child: animatedWidget,
+        builder: (context, child) {
+          return ImageFiltered(
+            imageFilter: switch (widget.blurDirection) {
+              BlurAnimationDirection.x => ImageFilter.blur(
+                sigmaX: widget.blurIntensity * _blurAnimation.value,
+                sigmaY: 0,
+              ),
+              BlurAnimationDirection.y => ImageFilter.blur(
+                sigmaX: 0,
+                sigmaY: widget.blurIntensity * _blurAnimation.value,
+              ),
+              BlurAnimationDirection.both => ImageFilter.blur(
+                sigmaX: widget.blurIntensity * _blurAnimation.value,
+                sigmaY: widget.blurIntensity * _blurAnimation.value,
+              ),
+            },
+            child: child,
+          );
+        },
+      );
+    }
+
     return animatedWidget;
   }
 
   @override
   bool get wantKeepAlive => true;
-}
-
-/// A class that provides pre-configured animation setups for common scenarios
-class AppearAnimations {
-  /// Slide in from bottom with fade
-  static Widget fromBottom({
-    required Widget child,
-    int delay = 0,
-    Duration duration = const Duration(milliseconds: 500),
-    double slideDistance = 50.0,
-  }) {
-    return AnimatedOnAppear(
-      delay: delay,
-      slideDirection: SlideDirection.up,
-      slideDistance: slideDistance,
-      animationDuration: duration,
-      child: child,
-    );
-  }
-
-  /// Slide in from left with fade
-  static Widget fromLeft({
-    required Widget child,
-    int delay = 0,
-    Duration duration = const Duration(milliseconds: 500),
-    double slideDistance = 50.0,
-  }) {
-    return AnimatedOnAppear(
-      delay: delay,
-      slideDirection: SlideDirection.right,
-      slideDistance: slideDistance,
-      animationDuration: duration,
-      child: child,
-    );
-  }
-
-  /// Slide in from right with fade
-  static Widget fromRight({
-    required Widget child,
-    int delay = 0,
-    Duration duration = const Duration(milliseconds: 500),
-    double slideDistance = 50.0,
-  }) {
-    return AnimatedOnAppear(
-      delay: delay,
-      slideDirection: SlideDirection.left,
-      slideDistance: slideDistance,
-      animationDuration: duration,
-      child: child,
-    );
-  }
-
-  /// Fade in only
-  static Widget fadeIn({
-    required Widget child,
-    int delay = 0,
-    Duration duration = const Duration(milliseconds: 400),
-  }) {
-    return AnimatedOnAppear(
-      delay: delay,
-      animationDuration: duration,
-      animationTypes: {AnimationType.fade},
-      child: child,
-    );
-  }
-
-  /// Scale up with fade
-  static Widget scaleUp({
-    required Widget child,
-    int delay = 0,
-    Duration duration = const Duration(milliseconds: 400),
-    double scaleSize = 0.8,
-  }) {
-    return AnimatedOnAppear(
-      delay: delay,
-      animationDuration: duration,
-      animationTypes: {AnimationType.scale, AnimationType.fade},
-      scaleSize: scaleSize,
-      child: child,
-    );
-  }
-
-  /// Shader reveal animation with optional additional effects.
-  static Widget shaderReveal({
-    required Widget child,
-    int delay = 0,
-    Duration duration = const Duration(milliseconds: 600),
-    ShaderRevealDirection direction = ShaderRevealDirection.bottomToTop,
-    Color revealColor = Colors.white,
-    double softness = 0.2,
-    Set<AnimationType> extraTypes = const {},
-  }) {
-    final types = {AnimationType.shader, ...extraTypes};
-    return AnimatedOnAppear(
-      delay: delay,
-      slideDirection: SlideDirection.up,
-      animationDuration: duration,
-      animationTypes: types,
-      shaderDirection: direction,
-      shaderRevealColor: revealColor,
-      shaderSoftness: softness,
-      child: child,
-    );
-  }
-
-  /// Attention-grabbing pulse animation
-  static Widget pulse({
-    required Widget child,
-    int delay = 0,
-    Duration duration = const Duration(milliseconds: 700),
-  }) {
-    return AnimatedOnAppear(
-      delay: delay,
-      animationDuration: duration,
-      animationTypes: {AnimationType.pulse},
-      child: child,
-    );
-  }
-
-  /// Cascade multiple children with staggered animation
-  static List<Widget> cascade({
-    required List<Widget> children,
-    SlideDirection direction = SlideDirection.up,
-    int initialDelay = 0,
-    int delayBetween = 100,
-    Duration duration = const Duration(milliseconds: 500),
-    double slideDistance = 50.0,
-    Set<AnimationType> types = const {AnimationType.slide, AnimationType.fade},
-  }) {
-    return List.generate(children.length, (index) {
-      return AnimatedOnAppear(
-        delay: initialDelay + (index * delayBetween),
-        slideDirection: direction,
-        slideDistance: slideDistance,
-        animationDuration: duration,
-        animationTypes: types,
-        child: children[index],
-      );
-    });
-  }
-
-  /// Rotate in from a direction
-  static Widget rotateIn({
-    required Widget child,
-    int delay = 0,
-    Duration duration = const Duration(milliseconds: 500),
-    RotationDirection direction = RotationDirection.left,
-    double angle = 45.0, // Now in degrees
-    bool withFade = true,
-  }) {
-    return AnimatedOnAppear(
-      delay: delay,
-      animationDuration: duration,
-      rotationDirection: direction,
-      rotationAngle: angle,
-      animationTypes: withFade
-          ? {AnimationType.rotation, AnimationType.fade}
-          : {AnimationType.rotation},
-      child: child,
-    );
-  }
-
-  /// Rotate and scale in
-  static Widget rotateAndScale({
-    required Widget child,
-    int delay = 0,
-    Duration duration = const Duration(milliseconds: 500),
-    RotationDirection direction = RotationDirection.left,
-    double angle = 45.0, // Now in degrees
-    double scaleSize = 0.9,
-  }) {
-    return AnimatedOnAppear(
-      delay: delay,
-      animationDuration: duration,
-      rotationDirection: direction,
-      rotationAngle: angle,
-      scaleSize: scaleSize,
-      animationTypes: {
-        AnimationType.rotation,
-        AnimationType.scale,
-        AnimationType.fade
-      },
-      child: child,
-    );
-  }
-
-  /// Slide out with fade - for exit animations
-  static Widget slideOut({
-    required Widget child,
-    SlideDirection direction = SlideDirection.down,
-    Duration duration = const Duration(milliseconds: 300),
-    double slideDistance = 50.0,
-    VoidCallback? onExitComplete,
-  }) {
-    return AnimatedOnAppear(
-      animate: true,
-      animateExit: true,
-      exitDuration: duration,
-      slideDirection: direction,
-      slideDistance: slideDistance,
-      animationDuration: duration,
-      animationTypes: {AnimationType.slide, AnimationType.fade},
-      onExitComplete: onExitComplete,
-      child: child,
-    );
-  }
-
-  /// Fade out only - for exit animations
-  static Widget fadeOut({
-    required Widget child,
-    Duration duration = const Duration(milliseconds: 300),
-    VoidCallback? onExitComplete,
-  }) {
-    return AnimatedOnAppear(
-      animate: true,
-      animateExit: true,
-      exitDuration: duration,
-      animationDuration: duration,
-      animationTypes: {AnimationType.fade},
-      onExitComplete: onExitComplete,
-      child: child,
-    );
-  }
-
-  /// Scale down with fade - for exit animations
-  static Widget scaleDown({
-    required Widget child,
-    Duration duration = const Duration(milliseconds: 300),
-    double scaleSize = 0.8,
-    VoidCallback? onExitComplete,
-  }) {
-    return AnimatedOnAppear(
-      animate: true,
-      animateExit: true,
-      exitDuration: duration,
-      animationDuration: duration,
-      animationTypes: {AnimationType.scale, AnimationType.fade},
-      scaleSize: scaleSize,
-      onExitComplete: onExitComplete,
-      child: child,
-    );
-  }
 }
 
 /// Extension to easily trigger exit animations

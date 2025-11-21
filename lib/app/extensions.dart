@@ -145,6 +145,9 @@ extension AnimationsExtension on Widget {
       animationTypes: {AnimationType.fade, AnimationType.slide},
       slideDirection: slideDirection,
       slideDistance: Constants.animationSlideDistance,
+      blurAnimationCurve: Curves.linear,
+      blurIntensity : 1,
+      blurEnabled: false,
       child: this,
     );
   }

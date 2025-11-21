@@ -36,6 +36,7 @@ class _SplashViewState extends State<SplashView> with AfterLayout {
                 children: [
                   AnimatedOnAppear(
                     delay: 700,
+                    blurEnabled: false,
                     animationTypes: {AnimationType.shader},
                     shaderDirection: ShaderRevealDirection.startToEnd,
                     shaderRevealColor: Colors.white,
